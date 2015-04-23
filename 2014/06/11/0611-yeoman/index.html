@@ -1,0 +1,403 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Yeoman 安装 | Asjmtz&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Asjmtz">
+    
+    <meta name="description" itemprop="description" content="Yeoman 安装过程介绍">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/me.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/author-me.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/author-me.png">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/author-me.png" alt="Asjmtz&#39;s Blog" title="Asjmtz&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Asjmtz&#39;s Blog">Asjmtz&#39;s Blog</a></h1>
+				<h2 class="blog-motto">不想做画家的黑客不是好前端o(∩_∩)o</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/lab">Lab</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:iamtutu.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/06/11/0611-yeoman/" title="Yeoman 安装" itemprop="url">Yeoman 安装</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://iamtutu.com" title="Asjmtz">Asjmtz</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-06-11T03:06:59.000Z" itemprop="datePublished">Jun 11 2014</time>
+    更新日期:<time datetime="2015-02-13T06:12:27.000Z" itemprop="dateModified">Feb 13 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装yo"><span class="toc-number">1.</span> <span class="toc-text">安装yo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架设生成器"><span class="toc-number">2.</span> <span class="toc-text">架设生成器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bower"><span class="toc-number"></span> <span class="toc-text">Bower</span></a>
+		</div>
+		
+		<p>官网：<a href="http://yeoman.io/learning/index.html" target="_blank" rel="external">http://yeoman.io/learning/index.html</a><br>中文官网：<a href="http://yeomanjs.org/index.html" target="_blank" rel="external">http://yeomanjs.org/index.html</a></p>
+<h2 id="安装yo">安装yo</h2><p>安装yo之前，注意先有node环境和git。<br>在windows下，安装完git程序后，还要将他的bin目录添加到PATH中，才能全局调用git命令。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g yo</span><br></pre></td></tr></table></figure>
+<p>我的yo版本是1.1.2</p>
+<p>一般会自动安装<code>grunt</code>和<code>bower</code>，如果是老版本，需手动安装他们，类似</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -<span class="keyword">g</span> grunt-<span class="keyword">cli</span> bower</span><br></pre></td></tr></table></figure>
+<h2 id="架设生成器">架设生成器</h2><p>安装<code>generator-webapp</code>生成器</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g generator-webapp</span><br></pre></td></tr></table></figure>
+<p>建立目录<code>mkdir my-yo-project cd my-yo-project</code></p>
+<p>在工程目录下，命令</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">yo</span> webapp</span><br></pre></td></tr></table></figure>
+<p>Each project created with yo will also pull in relevant Grunt tasks which the community feels is needed or useful for your workflow.</p>
+<p>整个工作流程，应该是<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yo webapp</span><br><span class="line">grunt <span class="keyword">server</span></span><br></pre></td></tr></table></figure></p>
+<p>和中文官网的例子有些不同，就是中间的<code>bower install &lt;dep&gt;</code>那步是可以选择的，即如果webapp安装的时候，没有自动安装的依赖的库可以之后，手动添加，bower介绍看下面</p>
+<h1 id="Bower">Bower</h1><hr>
+<p>Bower包管理工具，部署JS、HTML、css、images等。</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Search for a dependency in the Bower registry.</span></span><br><span class="line"><span class="comment"># 搜包</span></span><br><span class="line">bower search <span class="variable">&lt;dep&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install one or more dependencies.</span></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">bower install <span class="variable">&lt;dep&gt;</span>..<span class="variable">&lt;depN&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># List out the dependencies you have installed for a project.</span></span><br><span class="line"><span class="comment"># 显示已安装的依赖</span></span><br><span class="line">bower list</span><br><span class="line"></span><br><span class="line"><span class="comment"># Update a dependency to the latest version available.</span></span><br><span class="line"><span class="comment"># 更新依赖到最新版本</span></span><br><span class="line">bower update <span class="variable">&lt;dep&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在yo架设的项目里面使用Bower管理</p>
+<p>以下是安装jQuery插件的例子</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Scaffold a <span class="keyword">new</span> application.</span><br><span class="line">yo webapp</span><br><span class="line"></span><br><span class="line"># Search Bower<span class="attribute">'s</span> registry <span class="keyword">for</span> the plug-<span class="keyword">in</span> we want.</span><br><span class="line">bower search jquery-pjax</span><br><span class="line"></span><br><span class="line"># Install it <span class="keyword">and</span> save it <span class="keyword">to</span> bower.json</span><br><span class="line">bower install jquery-pjax <span class="comment">--save</span></span><br><span class="line"></span><br><span class="line"># <span class="keyword">If</span> you<span class="attribute">'re</span> using RequireJS...</span><br><span class="line"># (be aware that currently the webapp generator does <span class="keyword">not</span> include RequireJS <span class="keyword">and</span> the following command only applies <span class="keyword">to</span> generators that do)</span><br><span class="line">grunt bower</span><br><span class="line">&gt; Injects your Bower dependencies into your RequireJS <span class="keyword">configuration</span>.</span><br><span class="line"></span><br><span class="line"># <span class="keyword">If</span> you<span class="attribute">'re</span> <span class="keyword">not</span> using RequireJS...</span><br><span class="line">grunt bowerInstall</span><br><span class="line">&gt; Injects your dependencies into your index.html <span class="keyword">file</span>.</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Yeoman/">Yeoman</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://iamtutu.com/2014/06/11/0611-yeoman/" data-title="Yeoman 安装 | Asjmtz&#39;s Blog" data-tsina="asjmtz## e.g. 1664838973  Your weibo ID,It will be used in share button." class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/06/18/0618-phonegap/" title="phonegap 安装">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  phonegap 安装</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/06/11/0611-Ionic/"  title="发现 Inoic">
+ <strong>NEXT:</strong><br/> 
+ <span>发现 Inoic
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装yo"><span class="toc-number">1.</span> <span class="toc-text">安装yo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架设生成器"><span class="toc-number">2.</span> <span class="toc-text">架设生成器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bower"><span class="toc-number"></span> <span class="toc-text">Bower</span></a>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+			<li><a href="/categories/AMD/" title="AMD">AMD<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Angular/" title="Angular">Angular<sup>5</sup></a></li>
+		
+			<li><a href="/categories/Grunt/" title="Grunt">Grunt<sup>4</sup></a></li>
+		
+			<li><a href="/categories/Protractor/" title="Protractor">Protractor<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Unit-Test/" title="Unit Test">Unit Test<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Yeoman/" title="Yeoman">Yeoman<sup>1</sup></a></li>
+		
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/categories/hello/" title="hello">hello<sup>1</sup></a></li>
+		
+			<li><a href="/categories/history/" title="history">history<sup>1</sup></a></li>
+		
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		
+			<li><a href="/categories/js/" title="js">js<sup>2</sup></a></li>
+		
+			<li><a href="/categories/phonegap/" title="phonegap">phonegap<sup>1</sup></a></li>
+		
+			<li><a href="/categories/svg/" title="svg">svg<sup>2</sup></a></li>
+		
+			<li><a href="/categories/to-do/" title="to-do">to-do<sup>2</sup></a></li>
+		
+			<li><a href="/categories/手绘/" title="手绘">手绘<sup>1</sup></a></li>
+		
+			<li><a href="/categories/规范/" title="规范">规范<sup>1</sup></a></li>
+		
+			<li><a href="/categories/音乐/" title="音乐">音乐<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">歸檔</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">10</span></li></ul>
+  </div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/asjmtz" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/asjmtz## e.g. A-limon for https://github.com/A-limon" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://iamtutu.com" target="_blank" title="Asjmtz">Asjmtz</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"asjmtz"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3014521f2cf9b3f5b28fcaf8a31d2524";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  </body>
+</html>

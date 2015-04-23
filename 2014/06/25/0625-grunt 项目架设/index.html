@@ -1,0 +1,415 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>grunt 项目架设 | Asjmtz&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Asjmtz">
+    
+    <meta name="description" itemprop="description" content="Grunt 搭建项目的时候的基本流程，只是自己经验的记录">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/me.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/author-me.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/author-me.png">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/author-me.png" alt="Asjmtz&#39;s Blog" title="Asjmtz&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Asjmtz&#39;s Blog">Asjmtz&#39;s Blog</a></h1>
+				<h2 class="blog-motto">不想做画家的黑客不是好前端o(∩_∩)o</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/lab">Lab</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:iamtutu.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/06/25/0625-grunt 项目架设/" title="grunt 项目架设" itemprop="url">grunt 项目架设</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://iamtutu.com" title="Asjmtz">Asjmtz</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-06-25T03:06:59.000Z" itemprop="datePublished">Jun 25 2014</time>
+    更新日期:<time datetime="2015-02-13T06:19:23.000Z" itemprop="dateModified">Feb 13 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_假设你已经安装了nodeJS和用npm全局安装了grunt-cli。"><span class="toc-number">1.</span> <span class="toc-text">1. 假设你已经安装了nodeJS和用npm全局安装了grunt-cli。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_新建package-json和Gruntfile-js"><span class="toc-number">2.</span> <span class="toc-text">2. 新建package.json和Gruntfile.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#package-json"><span class="toc-number">2.1.</span> <span class="toc-text">package.json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gruntfile-js"><span class="toc-number">2.2.</span> <span class="toc-text">Gruntfile.js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_执行grunt命令"><span class="toc-number">3.</span> <span class="toc-text">3. 执行grunt命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_手动建立一个项目，并创建livereload"><span class="toc-number">4.</span> <span class="toc-text">4. 手动建立一个项目，并创建livereload</span></a></li></ol>
+		</div>
+		
+		<blockquote>
+<p>参考文章<br><a href="http://www.hulufei.com/post/grunt-introduction" target="_blank" rel="external">《前端工作流，Grunt上手指南》</a><br><a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">《Grunt+Livereload 搭建本地前端开发环境》</a></p>
+</blockquote>
+<p>废话就不多说了，直接开始架设一个grunt控制的项目吧！O(∩_∩)O</p>
+<h2 id="1-_假设你已经安装了nodeJS和用npm全局安装了grunt-cli。">1. 假设你已经安装了nodeJS和用npm全局安装了grunt-cli。</h2><h2 id="2-_新建package-json和Gruntfile-js">2. 新建package.json和Gruntfile.js</h2><p>先进入项目文件夹的根目录下<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> pj</span><br><span class="line">$ <span class="built_in">cd</span> pj</span><br></pre></td></tr></table></figure></p>
+<h3 id="package-json">package.json</h3><p>根据上面的参考文章，直接执行<code>npm install</code>会生成一个空的package.js，但是我尝试之后失败了，是版本的问题吗？<br>顺便一说，我的版本是<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grunt -<span class="constant">V </span></span><br><span class="line">grunt-cli v<span class="number">0</span>.<span class="number">1.13</span></span><br><span class="line">grunt v<span class="number">0</span>.<span class="number">4.5</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>npm -v</span><br><span class="line"><span class="number">1.4</span>.<span class="number">9</span></span><br></pre></td></tr></table></figure></p>
+<p>于是从前几篇的grunt笔记里面copy一个现有的<code>package.json</code> ，里面写好了要安装的一些常用的grunt项目插件包括grunt本身，大概酱紫。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"pj3"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.1.0"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">grunt</span>": <span class="value"><span class="string">"^0.4.5"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-concat</span>": <span class="value"><span class="string">"^0.4.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-jshint</span>": <span class="value"><span class="string">"^0.10.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-nodeunit</span>": <span class="value"><span class="string">"^0.4.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-qunit</span>": <span class="value"><span class="string">"^0.5.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-uglify</span>": <span class="value"><span class="string">"^0.5.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-watch</span>": <span class="value"><span class="string">"^0.6.1"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，现在执行一下 <code>npm install</code>就会自动帮你安装以上列出来的依赖。而且安装好之后根据安装的版本，会更改到你的package.json的文件中。所以我上面的package.json其实是已经安装，并被更改过的了。现在文件结构是<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Gruntfile-js">Gruntfile.js</h3><p>可以从之前的笔记上或者官网上手动创建，下面介绍用 <code>grunt-init</code>安装一些架构的方法。</p>
+<ol>
+<li>全局安装<code>npm install -g grunt-init</code></li>
+<li><p>克隆要使用的模板,下面是clone到一个创建一个包含QUnit单元测试的jQuery插件的模板，模板更多介绍<a href="http://www.gruntjs.org/article/project_scaffolding.html" target="_blank" rel="external">在这里</a></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/gruntjs</span><span class="regexp">/grunt-init-jquery.git ~/</span>.grunt-init/jquery</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我用上面的方法clone了一个 <code>grunt-init-gruntfile</code> ，然后再执行 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt-<span class="keyword">init</span>  gruntfile</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>好了，现在grunt-init已经根据你的package.json的配置，帮你写好一个Gruntfile.js，可以在此模板上根据需要修改下</p>
+<p>然后我手贱安装了下 <code>grunt-init jquery</code>，假装我要写一个叫jquery.barAnime的插件，于是在执行安装之前，grunt-init细心的询问了我各种问题，然后生成一个 <code>jquery.barAnime.jquery.json</code>来记录。=&gt;（可能是我起的名字问题，json名字略奇葩</p>
+<p>目录变成酱紫了，欧也(^o^)/<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- libs/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|<span class="comment">-- test/</span></span><br><span class="line">|<span class="comment">-- .gitignore</span></span><br><span class="line">|<span class="comment">-- .jshintrc</span></span><br><span class="line">|<span class="comment">-- CONTRIBUTING.md</span></span><br><span class="line">|<span class="comment">-- jquery.barAnime.jquery.json</span></span><br><span class="line">|<span class="comment">-- LICENSE-MIT</span></span><br><span class="line">|<span class="comment">-- README.md</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
+<p>生成了一些奇怪的文件，发现里面还有一个<code>LICENSE-MIT</code>，小白的我瞬间觉得UP了(⊙o⊙)哦</p>
+<h2 id="3-_执行grunt命令">3. 执行grunt命令</h2><p>根据Gruntfile.js里面的配置，执行 <code>grunt</code>命令时，会执行 <code>default</code>任务<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">grunt</span>.<span class="atom">registerTask</span>(<span class="string">'default'</span>, [<span class="string">'jshint'</span>, <span class="string">'qunit'</span>, <span class="string">'clean'</span>, <span class="string">'concat'</span>, <span class="string">'uglify'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>我用 <code>grunt-init jquery</code> 自动生成的Gruntfile里面主要执行的就是以上几个命令，根目录会多出一个dist文件夹，里面是<code>concat</code>合并的 <code>jquery.barAnime.js</code> 和 <code>uglify</code>压缩的 <code>jquery.barAnime.min.js</code>。</p>
+<h2 id="4-_手动建立一个项目，并创建livereload">4. 手动建立一个项目，并创建livereload</h2><p>利用 <code>grunt watch</code> 和 <code>grunt connect</code> 和 <code>connect-livereload</code>的配合就能省去F5与浏览器的livereload插件了，啊哈哈，快点开始吧</p>
+<p>参照这个大大的<a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">文章</a>。我重新新建了一个项目，叫做pj4的<br>按照上面的步骤，我安装了与上面一样的grunt和grunt插件，为了livereload的实现，还得再安装一些东西<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev grunt-contrib-<span class="keyword">connect</span> <span class="keyword">connect</span>-livereload grunt-<span class="keyword">open</span></span><br></pre></td></tr></table></figure></p>
+<p>现在的文档目录如下。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pj4/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|    |<span class="comment">-- js/</span></span><br><span class="line">|    |<span class="comment">-- css/</span></span><br><span class="line">|    |<span class="comment">-- img/</span></span><br><span class="line">|    `<span class="comment">-- index.html</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure>
+<p>下面是特别重要的Gruntfile.js的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 自动化脚本定义</span><br><span class="line"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"><span class="pi">  'use strict'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//load all grunt tasks</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'matchdep'</span>).filterDev(<span class="string">'grunt-*'</span>).forEach(grunt.loadNpmTasks);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//define tasks</span></span><br><span class="line">  grunt.registerTask(<span class="string">'server'</span>, [<span class="string">'connect:server'</span>, <span class="string">'open:server'</span>, <span class="string">'watch:server'</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//env cfg</span></span><br><span class="line">  <span class="keyword">var</span> pkg = grunt.file.readJSON(<span class="string">'package.json'</span>);</span><br><span class="line">  <span class="keyword">var</span> cfg = &#123;</span><br><span class="line">    src: <span class="string">'src'</span>,</span><br><span class="line">    <span class="comment">// Change 'localhost' to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">    serverHost: <span class="string">'localhost'</span>,</span><br><span class="line">    serverPort: <span class="number">9000</span>,</span><br><span class="line">    livereload: <span class="number">35729</span></span><br><span class="line">  &#125;;  </span><br><span class="line"></span><br><span class="line">  <span class="comment">//grunt config</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line">    <span class="comment">//======== 配置相关 ========</span></span><br><span class="line">    pkg: pkg,</span><br><span class="line">    cfg: cfg,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//======== 开发相关 ========</span></span><br><span class="line">   <span class="comment">//开启服务</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: cfg.serverPort,</span><br><span class="line">        hostname: cfg.serverHost,</span><br><span class="line">        middleware: <span class="function"><span class="keyword">function</span><span class="params">(connect, options)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> [</span><br><span class="line">            <span class="built_in">require</span>(<span class="string">'connect-livereload'</span>)(&#123;</span><br><span class="line">              port: cfg.livereload</span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="comment">// Serve static files. </span></span><br><span class="line">            <span class="comment">//In my environment options.base is a type of Object</span></span><br><span class="line">            connect.static(options.base.toString()),</span><br><span class="line">            <span class="comment">// Make empty directories browsable.</span></span><br><span class="line">             connect.directory(options.base),</span><br><span class="line">          ];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          <span class="comment">// keepalive: true,</span></span><br><span class="line">          base: cfg.src,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开浏览器</span></span><br><span class="line">    open: &#123;</span><br><span class="line">      server: &#123;</span><br><span class="line">        url: <span class="string">'http://localhost:'</span> + cfg.serverPort</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//监控文件变化</span></span><br><span class="line">    watch: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        livereload: cfg.livereload,</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        files: [</span><br><span class="line">        <span class="string">'&lt;%= cfg.src %&gt;/&#123;,*/&#125;*.html'</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/css/*.css"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/js/*.js"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/img/*"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="comment">// tasks: [''],       </span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后执行 <code>grunt server</code>，就会在你的浏览器打开这个地址 <code>http://localhost:9000</code>。</p>
+<p><del>的撒大声地</del></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Grunt/">Grunt</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://iamtutu.com/2014/06/25/0625-grunt 项目架设/" data-title="grunt 项目架设 | Asjmtz&#39;s Blog" data-tsina="asjmtz## e.g. 1664838973  Your weibo ID,It will be used in share button." class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/06/27/0627-前端规范--思维导图/" title="前端规范与思维导图">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  前端规范与思维导图</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/06/24/0624-grunt common plugin/"  title="Grunt 常用插件">
+ <strong>NEXT:</strong><br/> 
+ <span>Grunt 常用插件
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_假设你已经安装了nodeJS和用npm全局安装了grunt-cli。"><span class="toc-number">1.</span> <span class="toc-text">1. 假设你已经安装了nodeJS和用npm全局安装了grunt-cli。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_新建package-json和Gruntfile-js"><span class="toc-number">2.</span> <span class="toc-text">2. 新建package.json和Gruntfile.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#package-json"><span class="toc-number">2.1.</span> <span class="toc-text">package.json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gruntfile-js"><span class="toc-number">2.2.</span> <span class="toc-text">Gruntfile.js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_执行grunt命令"><span class="toc-number">3.</span> <span class="toc-text">3. 执行grunt命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_手动建立一个项目，并创建livereload"><span class="toc-number">4.</span> <span class="toc-text">4. 手动建立一个项目，并创建livereload</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+			<li><a href="/categories/AMD/" title="AMD">AMD<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Angular/" title="Angular">Angular<sup>5</sup></a></li>
+		
+			<li><a href="/categories/Grunt/" title="Grunt">Grunt<sup>4</sup></a></li>
+		
+			<li><a href="/categories/Protractor/" title="Protractor">Protractor<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Unit-Test/" title="Unit Test">Unit Test<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Yeoman/" title="Yeoman">Yeoman<sup>1</sup></a></li>
+		
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/categories/hello/" title="hello">hello<sup>1</sup></a></li>
+		
+			<li><a href="/categories/history/" title="history">history<sup>1</sup></a></li>
+		
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		
+			<li><a href="/categories/js/" title="js">js<sup>2</sup></a></li>
+		
+			<li><a href="/categories/phonegap/" title="phonegap">phonegap<sup>1</sup></a></li>
+		
+			<li><a href="/categories/svg/" title="svg">svg<sup>2</sup></a></li>
+		
+			<li><a href="/categories/to-do/" title="to-do">to-do<sup>2</sup></a></li>
+		
+			<li><a href="/categories/手绘/" title="手绘">手绘<sup>1</sup></a></li>
+		
+			<li><a href="/categories/规范/" title="规范">规范<sup>1</sup></a></li>
+		
+			<li><a href="/categories/音乐/" title="音乐">音乐<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">歸檔</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">10</span></li></ul>
+  </div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/asjmtz" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/asjmtz## e.g. A-limon for https://github.com/A-limon" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://iamtutu.com" target="_blank" title="Asjmtz">Asjmtz</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"asjmtz"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3014521f2cf9b3f5b28fcaf8a31d2524";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  </body>
+</html>

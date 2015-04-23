@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Asjmtz's Blog]]></title>
+  <subtitle><![CDATA[不想做画家的黑客不是好前端o(∩_∩)o]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://iamtutu.com/"/>
+  <updated>2015-04-22T09:45:17.000Z</updated>
+  <id>http://iamtutu.com/</id>
+  
+  <author>
+    <name><![CDATA[Asjmtz]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[git 不小心提交了的目录下有 .git 文件，咋办？]]></title>
+    <link href="http://iamtutu.com/2015/04/22/git-%E4%B8%8D%E5%B0%8F%E5%BF%83%E6%8F%90%E4%BA%A4%E4%BA%86%E7%9A%84%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9C%89-git-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%92%8B%E5%8A%9E%EF%BC%9F/"/>
+    <id>http://iamtutu.com/2015/04/22/git-不小心提交了的目录下有-git-文件，咋办？/</id>
+    <published>2015-04-22T09:31:15.000Z</published>
+    <updated>2015-04-22T09:45:17.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="git_文件目录下有_-git_文件">git 文件目录下有 <code>.git</code> 文件</h2><p>不小心把子目录下一个 .git 文件给 add commit 了，于是没有办法再跟踪 这个目录下文件的变化。<br>submodules 什么的真是</p>
+<p>发现强制删除次文件夹之后，然后再添加就可以了，记得再添加的时候，把文件夹里面的.git 文件删除掉先。<br>1、 强制删除</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf xxx<span class="regexp">/needtodelete/</span></span><br></pre></td></tr></table></figure>
+<p>2、添加没有 .git 文件的文件夹 </p>
+<p>3、重新加到主 git 库<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_ins">add</span> . &amp;&amp; git commit -m '<span class="built_ins">add</span> dir'</span><br></pre></td></tr></table></figure></p>
+<p>这样又能重新管理这个文件夹的版本控制了，o(∩_∩)o 哈哈</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[git submodule 错误]]>
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[我就是记不住 callee 与 caller 的区别]]></title>
+    <link href="http://iamtutu.com/2015/04/22/%E6%88%91%E5%B0%B1%E6%98%AF%E8%AE%B0%E4%B8%8D%E4%BD%8F-callee-%E4%B8%8E-caller-%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://iamtutu.com/2015/04/22/我就是记不住-callee-与-caller-的区别/</id>
+    <published>2015-04-22T08:53:14.000Z</published>
+    <updated>2015-04-22T09:26:21.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="魔法阵在召唤~~~~">魔法阵在召唤~~~~</h1><h3 id="caller_与_callee">caller 与 callee</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun1</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// callee [kɔ:'li:] 被召者 当前函数--我</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'callee====='</span>,<span class="built_in">arguments</span>.callee)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// caller ['kɔ:lə] 召唤者 调用当前函数的函数--调用我的函数</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'caller====='</span>,<span class="built_in">arguments</span>.callee.caller)</span><br><span class="line"> <span class="comment">//or console.log(fun1.caller)	</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun2</span><span class="params">()</span></span>&#123;</span><br><span class="line">  fun1();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun2();</span><br></pre></td></tr></table></figure>
+<p><a href="http://jsbin.com/miqok/5/edit" target="_blank" rel="external">demo</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[js 中的 callee 与 caller 的区别]]>
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[音乐乐理笔记]]></title>
+    <link href="http://iamtutu.com/2015/02/14/0214-%E9%9F%B3%E4%B9%90%E4%B9%90%E7%90%86%E7%AC%94%E8%AE%B0/"/>
+    <id>http://iamtutu.com/2015/02/14/0214-音乐乐理笔记/</id>
+    <published>2015-02-14T09:02:21.000Z</published>
+    <updated>2015-02-13T09:05:35.000Z</updated>
+    <content type="html"><![CDATA[<p>@(音乐)[guitar,乐理]&gt;</p>
+<h1 id="我的吉他乐理笔记">我的吉他乐理笔记</h1><p>之前，有借到同事的一本李重光写的《新编通俗基本乐理》，想要学习下乐理的调式和声这些东西，但是狼吞虎咽的看下来，许多概念有些混淆了。</p>
+<p>之后，又在<a href="http://www.jitashe.net/thread/21405/" target="_blank" rel="external">吉他社</a>发现了这个帖子，找到大神写的一些给我们菜鸟科普的乐理教程，于是整理整理，写点笔记。</p>
+<h2 id="音名和唱名">音名和唱名</h2><h3 id="音名（字母名）">音名（字母名）</h3><blockquote>
+<p> <strong>音名</strong> = 基本音级的名称 + 变化音级的名称</p>
+</blockquote>
+<p><strong>音名在钢琴上和五线谱上，都是固定不变的。</strong></p>
+<p><strong>基本音级：</strong><code>C D E F G A B</code></p>
+<p><strong>变化音级：</strong> 升音级 + 降音级 + 重升音级 + 重降音级</p>
+<ul>
+<li>升音级：<code>#C #D ...</code> </li>
+<li>降音级：<code>bC bD ...</code> </li>
+<li>重升音级：<code>*C *D ...</code> （升高一个全音）</li>
+<li>重降音级：<code>bbC bbD ...</code> （降低一个全音）</li>
+</ul>
+<p>PS: 变化音级的升号（#）降号（b）等写在音名的左上角。</p>
+<h3 id="唱名">唱名</h3><p><code>do re mi fa sol la si</code></p>
+<p><strong>唱名在钢琴键盘和谱子上的叫法，不固定，视唱名法的不同而不同。</strong></p>
+<h3 id="唱名法">唱名法</h3><blockquote>
+<p>唱名法就是唱谱的方法，常用的有：固定唱名法和首调唱名法。</p>
+</blockquote>
+<p><strong>固定唱名法</strong></p>
+<p>所有的调都按C调的唱名唱，字母名和唱名是统一的。遇到升号唱高半音，遇到降号唱低半音，唱名固定。</p>
+<p><strong>首调唱名法</strong></p>
+<p>什么调的谱子就把什么音当做<code>Do</code>来唱。正如简谱中的 <code>1=C, 1=D, 1=bB</code> 一样。</p>
+<p>采用首调唱名法学习乐理，关键是搞清楚每个调的<code>do re mi fa sol la si</code> 的字母名是什么。</p>
+<p>首调唱名法的优点是：无论什么调，音程、和弦、调式音阶的唱名是一样的。也就是只要把C调的这些东西搞懂后，其他的调同理可得。</p>
+<h2 id="调">调</h2><p><strong>调和调式是两个完全不同的概念。</strong></p>
+<blockquote>
+<p>对调的定义有个简单的解释：在首调唱名法中，do的音高的位置叫做调。（即 do = C 为C调，do = #F为#F调）</p>
+</blockquote>
+<h2 id="调式">调式</h2><blockquote>
+<p>由特定数量的音按照特定的音程关系组成的音的排列就是调式</p>
+</blockquote>
+<p>由C调来举例，C调中得音构成的调式都属于C调，即C调的常用调式有：C大调、a小调、C宫调、D商调、E角调、G徵调、A羽调。</p>
+<p>调式中的音的数量不是固定的，下面是一些常用的调式的音和音程关系。（-表示一个半音）</p>
+<p>调式中每个音都有自己特有的名称和号数，例如：在C大调和a小调中</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">调式</th>
+<th style="text-align:center">唱名</th>
+<th style="text-align:center">级别</th>
+<th style="text-align:center">名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">do</td>
+<td style="text-align:center">第 Ⅰ 级</td>
+<td style="text-align:center">主音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">re</td>
+<td style="text-align:center">第 Ⅱ 级</td>
+<td style="text-align:center">上主音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">mi</td>
+<td style="text-align:center">第 Ⅲ 级</td>
+<td style="text-align:center">中音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">fa</td>
+<td style="text-align:center">第 Ⅳ 级</td>
+<td style="text-align:center">下属音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">sol</td>
+<td style="text-align:center">第 Ⅴ 级</td>
+<td style="text-align:center">属音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">la</td>
+<td style="text-align:center">第 Ⅵ 级</td>
+<td style="text-align:center">下中音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">si</td>
+<td style="text-align:center">第 Ⅶ 级</td>
+<td style="text-align:center">导音</td>
+</tr>
+</tbody>
+</table>
+<p><strong>a小调：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">调式</th>
+<th style="text-align:center">唱名</th>
+<th style="text-align:center">级别</th>
+<th style="text-align:center">名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">la</td>
+<td style="text-align:center">第 Ⅰ 级</td>
+<td style="text-align:center">主音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">si</td>
+<td style="text-align:center">第 Ⅱ 级</td>
+<td style="text-align:center">上主音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">do</td>
+<td style="text-align:center">第 Ⅲ 级</td>
+<td style="text-align:center">中音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">re</td>
+<td style="text-align:center">第 Ⅳ 级</td>
+<td style="text-align:center">下属音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">mi</td>
+<td style="text-align:center">第 Ⅴ 级</td>
+<td style="text-align:center">属音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">fa</td>
+<td style="text-align:center">第 Ⅵ 级</td>
+<td style="text-align:center">下中音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">sol</td>
+<td style="text-align:center">第 Ⅶ 级</td>
+<td style="text-align:center">导音</td>
+</tr>
+</tbody>
+</table>
+<h3 id=""> </h3>]]></content>
+    <summary type="html">
+    <![CDATA[简单的音乐乐理的概念，包括音名和唱名、调和调式的介绍]]>
+    
+    </summary>
+    
+      <category term="音乐" scheme="http://iamtutu.com/categories/%E9%9F%B3%E4%B9%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[clip stadio paint 初学教程及使用方法（Ver 1.3.9）]]></title>
+    <link href="http://iamtutu.com/2015/02/13/0213-clipstadiopaint%E5%88%9D%E5%AD%A6%E6%95%99%E7%A8%8B/"/>
+    <id>http://iamtutu.com/2015/02/13/0213-clipstadiopaint初学教程/</id>
+    <published>2015-02-13T08:58:37.000Z</published>
+    <updated>2015-02-13T09:01:30.000Z</updated>
+    <content type="html"><![CDATA[<p>参考教程</p>
+<blockquote>
+<p><a href="http://www.clip-studio.com/clip_site/howto/library/page/view/clipstudiopaint_hajimete_before_003" target="_blank" rel="external">《日本官网教程》</a><br><a href="http://www.pixvi.net/pitech/?p=279" target="_blank" rel="external">《静音双子的上色过程》</a> — p站</p>
+</blockquote>
+<h2 id="基本用法">基本用法</h2><p>常用快捷键</p>
+<ul>
+<li>P.S: 在放大缩小的时候， Mac OS X 的用法是先按 [ Space ]键，再按[ Command ]键。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>**</em></strong></th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Macintosh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">显示全部</td>
+<td style="text-align:center">[Ctrl]+[0(数字))]</td>
+<td style="text-align:center">[Command]+[0(数字)]</td>
+</tr>
+<tr>
+<td style="text-align:left">扩大/缩小</td>
+<td style="text-align:center">[Ctrl]+[Space]+([Alt]缩小)</td>
+<td style="text-align:center">[Command]+[Space]+([Alt]缩小)</td>
+</tr>
+<tr>
+<td style="text-align:left">画布移动</td>
+<td style="text-align:center">[Space]</td>
+<td style="text-align:center">[Space]</td>
+</tr>
+<tr>
+<td style="text-align:left">画布旋转</td>
+<td style="text-align:center">[Shift]+[Space]</td>
+<td style="text-align:center">[Shift]+[Space]</td>
+</tr>
+<tr>
+<td style="text-align:left">画布清空</td>
+<td style="text-align:center">[Delete]</td>
+<td style="text-align:center">[Delete]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="插画创作基本流程">插画创作基本流程</h2><h3 id="草稿（下描き）">草稿（下描き）</h3><p><strong>[1]描线</strong></p>
+<p>选择铅笔画草稿，调整合适你的笔大小和颜色</p>
+<p><strong>[2]線を修正する</strong></p>
+<p>选择橡皮工具，调整他的大小然后擦出多余的线条</p>
+<h3 id="描线">描线</h3><p><strong>[1]新建描线层</strong></p>
+<p><strong>[2]选择钢笔工具的G笔</strong><br>调整笔的大小和颜色，开画。</p>
+<h3 id="上色">上色</h3><p><strong>[1]新建上色图层</strong></p>
+<p>建议每个颜色一个图层，按涂得部分命名，比如：身体、头发、衣服等等。</p>
+<p><strong>[2]上色工具</strong></p>
+<p>可以用钢笔工具或其他如铅笔铺色，橡皮擦清除超出的部分，或者用填充工具来填充封闭的区域。</p>
+<p>水彩可以涂比较温和的光色，比如脸上的红晕等</p>
+<p><strong>[3]铺色</strong></p>
+<p>填入每个区块的基本颜色</p>
+<p><strong>[4]投影</strong></p>
+<ul>
+<li>假设光的强度和照过来的方向，不同时间（早中晚）、不同环境的光是不一样的</li>
+<li>根据光，在合适的地方用笔轻轻地加深一下</li>
+</ul>
+<p><strong>[5]反光点</strong></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[clip stadio paint 初学教程和常用快捷键]]>
+    
+    </summary>
+    
+      <category term="手绘" scheme="http://iamtutu.com/categories/%E6%89%8B%E7%BB%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[恢复博客]]></title>
+    <link href="http://iamtutu.com/2015/02/13/%E6%81%A2%E5%A4%8D%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://iamtutu.com/2015/02/13/恢复博客/</id>
+    <published>2015-02-13T03:06:59.000Z</published>
+    <updated>2015-02-13T03:55:17.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="asd">asd</h2><p>weqweqweqw</p>
+<h3 id="sadasda">sadasda</h3>]]></content>
+    <summary type="html">
+    <![CDATA[asdasdasj]]>
+    
+    </summary>
+    
+      <category term="hello" scheme="http://iamtutu.com/categories/hello/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://iamtutu.com/2015/02/10/hello-world/"/>
+    <id>http://iamtutu.com/2015/02/10/hello-world/</id>
+    <published>2015-02-10T09:06:05.000Z</published>
+    <updated>2015-02-10T09:06:05.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[AMD 与 CMD]]></title>
+    <link href="http://iamtutu.com/2015/01/12/CMD%20%E5%92%8C%20AMD/"/>
+    <id>http://iamtutu.com/2015/01/12/CMD 和 AMD/</id>
+    <published>2015-01-12T03:06:59.000Z</published>
+    <updated>2015-02-13T06:30:27.000Z</updated>
+    <content type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th>&amp;&amp;</th>
+<th>AMD</th>
+<th>CMD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>Asynchronous Module Definition</td>
+<td>Common Module Definition</td>
+</tr>
+<tr>
+<td>推广源</td>
+<td>RequireJS</td>
+<td>SeaJS</td>
+</tr>
+<tr>
+<td>模块执行</td>
+<td>提前执行</td>
+<td>延迟执行</td>
+</tr>
+<tr>
+<td>依赖写法</td>
+<td>依赖就近</td>
+<td>依赖前置</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[AMD 和 CMD 做的一些小对比]]>
+    
+    </summary>
+    
+      <category term="AMD" scheme="http://iamtutu.com/categories/AMD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[2015不是本命，也要拼命]]></title>
+    <link href="http://iamtutu.com/2015/01/10/2015%E4%B8%8D%E6%98%AF%E6%9C%AC%E5%91%BD%EF%BC%8C%E4%B9%9F%E8%A6%81%E6%8B%BC%E5%91%BD%E2%80%94%E2%80%94%E6%9C%80%E8%BF%91%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B2015%E6%98%A5/"/>
+    <id>http://iamtutu.com/2015/01/10/2015不是本命，也要拼命——最近要做的事2015春/</id>
+    <published>2015-01-10T03:06:59.000Z</published>
+    <updated>2015-02-13T06:29:56.000Z</updated>
+    <content type="html"><![CDATA[<p>又这样过了几个月，忙着一个又一个的项目。到了年末，发现自己原来想看的东西、想学的似乎并没有怎么动 ╮(╯_╰)╭</p>
+<p>再来个Todo-list吧！</p>
+<h3 id="1-_拜读_jQuery_源码">1. 拜读 jQuery 源码</h3><p>每次说使用熟练的时候，又好怕被问道 <code>“你看了源码了吗?”</code>。</p>
+<p>好的，我这就去看。</p>
+<h3 id="2-_ES5_ES6的东西">2. ES5 ES6的东西</h3><p>前端圈的大神们都在讨论Node.js、fibjs、AngularJS、IO.js什么的，</p>
+<p>哎╮(╯_╰)╭想看又看不懂，我这等菜鸟只能本分的从根本做起罗。</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[2015 新春要做的事情]]>
+    
+    </summary>
+    
+      <category term="to-do" scheme="http://iamtutu.com/categories/to-do/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[window.history 复习]]></title>
+    <link href="http://iamtutu.com/2014/11/02/1101-history/"/>
+    <id>http://iamtutu.com/2014/11/02/1101-history/</id>
+    <published>2014-11-02T03:06:59.000Z</published>
+    <updated>2015-02-13T06:29:32.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="复习">复习</h2><p>模拟用户点击浏览器后退按钮<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.<span class="keyword">back</span>();</span><br></pre></td></tr></table></figure></p>
+<p>模拟用户点击浏览器前进按钮<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.history.forward();</span><br></pre></td></tr></table></figure></p>
+<p>可以用go()方法加载在session历史记录中的某个页面，参数是一个相对于当前页面的index值（当前页面是index0）</p>
+<p>后退一页<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.<span class="keyword">history</span>.<span class="keyword">go</span>(-<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>前进一页<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.<span class="keyword">history</span>.<span class="keyword">go</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>history栈的页面数量可以由length属性得到：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> numberOfEntries = <span class="built_in">window</span>.history.length;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Note:</strong>  Internet Explorer 支持将URL字符串作为参数传给go()，这种用法不是标准的用法，且Gecko不支持。</p>
+<h2 id="HTML5_History">HTML5 History</h2><p>HTML5 引入了<code>history.pushState( )</code> 和 <code>history.replaceState( )</code> 方法，他们分别允许你添加和修改history实体。他们可以结合<code>window.onpopstate</code> 事件使用。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[使用 window.history 来控制浏览器前进和后退]]>
+    
+    </summary>
+    
+      <category term="history" scheme="http://iamtutu.com/categories/history/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[getBoundClientRect 函数详解]]></title>
+    <link href="http://iamtutu.com/2014/10/26/1013-getBoundClientRect/"/>
+    <id>http://iamtutu.com/2014/10/26/1013-getBoundClientRect/</id>
+    <published>2014-10-26T03:06:59.000Z</published>
+    <updated>2015-02-13T06:40:42.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="getBoundClientRect函数详解">getBoundClientRect函数详解</h2><p><a href="http://www.cnblogs.com/2050/archive/2012/02/01/2335211.html" target="_blank" rel="external">转载自这里</a></p>
+<h3 id="一、定义">一、定义</h3><p>getBoundingClientRect 函数是W3C组织在第一版本的W3C CSSOM View specification草案中确定的一个标准方法，在此之前，只有IE浏览器是支持该方法的，W3C在这次草案中把它扶正成为标准，足可以看出它并不简单。getBoundingClientRect 方法返回的是调用该方法的元素的TextRectangle对象，该对象具有top、left、right、bottom四个属性，分别代表该元素上、左、右、下四条边界相对于浏览器窗口左上角（注意，不是文档区域的左上角）的偏移像素值。</p>
+<h3 id="二、兼容性">二、兼容性</h3><p>getBoundingClientRect方法最先在IE5中出现，后来被W3C接纳成为标准。目前IE5.5+、Firefox 3.5+、Chrome 4+、Safari 4.0+、Opara 10.10+等浏览器均支持该方法，兼容性几乎完美。</p>
+<p>在具体表现方面，Firefox6以前的版本使用getBoundingClientRect时不能获取到top和bottom这两个属性值，Firefox6及以后的版本和其他支持getBoundingClientRect方法的浏览器则top、left、right、bottom四个属性值均能获取到。需要说明的是由于某些版本的IE浏览器的<html>文档根元素默认是有2px边框的,所以这里需要特别处理一下，微软MSDN上说在IE5中会存在这样的情况，但据我实际测试，xp系统中IE6也存在这样的问题，奇怪的是，我在win7环境下用IETester测试的IE各版本都是正常的。但这并不是什么大问题，我们只要把得到的值减去html根元素（body也可考虑进来）的clientLeft或clientTop就能保持各浏览器一致啦。</html></p>
+<h3 id="三、用途">三、用途</h3><p>当getBoundingClientRect刚被w3c列为标准的时候，PPK还曾质疑过它是不是多此一举，因为已经存在类似的方法来获取元素的偏移位置，比如offsetLeft和offsetTop。但Jquery的作者John Resig马上阐明了getBoundingClientRect的用处。用传统的方法固然可以实现getBoundingClientRect同样的功能，但兼容各种浏览器以及各种不同的元素就会把你弄死，而且效率还非常低下。所以获取页面上某个元素相对于浏览器窗口的偏移量就成了getBoundingClientRect的用武之地了。而获取元素的偏移量能有什么用，我相信，你懂的~ ^_^</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[getBoundClientRect 函数介绍]]>
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Protractor学习笔记]]></title>
+    <link href="http://iamtutu.com/2014/09/30/0930-protractor/"/>
+    <id>http://iamtutu.com/2014/09/30/0930-protractor/</id>
+    <published>2014-09-30T03:06:59.000Z</published>
+    <updated>2015-02-13T06:24:16.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="准备活动">准备活动</h2><h3 id="简介">简介</h3><p>protractor 是个 <a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a> 程序。所以首先得安装 Node.js。然后就可以使用npm 安装 protractor 了。</p>
+<p>通常 protractor 使用 <a href="http://jasmine.github.io/1.3/introduction.html" target="_blank" rel="external">Jasmine</a> 测试框架作为他的测试接口。</p>
+<p>下面的教程的测试将使用一个独立的 Selenium Server 来控制浏览器。需要安装 JDK 来运行这个服务器。可以用 <code>java -version</code> 命令来测试是否安装成功 JDK。</p>
+<h3 id="安装">安装</h3><p>全局安装protractor<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g protractor</span><br></pre></td></tr></table></figure></p>
+<p>这个命令会安装两个命令行工具，protractor 和 webdriver-manager。尝试跑 <code>protractor --version</code> 确认安装成功。webdriver-manager 是一个辅助工具，他可以简单的让Selenium Server 的实例跑起来？？用这个命令可以让他来下载必要的 binaries：<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webdriver-manager <span class="keyword">update</span></span><br></pre></td></tr></table></figure></p>
+<p>现在可以打开一个服务器<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webdriver-manager <span class="built_in">start</span></span><br></pre></td></tr></table></figure></p>
+<p>这个命令会开启一个Selenium Server ，然后输出一串的 log 信息。你的 Protractor 测试将会把请求发到服务器来控制本地的浏览器。在整个教程中，请让服务器在后面撒欢的跑。你可以到这里看服务器的状态信息 <a href="http://localhost:4444/wd/hub" target="_blank" rel="external">http://localhost:4444/wd/hub</a> 。</p>
+<h2 id="step_0_-_写一测试">step 0 - 写一测试</h2><p>新开个命令行或终端窗口，并选个干净整洁的文件夹来做测试目录。</p>
+<p>Protractor 运行需要两个文件，一个是 <strong>spec file</strong> ，一个是 <strong>configuration file</strong>。</p>
+<p>我们先从一个简单的测试开始，内容是引导一个Angular app 例子和检验他的title。我们将会用到这里的 Super Calculator application —— <a href="http://juliemr.github.io/protractor-demo/" target="_blank" rel="external">http://juliemr.github.io/protractor-demo/</a></p>
+<p>将下面的代码 copy 到 spec.js 中：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// spec.js</span></span><br><span class="line">describe(<span class="string">'angularjs homepage'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  it(<span class="string">'should have a title'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    browser.<span class="keyword">get</span>(<span class="string">'http://juliemr.github.io/protractor-demo/'</span>);</span><br><span class="line"></span><br><span class="line">    expect(browser.getTitle()).toEqual(<span class="string">'Super Calculator'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p> 这里 <code>describe</code> 和 <code>it</code> 语法来自 Jasmine 框架。<code>browser</code> 由 Protractor 全局创建的，他可以用来执行浏览器级别的命令，例如用 <code>browser</code> 导航。</p>
+<p>现在来创建配置文件，将下面的代码 copy 到 conf.js：<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// conf.js</span></span><br><span class="line">exports.config = &#123;</span><br><span class="line">  seleniumAddress: 'http:<span class="comment">//localhost:4444/wd/hub',</span></span><br><span class="line">  specs: ['spec.js']</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个配置文件通知 Protractor 你的测试文件（specs）的位置，还有Selenium Server 的对话地址（seleniumAddress）。其他配置项使用默认的，Chrome是默认浏览器。</p>
+<p>现在运行测试<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">protractor</span> conf.js</span><br></pre></td></tr></table></figure></p>
+<p>OK! 我们会看到 Chrome 打开一个指向 Calculator 的窗口，然后又闪关了。测试结果输出应为 <code>1 tests, 1 assertion, 0 failures</code>。真是可喜可贺，我们第一个 Protractor 测试已经成功了 (^o^)/~</p>
+<h2 id="step_1_-_元素交互">step 1 - 元素交互</h2><p>现在来修改下测试文件，让他与页面上的文件进行交互吧！变 ~ 身 ~<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// spec.js</span></span><br><span class="line">describe(<span class="string">'angularjs homepage'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  it(<span class="string">'should add one and two'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    browser.<span class="keyword">get</span>(<span class="string">'http://juliemr.github.io/protractor-demo/'</span>);</span><br><span class="line">    element(by.model(<span class="string">'first'</span>)).sendKeys(<span class="number">1</span>);</span><br><span class="line">    element(by.model(<span class="string">'second'</span>)).sendKeys(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    element(by.id(<span class="string">'gobutton'</span>)).click();</span><br><span class="line"></span><br><span class="line">    expect(element(by.binding(<span class="string">'latest'</span>)).getText()).</span><br><span class="line">        toEqual(<span class="string">'5'</span>); <span class="comment">// This is wrong!</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里也使用了两个 Protractor 创建的全局 <code>elemenet</code> 和 <code>by</code>。<code>element</code> 函数用来寻找页面 HTML 元素，他会返回一个 ElementFinder 对象，这个对象可与元素交互或者获取他们的信息（狗仔队~~）。在这个测试中，我们使用 <code>sendKeys</code> 来给 <code>&lt;input&gt;</code> 输入值，<code>click</code> 来点击按钮，<code>getText</code> 来返回元素的内容。</p>
+<p><code>element</code> 需要一个定位仪参数。<code>by</code> 元素创建了定位仪，我们使用三个类型的定位仪。</p>
+<ul>
+<li><code>by.model(&#39;first&#39;)</code> 来查找元素 <code>ng-model=&quot;first&quot;</code>。</li>
+<li><code>by.id(&#39;gobutton&#39;)</code> 来根据给定的id查找。</li>
+<li><code>by.binding(&#39;latest&#39;)</code> 来发现绑定了latest变量的元素，即 <code>{ {latest} }</code></li>
+</ul>
+<p><a href="http://angular.github.io/protractor/#/locators" target="_blank" rel="external">关于定位仪 (by) 和元素查找器 (element) 的更多信息</a></p>
+<p>运行测试<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">protractor</span> conf.js</span><br></pre></td></tr></table></figure></p>
+<p>1 + 2 == 5肯定会 failed 啦~(≧▽≦)/~啦啦啦 </p>
+<h2 id="step_2_-_多个测试">step 2 - 多个测试</h2><p>稍微美化点，将两个测试结合起来，提出重复的部分</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// spec.js</span></span><br><span class="line">describe(<span class="string">'angularjs homepage'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> firstNumber = element(by.model(<span class="string">'first'</span>));</span><br><span class="line">  <span class="keyword">var</span> secondNumber = element(by.model(<span class="string">'second'</span>));</span><br><span class="line">  <span class="keyword">var</span> goButton = element(by.id(<span class="string">'gobutton'</span>));</span><br><span class="line">  <span class="keyword">var</span> latestResult = element(by.binding(<span class="string">'latest'</span>));</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    browser.<span class="keyword">get</span>(<span class="string">'http://juliemr.github.io/protractor-demo/'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should have a title'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    expect(browser.getTitle()).toEqual(<span class="string">'Super Calculator'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should add one and two'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    firstNumber.sendKeys(<span class="number">1</span>);</span><br><span class="line">    secondNumber.sendKeys(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    goButton.click();</span><br><span class="line"></span><br><span class="line">    expect(latestResult.getText()).toEqual(<span class="string">'3'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should add four and six'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Fill this in.</span></span><br><span class="line">    expect(latestResult.getText()).toEqual(<span class="string">'10'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里，我们将导航拉到一个 <code>beforeEach</code> 函数里，他会运行在每个 <code>it</code> 块前。</p>
+<h2 id="step_3_-_改变配置">step 3 - 改变配置</h2><p>变 ~ 身 ~ (^o^)/~<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// conf.js</span></span><br><span class="line">exports.config = &#123;</span><br><span class="line">  seleniumAddress: 'http:<span class="comment">//localhost:4444/wd/hub',</span></span><br><span class="line">  specs: ['spec.js'],</span><br><span class="line">  capabilities: &#123;</span><br><span class="line">    browserName: 'firefox'</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>尝试重新运行测试。我们可以看到 Firefox 代替 chrome 跑了出来。<code>capabilities</code> 对象描述了测试使用的浏览器。所有可用的选项，看这里 <a href="https://github.com/angular/protractor/blob/master/docs/referenceConf.js" target="_blank" rel="external">the reference config file</a></p>
+<p>还可以一次在多个浏览器中跑测试，像这样<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// <span class="atom">conf</span>.<span class="atom">js</span></span><br><span class="line"><span class="atom">exports</span>.<span class="atom">config</span> = &#123;</span><br><span class="line">  <span class="atom">seleniumAddress</span>: <span class="string">'http://localhost:4444/wd/hub'</span>,</span><br><span class="line">  <span class="atom">specs</span>: [<span class="string">'spec.js'</span>],</span><br><span class="line">  <span class="atom">multiCapabilities</span>: [&#123;</span><br><span class="line">    <span class="atom">browserName</span>: <span class="string">'firefox'</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    <span class="atom">browserName</span>: <span class="string">'chrome'</span></span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>大家可以试试看效果。Chrome 和 Firefox 会同步进行测试，命令行中的结果是独立显示的。</p>
+<p>我的 Firefox 没有安装在默认 C 盘的路径上，所以有报错 <code>Cannot find firefox binary in PATH. Make sure firefox is installed.</code> ，把 <code>firefox.exe</code> 的路径加在了系统变量 PATH ，也没有解决。</p>
+<p>这个问题修改的<a href="http://sariyalee.iteye.com/blog/1688271" target="_blank" rel="external">参考文章</a>，万万没想到，我最后还是重装了Firefox。不知道以后还能不能愉快地自定义安装地址了呢╮(╯▽╰)╭</p>
+<h2 id="step_4_-_元素列表">step 4 - 元素列表</h2><p>重新回到测试文件，有时会遇到多个元素的列表需要处理的问题。可以用 <code>element.all</code> 处理，这个方法会返回一个 ElementArrayFinder。在我们的这个 Calculator app 中，每个操作都记录在一个历史的表格中，使用的是 Angular 的 <code>ng-repeater</code>。下面让我们来测试这些操作是否记录在表格中。</p>
+<p>变 ~ 身 ~ (^o^)/~<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// spec.js</span></span><br><span class="line">describe(<span class="string">'angularjs homepage'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> firstNumber = element(by.model(<span class="string">'first'</span>));</span><br><span class="line">  <span class="keyword">var</span> secondNumber = element(by.model(<span class="string">'second'</span>));</span><br><span class="line">  <span class="keyword">var</span> goButton = element(by.id(<span class="string">'gobutton'</span>));</span><br><span class="line">  <span class="keyword">var</span> latestResult = element(by.binding(<span class="string">'latest'</span>));</span><br><span class="line">  <span class="keyword">var</span> history = element.all(by.repeater(<span class="string">'result in memory'</span>));</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(a, b)</span> </span>&#123;</span><br><span class="line">    firstNumber.sendKeys(a);</span><br><span class="line">    secondNumber.sendKeys(b);</span><br><span class="line">    goButton.click();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    browser.<span class="keyword">get</span>(<span class="string">'http://juliemr.github.io/protractor-demo/'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should have a history'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">    add(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">    expect(history.count()).toEqual(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    add(<span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    expect(history.count()).toEqual(<span class="number">0</span>); <span class="comment">// This is wrong!</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里我们做了两件事：</p>
+<ul>
+<li>首先，我们创建了一个辅助函数<code>add</code>，并且增加了变量 <code>history</code>。</li>
+<li>我们用了 <code>element.all</code> 结合 <code>by.repeater</code> 定位仪来获得一个 ElementArrayFinder。在 spec 文件中，我们用了count函数计算了历史记录的应有 length 。</li>
+</ul>
+<p><code>ElementArrayFinder</code> 处理 <code>add</code> 外还有许多方法。用 <code>last</code> 来获得一个匹配定位仪获得元素集中的最后一个元素。</p>
+<pre><code>it<span class="list">(<span class="quoted">'should</span> have a history', function<span class="list">()</span> {
+    add<span class="list">(<span class="number">1</span>, <span class="number">2</span>)</span><span class="comment">;</span>
+    add<span class="list">(<span class="number">3</span>, <span class="number">4</span>)</span><span class="comment">;</span>
+
+    expect<span class="list">(<span class="keyword">history</span>.last<span class="list">()</span>.getText<span class="list">()</span>)</span>.toContain<span class="list">('<span class="number">1</span> + <span class="number">2</span>')</span><span class="comment">;</span>
+    expect<span class="list">(<span class="keyword">history</span>.first<span class="list">()</span>.getText<span class="list">()</span>)</span>.toContain<span class="list">(<span class="quoted">'foo</span>')</span><span class="comment">; // This is wrong!</span>
+  })</span><span class="comment">;</span>
+</code></pre><p>因为 Calculator 展示了最老的结果在底部，我们用 <code>toContain</code> Jasmine 匹配来假设元素的文字包含有“1+2”。</p>
+<p>ElementArrayFinder 还有 <code>each</code>、<code>map</code>、 <code>filter</code> 和 <code>reduce</code> 这些方法和 JS 的数组方法很相似。<a href="http://angular.github.io/protractor/#/api?view=ElementArrayFinder" target="_blank" rel="external">更多 API 细节看这里</a></p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[安装 protractor 和他的基本用法]]>
+    
+    </summary>
+    
+      <category term="Protractor" scheme="http://iamtutu.com/categories/Protractor/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Angular Template 模板]]></title>
+    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson3/"/>
+    <id>http://iamtutu.com/2014/09/26/0926-angular lesson3/</id>
+    <published>2014-09-26T03:06:59.000Z</published>
+    <updated>2015-02-13T06:23:24.000Z</updated>
+    <content type="html"><![CDATA[<p>为了说明Angular怎样加强标准HTML，这一节会将一个纯html转为模板，Angular用他来展示一些数据集合。我们加的数据是两个手机的基本信息。</p>
+<h2 id="step_1">step 1</h2><p>调整工作区到step1<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="operator">-f</span> step-<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>然后别忘了 <code>npm start</code> ，在浏览器上查看新的页面展示。</p>
+<p>这是个纯html的静态模板，下面看看Angular的动态模板是怎么弄的。马上就到了step 2。</p>
+<h2 id="step_2">step 2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="operator">-f</span> step-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>Angular比较提倡使用 <strong>MVC 设计模式</strong> 来结耦代码。由于这个理念，这个步骤使用了一些 JS 代码来增加app中的 model，view 和 controller 组件。</p>
+<h3 id="View_and_Template">View and Template</h3><p>在 Angular 中，视图是模型通过 HTML 模板的映射。这意味着，无论何时数据模型的变化，都能刷新绑定点而更新视图。</p>
+<p><code>app/index.html:</code></p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">ng-app</span>=<span class="value">"phonecatApp"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"js/controllers.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span> <span class="attribute">ng-controller</span>=<span class="value">"PhoneListCtrl"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">ng-repeat</span>=<span class="value">"phone in phones"</span>&gt;</span></span><br><span class="line">      </span><span class="expression">&#123;&#123;<span class="variable">phone.name</span>&#125;&#125;</span><span class="xml"></span><br><span class="line">      <span class="tag">&lt;<span class="title">p</span>&gt;</span></span><span class="expression">&#123;&#123;<span class="variable">phone.snippet</span>&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="ng-repeat">ng-repeat</h3><p>我们将硬代码写的phone  list 替换为 <code>ngRepeat directive</code> 和两个 Angular expression。</p>
+<ul>
+<li>这个 <code>ng-repeat=&quot;phone in phones&quot;</code> 属性是一个Angular repeater指令。repeater让 Angular 为每个list里的phone建立 <code>&lt;li&gt;</code> 模板。总之就是模板中的 <code>for in</code> 循环。</li>
+</ul>
+<h3 id="ng-controller">ng-controller</h3><p>这个指令绑定个 <code>PhoneListCtrl</code> 的 controller 到 body 上。数据 <code></code> 和 <code></code> 是他设置的，(⊙_⊙)。</p>
+<h3 id="ng-app">ng-app</h3><p>前面出现的这个指令，现在给他赋值了之后，则表示 <code>phonecarApp</code> 是一个module模块名。这个模块包含着<code>PhoneListCtrl</code> 这个控制器。</p>
+<p>他们的关系图：</p>
+<p><img src="http://iamtutu.qiniudn.com/tutorial_02.png" alt="关系图"></p>
+<h3 id="Module_and_Controller">Module and Controller</h3><p><code>app/js/controllers.js:</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> phonecatApp = angular.module(<span class="string">'phonecatApp'</span>, []);</span><br><span class="line"></span><br><span class="line">phonecatApp.controller(<span class="string">'PhoneListCtrl'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(<span class="variable">$scope</span>)</span> </span>&#123;</span><br><span class="line">  <span class="variable">$scope</span>.phones = [</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'Nexus S'</span>,</span><br><span class="line">     <span class="string">'snippet'</span>: <span class="string">'Fast just got faster with Nexus S.'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'Motorola XOOM™ with Wi-Fi'</span>,</span><br><span class="line">     <span class="string">'snippet'</span>: <span class="string">'The Next, Next Generation tablet.'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">'name'</span>: <span class="string">'MOTOROLA XOOM™'</span>,</span><br><span class="line">     <span class="string">'snippet'</span>: <span class="string">'The Next, Next Generation tablet.'</span>&#125;</span><br><span class="line">  ];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在html标签上定义的模块名字 <code>phonecatApp</code> ，在这里注册为 Angular 的 module。</li>
+<li>然后在这个module下注册了一个控制器——<code>PhoneListCtrl</code></li>
+</ol>
+<p>控制器让我们能够在 model 和 view 之间建立数据绑定。<code>PhoneListCtrl</code> 控制器绑定 phone data 到 <code>$scope</code> 。这个 scope 是 root scope 的 prototypical descendant（原型子孙）？？root scope在app 开始时被定义。这个控制器的scope可以使用到任何在控制器标签中的绑定。</p>
+<h3 id="scope">scope</h3><p>在Angular中scope的概念十分的重要，他是将template、model和controller公共工作的粘合剂。<br>详细的Angular scope 介绍请翻墙看：<a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope" target="_blank" rel="external"> angular scope documentation.</a> ^_^</p>
+<h3 id="测试">测试</h3><h4 id="全局控制器">全局控制器</h4><p>用Angular 的方法将控制器从视图中分离，我们可以方便的编写测试代码。如果控制器在全局作用域可用，我们可用一个虚拟的scope来实例化控制器：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">describe<span class="list">(<span class="quoted">'PhoneListCtrl</span>', function<span class="list">()</span>&#123;</span><br><span class="line"></span><br><span class="line">it<span class="list">(<span class="quoted">'should</span> create <span class="string">"phones"</span> model with <span class="number">3</span> phones', function<span class="list">()</span> &#123;</span><br><span class="line">  var scope = &#123;&#125;,</span><br><span class="line">      ctrl = new PhoneListCtrl<span class="list">(<span class="keyword">scope</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">  expect<span class="list">(<span class="keyword">scope</span>.phones.length)</span>.toBe<span class="list">(<span class="number">3</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>在Angular中写单元测试挺方便啊O(∩_∩)O哈哈~<br>因为在软件开发中，测试是一个关键的步骤，所以Angular简化了测试，以鼓励coder们多写测试啊。</p>
+<h4 id="非全局控制器">非全局控制器</h4><p>Angular提供了一个service服务——<code>$controller</code> 。他可以通过名字获取你的控制器。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">describe<span class="list">(<span class="quoted">'PhoneListCtrl</span>', function<span class="list">()</span>&#123;</span><br><span class="line"></span><br><span class="line">beforeEach<span class="list">(<span class="keyword">module</span><span class="list">(<span class="quoted">'phonecatApp</span>')</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">it<span class="list">(<span class="quoted">'should</span> create <span class="string">"phones"</span> model with <span class="number">3</span> phones', inject<span class="list">(<span class="keyword">function</span><span class="list">($controller)</span> &#123;</span><br><span class="line">  var scope = &#123;&#125;,</span><br><span class="line">      ctrl = $controller<span class="list">(<span class="quoted">'PhoneListCtrl</span>', &#123;$scope<span class="keyword">:scope</span>&#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">  expect<span class="list">(<span class="keyword">scope</span>.phones.length)</span>.toBe<span class="list">(<span class="number">3</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>解释：</p>
+<ul>
+<li>告诉Angular 在每个测试之前加载 <code>phonecatApp</code> 模块</li>
+<li>让Angular 注册 <code>$controller</code> 服务到我们的测试函数</li>
+<li>用 <code>$controller</code> 来建立一个 <code>PhoneListCtrl</code> 的实例</li>
+<li>在实例中，我们来证实phones数组拥有三个记录的属性</li>
+</ul>
+<h3 id="Writing_and_Running_Tests_写跑测试">Writing and Running Tests 写跑测试</h3><p>angular-seed项目预先配置了使用 <strong>Karma</strong> 来跑单元测试，确保开跑前已经使用 <code>npm install</code> 安装了Karma相关的组件。</p>
+<p>使用 <code>npm test</code> 开跑：</p>
+<ul>
+<li>Karma 会打开一个浏览器的页面来跑你的测试，可以无视</li>
+<li><p>你会看到命令台输出（大概）：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">info: Karma server started <span class="keyword">at</span> <span class="keyword">http</span>://localhost:<span class="number">9876</span>/</span><br><span class="line"> info (launcher): Starting  browser <span class="string">"Chrome"</span></span><br><span class="line"> info (Chrome <span class="number">22.0</span>): Connected <span class="command"><span class="keyword">on</span> <span class="title">socket</span> <span class="title">id</span> <span class="variable">tPUm9DXcLHtZTKbAEO-n</span></span></span><br><span class="line"> Chrome <span class="number">22.0</span>: Executed <span class="number">1</span> <span class="operator">of</span> <span class="number">1</span> SUCCESS (<span class="number">0.093</span> <span class="built_in">secs</span> / <span class="number">0.004</span> <span class="built_in">secs</span>)</span><br></pre></td></tr></table></figure>
+<p>(^o^)/ success！！</p>
+</li>
+<li><p>当你修改你的test.js的源文件时，Karma会默认帮你重跑一遍，so sweet O(∩_∩)O</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[Angular phonecat 教程 part 3 —— 模版]]>
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Angular Bootstrapping 引导]]></title>
+    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson2/"/>
+    <id>http://iamtutu.com/2014/09/26/0926-angular lesson2/</id>
+    <published>2014-09-26T03:06:59.000Z</published>
+    <updated>2015-02-13T06:11:24.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="angular_Bootstrapping——_引导">angular Bootstrapping—— 引导</h2><h2 id="step_0">step 0</h2><p>进入 <code>angular-phonecat</code> 的目录，运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="operator">-f</span> step-<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>这个命令会重置我们的工作区到教程的初始步骤step 0。<br>跑 <code>npm start</code> ，进可以通过 <a href="http://localhost:8000/app/" target="_blank" rel="external">http://localhost:8000/app/</a> 浏览app页面。</p>
+<h2 id="这些code是要闹哪样呢？">这些code是要闹哪样呢？</h2><p><code>app/index.html</code> 的code</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span> <span class="attribute">ng-app</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>My HTML File<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"bower_components/bootstrap/dist/css/bootstrap.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"css/app.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">p</span>&gt;</span>Nothing here &#123; &#123;'yet' + '!'&#125; &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="ng-app"><code>ng-app</code></h3><p><code>ng-app</code> 代表Angular指令 <code>ngApp</code>,  用来标记我们的HTML元素，会让Angular 认定为 app 的 root element。大家可以自由的决定app的入口元素在哪里，html或其他元素。</p>
+<h2 id="{_{_}_}"><code>{ { } }</code></h2><p>数据绑定的code</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Nothing <span class="keyword">here</span> &#123; &#123;<span class="string">'yet'</span> + <span class="string">'!'</span>&#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>这行代码展示了两个Angular模板的核心特点：</p>
+<ul>
+<li>绑定使用双括号—— <code>{ { } }</code></li>
+<li>在绑定中使用简单的表达式—— <code>&#39;yet&#39; + &#39;!&#39;</code></li>
+</ul>
+<p>这个绑定告诉了Angular去计算表单式，然后把结果插入DOM里绑定数据的地方。在下一步我们会看到，与单向绑定不同的是，当表达式计算的结果改变时，数据会保持更新到DOM上。</p>
+<p><a href="https://docs.angularjs.org/guide/expression" target="_blank" rel="external"> Angular expression </a> 是类JS的代码缩写，他的 context 上下文是当前的module scope，而不是全局域 <code>(window)</code> 。</p>
+<h2 id="Bootstrapping_AngularJS_apps">Bootstrapping AngularJS apps</h2><p>使用 <code>ngApp</code> 指令引导Angular app 很方便也适用于大部分的应用。 但是，在一些其他的使用了scripts loader的栗子中，可以使用这个来引导app——<a href="https://docs.angularjs.org/guide/bootstrap" target="_blank" rel="external"> imperative / manual</a>。</p>
+<p>当APP引导的时候完成了三个重要的事情：</p>
+<ol>
+<li>注册器注册依赖？？</li>
+<li>注册器建立根作用域，他将作为我们应用的上下文context</li>
+<li>Angular从 <code>ngApp</code> 根元素开始编译DOM，处理根下面的指令和绑定们</li>
+</ol>
+<p>一旦一个app被引导完成，他会等待浏览器事件的触发（例如鼠标点击，键盘事件，或者HTTP应答）。一旦事件被触发，Angular就去侦测是否他会改变任何Model，然后通过更新所有相关的绑定，将改变的地方映射到View去。</p>
+<p>示意图：<br><img src="http://iamtutu.qiniudn.com/tutorial_00.png" alt="angular ng-app"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[Angular phonecat 教程 part 2 —— bootstrapping]]>
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Angular 模版学习2]]></title>
+    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson3%20-%20part2/"/>
+    <id>http://iamtutu.com/2014/09/26/0926-angular lesson3 - part2/</id>
+    <published>2014-09-26T03:06:59.000Z</published>
+    <updated>2015-02-13T06:22:48.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Filtering_Repeaters">Filtering Repeaters</h1><h2 id="step_3">step 3</h2><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -f step-3</span><br><span class="line"><span class="bullet">...</span><br><span class="line"></span>npm start</span><br></pre></td></tr></table></figure>
+<h3 id="controller">controller</h3><p>没啥改变</p>
+<h3 id="template">template</h3><p><code>app/index.html</code> </p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container-fluid"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-md-2"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--Sidebar content--&gt;</span></span><br><span class="line"></span><br><span class="line">      Search: <span class="tag">&lt;<span class="title">input</span> <span class="attribute">ng-model</span>=<span class="value">"query"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-md-10"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--Body content--&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"phones"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span> <span class="attribute">ng-repeat</span>=<span class="value">"phone in phones | filter:query"</span>&gt;</span></span><br><span class="line">          </span><span class="expression">&#123;&#123;<span class="variable">phone.name</span>&#125;&#125;</span><span class="xml"></span><br><span class="line">          <span class="tag">&lt;<span class="title">p</span>&gt;</span></span><span class="expression">&#123;&#123;<span class="variable">phone.snippet</span>&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>使用<code>&lt;input&gt;</code> 标签和Angular 的filter函数来处理ngRepeat指令的输入。用户可以实时看到搜索的结果：</p>
+<ul>
+<li>数据绑定：当页面load时，Angular绑定input的名字到一个在数据模型里的同名变量，然后保持两个同步。</li>
+<li>使用filter：filter函数使用<code>query</code> 的值来创建一个新的数组，数组为匹配query的结果。即输入input的是一个过滤用的关键词，什么我输入了一个正则？？</li>
+</ul>
+<p>ngRepeater 自动更新视图以回应由 filter 返回的phones数组的变化</p>
+<h2 id="测试">测试</h2><p>单元测试完美适合于控制器和其他组件的测试，但是没法测试DOM 操作或其他app操作。为此，使用一个end-to-end端对端的测试是更好的choice。</p>
+<p>下面是个end-to-end test来验证我们的搜索功能，<code>test/e2e/scenarios.js:</code></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">describe<span class="list">(<span class="quoted">'PhoneCat</span> App', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">describe<span class="list">(<span class="quoted">'Phone</span> list view', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">  beforeEach<span class="list">(<span class="keyword">function</span><span class="list">()</span> &#123;</span><br><span class="line">    browser.get<span class="list">(<span class="quoted">'app/index</span>.html')</span><span class="comment">;</span></span><br><span class="line">  &#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  it<span class="list">(<span class="quoted">'should</span> filter the phone list as a user types into the search box', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    var phoneList = element.all<span class="list">(<span class="keyword">by</span>.repeater<span class="list">(<span class="quoted">'phone</span> in phones')</span>)</span><span class="comment">;</span></span><br><span class="line">    var query = element<span class="list">(<span class="keyword">by</span>.model<span class="list">(<span class="quoted">'query</span>')</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">3</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    query.sendKeys<span class="list">(<span class="quoted">'nexus</span>')</span><span class="comment">;</span></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">1</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    query.clear<span class="list">()</span><span class="comment">;</span></span><br><span class="line">    query.sendKeys<span class="list">(<span class="quoted">'motorola</span>')</span><span class="comment">;</span></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">2</span>)</span><span class="comment">;</span></span><br><span class="line">  &#125;)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这个end-to-end使用的是 Protractor 的 API。更多语法相关<a href="https://github.com/angular/protractor/blob/master/docs/api.md" target="_blank" rel="external">点这里 </a>.</p>
+<p>使用 <code>npm run protractor</code> 命令开始测试。需要能翻墙到google，ou no !!! T^T !!!</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[Angular phonecat 教程 part 3 —— 模版（2）]]>
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Angular Lesson 1]]></title>
+    <link href="http://iamtutu.com/2014/09/25/0925-angular%20phonecat/"/>
+    <id>http://iamtutu.com/2014/09/25/0925-angular phonecat/</id>
+    <published>2014-09-25T03:06:59.000Z</published>
+    <updated>2015-02-13T06:22:08.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="angular_lesson_1">angular lesson 1</h2><p>据说是官方的lesson教程，angular-phonecat</p>
+<h3 id="环境安装">环境安装</h3><p>首先你得安装有下面两个东西，就像烤面包先得有烤箱。</p>
+<pre><code><span class="bullet">1. </span>git
+<span class="bullet">2. </span>node
+</code></pre><p>然后打开git bush，进入你的工程目录，输入<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="string">https:</span><span class="comment">//github.com/angular/angular-phonecat.git</span></span><br></pre></td></tr></table></figure></p>
+<p>讲这个项目从github弄下面后，<code>cd angular-phonecat</code> 进入这个目录，npm安装依赖包 <code>node install</code>。node_modules目录下面会安装以下工具：</p>
+<ul>
+<li>Bower - client-side code package manager</li>
+<li>Http-Server - simple local static web server</li>
+<li>Karma - unit test runner</li>
+<li>Protractor - end to end (E2E) test runner</li>
+</ul>
+<p>这里有些启动他们的命令：</p>
+<ul>
+<li><code>npm start</code>  : start a local development web-server</li>
+<li><code>npm test</code> : start the Karma unit test runner</li>
+<li><code>npm run protractor</code>  : run the Protractor end to end (E2E) tests</li>
+<li><code>npm run update-webdriver</code>  : install the drivers needed by Protractor</li>
+</ul>
+<p>如果前面的步骤都顺利的完成了，现在就可以通过 <code>npm start</code> 启动node的 http server 了。<br>打开浏览器，进入<a href="http://localhost:8000/app/index.html，看到一句Nothing" target="_blank" rel="external">http://localhost:8000/app/index.html，看到一句Nothing</a> here yet!  说明成功了。</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[Angular phonecat 教程 part 1 —— 介绍]]>
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SVG Patterns]]></title>
+    <link href="http://iamtutu.com/2014/08/25/0812-svg%20pattern/"/>
+    <id>http://iamtutu.com/2014/08/25/0812-svg pattern/</id>
+    <published>2014-08-25T03:38:38.000Z</published>
+    <updated>2015-02-13T06:41:46.000Z</updated>
+    <content type="html"><![CDATA[<p>参考文章：<a href="http://designmodo.com/svg-patterns/" target="_blank" rel="external">《How to Use SVG Patterns》</a><br>SVG的基础语法和属性选项：<a href="http://www.sitepoint.com/tips-accessible-svg/" target="_blank" rel="external">Tips for Creating Accessible SVG</a></p>
+<p>SVG Patterns是用图案填充SVG图形的一种方式，一些简单的组合就可以做出非常炫的效果。</p>
+<h2 id="SVG基础">SVG基础</h2><p>本文集中讨论的浏览器和设备对象为：nternet Explorer 11, Firefox 28 and Chrome 30 on Windows, with Jaws 15 and NVDA 2014.1. Safari 6 on iOS/OSX with VoiceOver, and Chrome 30 on Android with TalkBack。</p>
+<p>在HTML5 doctype声明下，SVG标签使用时不用包括命名空间的声明。像下面这样<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg <span class="variable">version=</span><span class="string">"1.1"</span> <span class="variable">width=</span><span class="string">"300"</span> <span class="variable">height=</span><span class="string">"200"</span>&gt;</span><br><span class="line">    &lt;title&gt;Green rectangle&lt;/title&gt;</span><br><span class="line">    &lt;rect <span class="variable">width=</span><span class="string">"75"</span> <span class="variable">height=</span><span class="string">"50"</span> <span class="variable">rx=</span><span class="string">"20"</span> <span class="variable">ry=</span><span class="string">"20"</span> <span class="variable">fill=</span><span class="string">"#90ee90"</span> <span class="variable">stroke=</span><span class="string">"#228b22"</span> <span class="variable">stroke-fill=</span><span class="string">"1"</span> /&gt;</span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="ARIA_属性">ARIA 属性</h3><p>讲ARIA的属性加入到HTML元素中，可以让浏览器更新信息。他对各种浏览器和屏幕阅读器都有很好的支持，所以他可以帮助有阅读障碍的人士更好的浏览网页。</p>
+<p>在SVG里加上aria-labelledby属性的话，可以加强<code>&lt;SVG&gt;</code>和他的子元素的联系。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg <span class="variable">version=</span><span class="string">"1.1"</span> <span class="variable">width=</span><span class="string">"300"</span> <span class="variable">height=</span><span class="string">"200"</span> <span class="variable">aria-labelledby=</span><span class="string">"title"</span>&gt;</span><br><span class="line">    &lt;title <span class="variable">id=</span><span class="string">"title"</span>&gt;Green rectangle&lt;/title&gt;</span><br><span class="line">    &lt;rect <span class="variable">width=</span><span class="string">"75"</span> <span class="variable">height=</span><span class="string">"50"</span> <span class="variable">rx=</span><span class="string">"20"</span> <span class="variable">ry=</span><span class="string">"20"</span> <span class="variable">fill=</span><span class="string">"#90ee90"</span> <span class="variable">stroke=</span><span class="string">"#228b22"</span> <span class="variable">stroke-fill=</span><span class="string">"1"</span> /&gt;</span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+<p>其他的还有一些属性集合起来，可以写成下面这样<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg <span class="variable">version=</span><span class="string">"1.1"</span> <span class="variable">width=</span><span class="string">"300"</span> <span class="variable">height=</span><span class="string">"200"</span> <span class="variable">aria-labelledby=</span><span class="string">"title desc"</span>&gt;</span><br><span class="line">    &lt;title <span class="variable">id=</span><span class="string">"title"</span>&gt;Green rectangle&lt;/title&gt;</span><br><span class="line">    &lt;desc <span class="variable">id=</span><span class="string">"desc"</span>&gt;A light green rectangle <span class="keyword">with</span> rounded corners <span class="constant">and</span> a dark green border.&lt;/desc&gt;</span><br><span class="line">    &lt;a xlink:<span class="variable">href=</span><span class="string">"http://example.com"</span>&gt;</span><br><span class="line">    &lt;rect <span class="variable">width=</span><span class="string">"75"</span> <span class="variable">height=</span><span class="string">"50"</span> <span class="variable">rx=</span><span class="string">"20"</span> <span class="variable">ry=</span><span class="string">"20"</span> <span class="variable">fill=</span><span class="string">"#90ee90"</span> <span class="variable">stroke=</span><span class="string">"#228b22"</span> <span class="variable">stroke-fill=</span><span class="string">"1"</span> /&gt;</span><br><span class="line">    &lt;text <span class="variable">x=</span><span class="string">"35"</span> <span class="variable">y=</span><span class="string">"30"</span> <span class="variable">font-size=</span><span class="string">"1em"</span> <span class="variable">text-anchor=</span><span class="string">"middle"</span> <span class="variable">fill=</span><span class="string">"#000000"</span>&gt;Website&lt;/text&gt;</span><br><span class="line">    &lt;/a&gt;</span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Make_it_focusable">Make it focusable</h3><p>如果你的SVG是可交互的，必须确保他有一个元素可以让键盘focus。所以这里在SVG里面加上了<code>&lt;a&gt;</code>元素，用户可以使用Tab键通过link来focus到SVG上。</p>
+<h2 id="Fill_Patterns">Fill Patterns</h2><p>先看看简单的SVG patterns的语法。</p>
+<p></p><p data-height="268" data-theme-id="6215" data-slug-hash="bBxLe" data-default-tab="result" class="codepen">See the Pen <a href="http://codepen.io/asjmtz/pen/bBxLe/" target="_blank" rel="external">SVG pattern — 1 </a> by asjmtz (<a href="http://codepen.io/asjmtz" target="_blank" rel="external">@asjmtz</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+<p><code>&lt;svg&gt;</code> 元素可以包含一个 <code>&lt;defs&gt;</code> 元素，<code>&lt;defs&gt;</code> 定义的图案不会立即显示，直到当我们用他的ID引用到 <code>stroke</code> 或 <code>fill</code> 属性时，才会显示。</p>
+<h3 id="patterns_attributes">patterns attributes</h3><p>下面是使用patterns时的一些重要的属性介绍。</p>
+<h4 id="ID">ID</h4><p> <code>&lt;pattern&gt;</code> 中有唯一的 <code>id</code> 属性。可以让svg的shapes或text引用到他们的fill或stroke属性中。</p>
+<h4 id="x,y,_width,_height">x,y, width, height</h4><p><code>&lt;pattern&gt;</code> 中的 x 和 y 属性定义了 pattern 图案在 svg 中开始填充的坐标距离。width 和 height 则是填充图案的外框的大小。</p>
+<p>这里坐标系的选择取决于 <code>patternUnit</code> 和 <code>patternContentUnits</code> 两个属性的值。</p>
+<h4 id="patternUnits">patternUnits</h4><p><code>patternUnits = &quot;userSpaceOnUse | objectBoundingBox&quot;</code>。</p>
+<p>他们是应用于x, y, width和 height 的两种坐标系。默认采用objectBoundingBox。引用W3C的原话。</p>
+<blockquote>
+<p>If patternUnits=”userSpaceOnUse”, ‘x’, ‘y’, ‘width’ and ‘height’ represent values in the coordinate system that results from taking the current user coordinate system in place at the time when the ‘pattern’ element is referenced (i.e., the user coordinate system for the element referencing the ‘pattern’ element via a ‘fill’ or ‘stroke’ property) and then applying the transform specified by attribute ‘patternTransform’.</p>
+<p>If patternUnits=”objectBoundingBox”, the user coordinate system for attributes ‘x’, ‘y’, ‘width’ and ‘height’ is established using the bounding box of the element to which the pattern is applied (see Object bounding box units) and then applying the transform specified by attribute ‘patternTransform’.<br>If attribute ‘patternUnits’ is not specified, then the effect is as if a value of ‘objectBoundingBox’ were specified.</p>
+</blockquote>
+<p>从现象看，<code>userSpaceOnUse</code> 使用的width和height是按绝对坐标系计算的像素值，他参考的坐标系和svg图形使用的是同一个，即他的坐标原点在svg父元素的左上角。</p>
+<p>而 <code>objectBoundingBox</code> 的width和height是百分比值，填充图案的大小会随着svg的伸缩而伸缩。</p>
+<p>上面还提到一个<code>patternTransform</code> 的属性，可以做坐标变换用的？？</p>
+<p></p><p data-height="268" data-theme-id="6215" data-slug-hash="wpekH" data-default-tab="result" class="codepen">See the Pen <a href="http://codepen.io/asjmtz/pen/wpekH/" target="_blank" rel="external">wpekH</a> by asjmtz (<a href="http://codepen.io/asjmtz" target="_blank" rel="external">@asjmtz</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+<h4 id="patternContentUnits">patternContentUnits</h4><p>和 <code>patternUnits</code> 一样可以选两个值，但是默认值为 <code>userSpaceOnUse</code> 。</p>
+<h3 id="Nested_Patterns">Nested Patterns</h3><p>可以用一个填充填充另一个填充。来看看这个填充填充的填充的栗子。</p>
+<h3 id="Paths_as_Patterns">Paths as Patterns</h3><p></p><p data-height="268" data-theme-id="6215" data-slug-hash="uvBaA" data-default-tab="result" class="codepen">See the Pen <a href="http://codepen.io/asjmtz/pen/uvBaA/" target="_blank" rel="external">SVG patterns</a> by asjmtz (<a href="http://codepen.io/asjmtz" target="_blank" rel="external">@asjmtz</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+]]></content>
+    <summary type="html">
+    <![CDATA[svg pattern 的用法]]>
+    
+    </summary>
+    
+      <category term="svg" scheme="http://iamtutu.com/categories/svg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[jQuery 插件自定义]]></title>
+    <link href="http://iamtutu.com/2014/08/20/0820-jquery%20%E6%8F%92%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89/"/>
+    <id>http://iamtutu.com/2014/08/20/0820-jquery 插件自定义/</id>
+    <published>2014-08-20T03:06:59.000Z</published>
+    <updated>2015-02-13T06:21:20.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="jquery_插件">jquery 插件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jQuery.myPlugin = &#123;</span><br><span class="line">	foo: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		alert(<span class="string">'This is a test. This is only a test.'</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	bar: <span class="function"><span class="keyword">function</span><span class="params">(param)</span> </span>&#123;</span><br><span class="line">		alert(<span class="string">'This function takes a parameter, which is "'</span> + param + <span class="string">'".'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//采用命名空间的函数仍然是全局函数，调用时采用的方法：</span></span><br><span class="line">$.myPlugin.foo();</span><br><span class="line">$.myPlugin.bar(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">($)</span> </span>&#123;</span><br><span class="line">	$.fn.extend(&#123;</span><br><span class="line">		pluginName: <span class="function"><span class="keyword">function</span><span class="params">(opt, callback)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// Our plugin implementation code goes here.</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)(jQuery);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//闭包</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">($)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//插件定义</span></span><br><span class="line">	$.fn.swipe = <span class="function"><span class="keyword">function</span><span class="params">(options)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//extend default options with those provided</span></span><br><span class="line">		<span class="comment">//if deep extend is true,the merge becomes recursive(递归)</span></span><br><span class="line">		<span class="keyword">var</span> opts = $.extend(<span class="literal">true</span>, $.fn.swipe.defaults, options);</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将默认的参数写在外外面，对于插件的使用者而言，更容易用较少的代码覆盖和修改插件的配置</span></span><br><span class="line">	$.fn.swipe.defaults = &#123;</span><br><span class="line">		background: <span class="string">"red"</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;)(jQuery);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//这个只需要调用一次，且不一定要在ready块中调用</span></span><br><span class="line">$.fn.swipe.defaults.foreground = <span class="string">'blue'</span>;</span><br><span class="line"></span><br><span class="line">$(<span class="string">"#swipe"</span>).swipe();</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[如何自定义一个 jQuery 的插件]]>
+    
+    </summary>
+    
+      <category term="jQuery" scheme="http://iamtutu.com/categories/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SVG 图表]]></title>
+    <link href="http://iamtutu.com/2014/08/12/0812-SVG%20%E4%BF%A1%E6%81%AF%E5%9B%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E4%BE%8B%E6%B5%81%E7%A8%8B%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://iamtutu.com/2014/08/12/0812-SVG 信息图表——实例流程介绍/</id>
+    <published>2014-08-12T03:06:59.000Z</published>
+    <updated>2015-02-13T06:20:18.000Z</updated>
+    <content type="html"><![CDATA[<p>参考文章：<a href="http://designmodo.com/svg-infographic/" target="_blank" rel="external">SVG Infographic</a></p>
+<h2 id="SVG_信息化图表">SVG 信息化图表</h2><p>最喜欢扁平的动画了，不多说了，直接开始做吧O(∩_∩)O~~</p>
+<h3 id="1、">1、</h3>]]></content>
+    <summary type="html">
+    <![CDATA[SVG 信息化图表什么的。。。。]]>
+    
+    </summary>
+    
+      <category term="svg" scheme="http://iamtutu.com/categories/svg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[前端规范与思维导图]]></title>
+    <link href="http://iamtutu.com/2014/06/27/0627-%E5%89%8D%E7%AB%AF%E8%A7%84%E8%8C%83--%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"/>
+    <id>http://iamtutu.com/2014/06/27/0627-前端规范--思维导图/</id>
+    <published>2014-06-27T03:06:59.000Z</published>
+    <updated>2015-02-13T06:19:57.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="开始写文档">开始写文档</h2><p>今天开始写公司项目前端规范文档，因为之前的项目里面前端文件的管理不是很规范，所以现在整理起来几乎是要重写的节奏啊！~~~</p>
+<p>本来准备用DOC写的，一不小心度娘了一下，发现一个写得极其优美的思维导图，顺便挖到了这个网站<a href="http://www.mindmeister.com/?r=140271" target="_blank" rel="external">mindmeister</a>。这个网站做出来的图很不错，可以导出各种格式，只不过免费的用户就只能导出图片和pdf了。</p>
+<p>我飞快的用了一个度娘来的测试VISA号码注册了一个免费的用户（真惭愧）。然后上手写规范。</p>
+<h2 id="思维导图">思维导图</h2><p>写出来的内容一经更改，目前的版本是<a href="http://www.mindmeister.com/428049060/_" target="_blank" rel="external">这样的</a>。</p>
+<p><img src="http://iamtutu.qiniudn.com/%E5%89%8D%E7%AB%AF%E8%A7%84%E8%8C%83.png" alt="前端规范"></p>
+<p>之后还会继续思考更好更详细的代码组织方法。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[自己琢磨的前端规范的思维导图]]>
+    
+    </summary>
+    
+      <category term="规范" scheme="http://iamtutu.com/categories/%E8%A7%84%E8%8C%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[grunt 项目架设]]></title>
+    <link href="http://iamtutu.com/2014/06/25/0625-grunt%20%E9%A1%B9%E7%9B%AE%E6%9E%B6%E8%AE%BE/"/>
+    <id>http://iamtutu.com/2014/06/25/0625-grunt 项目架设/</id>
+    <published>2014-06-25T03:06:59.000Z</published>
+    <updated>2015-02-13T06:19:23.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>参考文章<br><a href="http://www.hulufei.com/post/grunt-introduction" target="_blank" rel="external">《前端工作流，Grunt上手指南》</a><br><a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">《Grunt+Livereload 搭建本地前端开发环境》</a></p>
+</blockquote>
+<p>废话就不多说了，直接开始架设一个grunt控制的项目吧！O(∩_∩)O</p>
+<h2 id="1-_假设你已经安装了nodeJS和用npm全局安装了grunt-cli。">1. 假设你已经安装了nodeJS和用npm全局安装了grunt-cli。</h2><h2 id="2-_新建package-json和Gruntfile-js">2. 新建package.json和Gruntfile.js</h2><p>先进入项目文件夹的根目录下<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> pj</span><br><span class="line">$ <span class="built_in">cd</span> pj</span><br></pre></td></tr></table></figure></p>
+<h3 id="package-json">package.json</h3><p>根据上面的参考文章，直接执行<code>npm install</code>会生成一个空的package.js，但是我尝试之后失败了，是版本的问题吗？<br>顺便一说，我的版本是<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grunt -<span class="constant">V </span></span><br><span class="line">grunt-cli v<span class="number">0</span>.<span class="number">1.13</span></span><br><span class="line">grunt v<span class="number">0</span>.<span class="number">4.5</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>npm -v</span><br><span class="line"><span class="number">1.4</span>.<span class="number">9</span></span><br></pre></td></tr></table></figure></p>
+<p>于是从前几篇的grunt笔记里面copy一个现有的<code>package.json</code> ，里面写好了要安装的一些常用的grunt项目插件包括grunt本身，大概酱紫。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"pj3"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.1.0"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">grunt</span>": <span class="value"><span class="string">"^0.4.5"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-concat</span>": <span class="value"><span class="string">"^0.4.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-jshint</span>": <span class="value"><span class="string">"^0.10.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-nodeunit</span>": <span class="value"><span class="string">"^0.4.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-qunit</span>": <span class="value"><span class="string">"^0.5.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-uglify</span>": <span class="value"><span class="string">"^0.5.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-watch</span>": <span class="value"><span class="string">"^0.6.1"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，现在执行一下 <code>npm install</code>就会自动帮你安装以上列出来的依赖。而且安装好之后根据安装的版本，会更改到你的package.json的文件中。所以我上面的package.json其实是已经安装，并被更改过的了。现在文件结构是<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Gruntfile-js">Gruntfile.js</h3><p>可以从之前的笔记上或者官网上手动创建，下面介绍用 <code>grunt-init</code>安装一些架构的方法。</p>
+<ol>
+<li>全局安装<code>npm install -g grunt-init</code></li>
+<li><p>克隆要使用的模板,下面是clone到一个创建一个包含QUnit单元测试的jQuery插件的模板，模板更多介绍<a href="http://www.gruntjs.org/article/project_scaffolding.html" target="_blank" rel="external">在这里</a></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/gruntjs</span><span class="regexp">/grunt-init-jquery.git ~/</span>.grunt-init/jquery</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我用上面的方法clone了一个 <code>grunt-init-gruntfile</code> ，然后再执行 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt-<span class="keyword">init</span>  gruntfile</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>好了，现在grunt-init已经根据你的package.json的配置，帮你写好一个Gruntfile.js，可以在此模板上根据需要修改下</p>
+<p>然后我手贱安装了下 <code>grunt-init jquery</code>，假装我要写一个叫jquery.barAnime的插件，于是在执行安装之前，grunt-init细心的询问了我各种问题，然后生成一个 <code>jquery.barAnime.jquery.json</code>来记录。=&gt;（可能是我起的名字问题，json名字略奇葩</p>
+<p>目录变成酱紫了，欧也(^o^)/<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- libs/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|<span class="comment">-- test/</span></span><br><span class="line">|<span class="comment">-- .gitignore</span></span><br><span class="line">|<span class="comment">-- .jshintrc</span></span><br><span class="line">|<span class="comment">-- CONTRIBUTING.md</span></span><br><span class="line">|<span class="comment">-- jquery.barAnime.jquery.json</span></span><br><span class="line">|<span class="comment">-- LICENSE-MIT</span></span><br><span class="line">|<span class="comment">-- README.md</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
+<p>生成了一些奇怪的文件，发现里面还有一个<code>LICENSE-MIT</code>，小白的我瞬间觉得UP了(⊙o⊙)哦</p>
+<h2 id="3-_执行grunt命令">3. 执行grunt命令</h2><p>根据Gruntfile.js里面的配置，执行 <code>grunt</code>命令时，会执行 <code>default</code>任务<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">grunt</span>.<span class="atom">registerTask</span>(<span class="string">'default'</span>, [<span class="string">'jshint'</span>, <span class="string">'qunit'</span>, <span class="string">'clean'</span>, <span class="string">'concat'</span>, <span class="string">'uglify'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>我用 <code>grunt-init jquery</code> 自动生成的Gruntfile里面主要执行的就是以上几个命令，根目录会多出一个dist文件夹，里面是<code>concat</code>合并的 <code>jquery.barAnime.js</code> 和 <code>uglify</code>压缩的 <code>jquery.barAnime.min.js</code>。</p>
+<h2 id="4-_手动建立一个项目，并创建livereload">4. 手动建立一个项目，并创建livereload</h2><p>利用 <code>grunt watch</code> 和 <code>grunt connect</code> 和 <code>connect-livereload</code>的配合就能省去F5与浏览器的livereload插件了，啊哈哈，快点开始吧</p>
+<p>参照这个大大的<a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">文章</a>。我重新新建了一个项目，叫做pj4的<br>按照上面的步骤，我安装了与上面一样的grunt和grunt插件，为了livereload的实现，还得再安装一些东西<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev grunt-contrib-<span class="keyword">connect</span> <span class="keyword">connect</span>-livereload grunt-<span class="keyword">open</span></span><br></pre></td></tr></table></figure></p>
+<p>现在的文档目录如下。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pj4/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|    |<span class="comment">-- js/</span></span><br><span class="line">|    |<span class="comment">-- css/</span></span><br><span class="line">|    |<span class="comment">-- img/</span></span><br><span class="line">|    `<span class="comment">-- index.html</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure>
+<p>下面是特别重要的Gruntfile.js的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 自动化脚本定义</span><br><span class="line"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"><span class="pi">  'use strict'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//load all grunt tasks</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'matchdep'</span>).filterDev(<span class="string">'grunt-*'</span>).forEach(grunt.loadNpmTasks);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//define tasks</span></span><br><span class="line">  grunt.registerTask(<span class="string">'server'</span>, [<span class="string">'connect:server'</span>, <span class="string">'open:server'</span>, <span class="string">'watch:server'</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//env cfg</span></span><br><span class="line">  <span class="keyword">var</span> pkg = grunt.file.readJSON(<span class="string">'package.json'</span>);</span><br><span class="line">  <span class="keyword">var</span> cfg = &#123;</span><br><span class="line">    src: <span class="string">'src'</span>,</span><br><span class="line">    <span class="comment">// Change 'localhost' to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">    serverHost: <span class="string">'localhost'</span>,</span><br><span class="line">    serverPort: <span class="number">9000</span>,</span><br><span class="line">    livereload: <span class="number">35729</span></span><br><span class="line">  &#125;;  </span><br><span class="line"></span><br><span class="line">  <span class="comment">//grunt config</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line">    <span class="comment">//======== 配置相关 ========</span></span><br><span class="line">    pkg: pkg,</span><br><span class="line">    cfg: cfg,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//======== 开发相关 ========</span></span><br><span class="line">   <span class="comment">//开启服务</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: cfg.serverPort,</span><br><span class="line">        hostname: cfg.serverHost,</span><br><span class="line">        middleware: <span class="function"><span class="keyword">function</span><span class="params">(connect, options)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> [</span><br><span class="line">            <span class="built_in">require</span>(<span class="string">'connect-livereload'</span>)(&#123;</span><br><span class="line">              port: cfg.livereload</span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="comment">// Serve static files. </span></span><br><span class="line">            <span class="comment">//In my environment options.base is a type of Object</span></span><br><span class="line">            connect.static(options.base.toString()),</span><br><span class="line">            <span class="comment">// Make empty directories browsable.</span></span><br><span class="line">             connect.directory(options.base),</span><br><span class="line">          ];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          <span class="comment">// keepalive: true,</span></span><br><span class="line">          base: cfg.src,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开浏览器</span></span><br><span class="line">    open: &#123;</span><br><span class="line">      server: &#123;</span><br><span class="line">        url: <span class="string">'http://localhost:'</span> + cfg.serverPort</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//监控文件变化</span></span><br><span class="line">    watch: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        livereload: cfg.livereload,</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        files: [</span><br><span class="line">        <span class="string">'&lt;%= cfg.src %&gt;/&#123;,*/&#125;*.html'</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/css/*.css"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/js/*.js"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/img/*"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="comment">// tasks: [''],       </span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后执行 <code>grunt server</code>，就会在你的浏览器打开这个地址 <code>http://localhost:9000</code>。</p>
+<p><del>的撒大声地</del></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[Grunt 搭建项目的时候的基本流程，只是自己经验的记录]]>
+    
+    </summary>
+    
+      <category term="Grunt" scheme="http://iamtutu.com/categories/Grunt/"/>
+    
+  </entry>
+  
+</feed>
