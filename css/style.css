@@ -591,11 +591,15 @@ header nav ul li a:hover {
     transition: margin 0.5s ease-out;
   }
 }
-#main section.post {
+#main section.post,
+#main section.list,
+#main section.categories {
   background: #fafafa;
   margin-bottom: 0.125em;
 }
-#main section.post a {
+#main section.post a,
+#main section.list a,
+#main section.categories a {
   display: block;
   border-left: 0.5em solid #ccc;
   -webkit-transition: border-left 0.45s;
@@ -606,21 +610,31 @@ header nav ul li a:hover {
   padding: 0.5em;
 }
 @media only screen and (min-width: 768px) {
-  #main section.post a {
+  #main section.post a,
+  #main section.list a,
+  #main section.categories a {
     padding: 1em;
   }
 }
-#main section.post a:hover {
+#main section.post a:hover,
+#main section.list a:hover,
+#main section.categories a:hover {
   border-left: 0.5em solid #ea6753;
 }
-#main section.post a h1 {
+#main section.post a h1,
+#main section.list a h1,
+#main section.categories a h1 {
   color: #2ca6cb;
   line-height: 2;
 }
-#main section.post a p {
+#main section.post a p,
+#main section.list a p,
+#main section.categories a p {
   color: #817c7c;
 }
-#main section.post a time {
+#main section.post a time,
+#main section.list a time,
+#main section.categories a time {
   color: #817c7c;
   display: block;
   margin: 0.5em 0;
@@ -1606,13 +1620,6 @@ section.comment {
   padding-right: 0.5em;
   content: "\f09e";
 }
-@media only screen and (min-width: 768px) {
-  .archiveslist {
-    width: 45%;
-    float: left;
-    margin: 0 5% 0 0;
-  }
-}
 @media only screen and (min-width: 1024px) {
   .archiveslist {
     width: 100%;
@@ -1758,7 +1765,7 @@ footer {
   width: 6.875em;
   height: 6.875em;
   margin: 0 auto;
-  background: no-repeat url("img/author-me.png") left top;
+  background: no-repeat url("/img/author-me.png") #fff left top;
   -webkit-background-size: 6.875em 6.875em;
   -moz-background-size: 6.875em 6.875em;
   background-size: 6.875em 6.875em;

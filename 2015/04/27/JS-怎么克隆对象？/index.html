@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | Asjmtz&#39;s Blog</title>
+    <title>JS 怎么克隆对象？ | Asjmtz&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Asjmtz">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" itemprop="description" content="JS 克隆对象, JSON, $.extend, 性能">
     
     
     
@@ -69,15 +69,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/02/10/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/04/27/JS-怎么克隆对象？/" title="JS 怎么克隆对象？" itemprop="url">JS 怎么克隆对象？</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://iamtutu.com" title="Asjmtz">Asjmtz</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-02-10T09:06:05.000Z" itemprop="datePublished">Feb 10 2015</time>
-    更新日期:<time datetime="2015-02-10T09:06:05.000Z" itemprop="dateModified">Feb 10 2015</time>
+    <time datetime="2015-04-27T09:12:03.000Z" itemprop="datePublished">Apr 27 2015</time>
+    更新日期:<time datetime="2015-04-27T09:18:53.000Z" itemprop="dateModified">Apr 27 2015</time>
     
   </p>
 </header>
@@ -86,28 +86,38 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象克隆"><span class="toc-number">1.</span> <span class="toc-text">对象克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-number">2.</span> <span class="toc-text">demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#速度测试"><span class="toc-number">3.</span> <span class="toc-text">速度测试</span></a></li></ol>
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<h2 id="对象克隆">对象克隆</h2><p>不能影响到原来的对象，并且需要深层拷贝的情况，比如原始对象为：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var oldObj = &#123;<span class="string">a:</span><span class="number">2123</span>, <span class="string">b:</span><span class="number">2312</span>, <span class="string">c:</span>[<span class="number">2</span>,<span class="number">3</span>,<span class="number">45</span>,<span class="number">2</span>]&#125;;</span><br></pre></td></tr></table></figure>
+<p>考虑以下方法：</p>
+<p>1、使用 JSON API</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">JSON</span>.parse( <span class="built_in">JSON</span>.stringify(oldObj));</span><br></pre></td></tr></table></figure>
+<p>2、考虑 jquery extend</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> newObj = $.<span class="function"><span class="title">extend</span><span class="params">(  )</span></span></span><br></pre></td></tr></table></figure>
+<p>3、 new Object() </p>
+<p>balabalabala….</p>
+<h2 id="demo">demo</h2><p><a href="http://jsbin.com/hudoke/2/edit" target="_blank" rel="external">In JS Bin</a></p>
+<h2 id="速度测试">速度测试</h2><p><a href="http://jsperf.com/clone-object-ways" target="_blank" rel="external">In JS performance</a></p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
 
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JS/">JS</a>
+</div>
+
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://iamtutu.com/2015/02/10/hello-world/" data-title="Hello World | Asjmtz&#39;s Blog" data-tsina="asjmtz## e.g. 1664838973  Your weibo ID,It will be used in share button." class="share clearfix">
+  <div data-url="http://iamtutu.com/2015/04/27/JS-怎么克隆对象？/" data-title="JS 怎么克隆对象？ | Asjmtz&#39;s Blog" data-tsina="asjmtz" class="share clearfix">
   </div>
 
 </div>
@@ -116,19 +126,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/02/13/恢复博客/" title="恢复博客">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  恢复博客</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/01/12/CMD 和 AMD/"  title="AMD 与 CMD">
+<a href="/2015/04/23/2014/"  title="2014">
  <strong>NEXT:</strong><br/> 
- <span>AMD 与 CMD
+ <span>2014
 </span>
 </a>
 </div>
@@ -145,7 +147,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象克隆"><span class="toc-number">1.</span> <span class="toc-text">对象克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-number">2.</span> <span class="toc-text">demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#速度测试"><span class="toc-number">3.</span> <span class="toc-text">速度测试</span></a></li></ol>
   </div>
 
 <div id="asidepart">
@@ -162,6 +164,8 @@
 			<li><a href="/categories/Angular/" title="Angular">Angular<sup>5</sup></a></li>
 		
 			<li><a href="/categories/Grunt/" title="Grunt">Grunt<sup>4</sup></a></li>
+		
+			<li><a href="/categories/JS/" title="JS">JS<sup>1</sup></a></li>
 		
 			<li><a href="/categories/Protractor/" title="Protractor">Protractor<sup>1</sup></a></li>
 		
@@ -200,7 +204,7 @@
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">歸檔</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">10</span></li></ul>
   </div>
 
 
@@ -228,13 +232,18 @@
 	</div>
 	
 	
+	<section class="info">
+		<p> 爱斯基摩兔子是也 <br/>
+			最近追什么番比较好哪？</p>
+	</section>
+	 
 	<div class="social-font clearfix">
 		
 		<a href="http://weibo.com/asjmtz" target="_blank" title="weibo"></a>
 		
 		
 		
-		<a href="https://github.com/asjmtz## e.g. A-limon for https://github.com/A-limon" target="_blank" title="github"></a>
+		<a href="https://github.com/asjmtz" target="_blank" title="github"></a>
 		
 		
 		

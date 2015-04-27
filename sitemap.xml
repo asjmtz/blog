@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iamtutu.com/2015/04/27/JS-%E6%80%8E%E4%B9%88%E5%85%8B%E9%9A%86%E5%AF%B9%E8%B1%A1%EF%BC%9F/</loc>
+    <lastmod>2015-04-27T09:18:53.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://iamtutu.com/2015/04/23/category/</loc>
+    <lastmod>2015-04-24T01:29:49.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://iamtutu.com/2015/04/23/2014/</loc>
+    <lastmod>2015-04-24T01:29:49.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://iamtutu.com/2015/04/22/git-%E4%B8%8D%E5%B0%8F%E5%BF%83%E6%8F%90%E4%BA%A4%E4%BA%86%E7%9A%84%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9C%89-git-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%92%8B%E5%8A%9E%EF%BC%9F/</loc>
     <lastmod>2015-04-22T09:45:17.000Z</lastmod>
   </url>
@@ -154,11 +169,6 @@
   <url>
     <loc>http://iamtutu.com/categories/index.html</loc>
     <lastmod>2015-02-10T09:38:58.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://iamtutu.com/2015/02/10/hello-world/</loc>
-    <lastmod>2015-02-10T09:06:05.000Z</lastmod>
   </url>
   
 </urlset>
