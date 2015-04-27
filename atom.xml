@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不想做画家的黑客不是好前端o(∩_∩)o]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://iamtutu.com/"/>
-  <updated>2015-04-27T09:18:53.000Z</updated>
+  <updated>2015-04-27T09:19:56.000Z</updated>
   <id>http://iamtutu.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://iamtutu.com/2015/04/27/JS-%E6%80%8E%E4%B9%88%E5%85%8B%E9%9A%86%E5%AF%B9%E8%B1%A1%EF%BC%9F/"/>
     <id>http://iamtutu.com/2015/04/27/JS-怎么克隆对象？/</id>
     <published>2015-04-27T09:12:03.000Z</published>
-    <updated>2015-04-27T09:18:53.000Z</updated>
+    <updated>2015-04-27T09:19:56.000Z</updated>
     <content type="html"><![CDATA[<h2 id="对象克隆">对象克隆</h2><p>不能影响到原来的对象，并且需要深层拷贝的情况，比如原始对象为：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var oldObj = &#123;<span class="string">a:</span><span class="number">2123</span>, <span class="string">b:</span><span class="number">2312</span>, <span class="string">c:</span>[<span class="number">2</span>,<span class="number">3</span>,<span class="number">45</span>,<span class="number">2</span>]&#125;;</span><br></pre></td></tr></table></figure>
 <p>考虑以下方法：</p>
@@ -28,7 +28,7 @@
 <p>2、考虑 jquery extend</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> newObj = $.<span class="function"><span class="title">extend</span><span class="params">(  )</span></span></span><br></pre></td></tr></table></figure>
 <p>3、 new Object() </p>
-<p>balabalabala….</p>
+<p>balabalabala….再研究。。。</p>
 <h2 id="demo">demo</h2><p><a href="http://jsbin.com/hudoke/2/edit" target="_blank" rel="external">In JS Bin</a></p>
 <h2 id="速度测试">速度测试</h2><p><a href="http://jsperf.com/clone-object-ways" target="_blank" rel="external">In JS performance</a></p>
 <blockquote>
@@ -41,32 +41,6 @@
     </summary>
     
       <category term="JS" scheme="http://iamtutu.com/categories/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[2014]]></title>
-    <link href="http://iamtutu.com/2015/04/23/2014/"/>
-    <id>http://iamtutu.com/2015/04/23/2014/</id>
-    <published>2015-04-23T14:48:16.000Z</published>
-    <updated>2015-04-24T01:29:49.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="这是list_布局">这是list 布局</h1>]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="这是list_布局">这是list 布局</h1>]]>
-    </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[category]]></title>
-    <link href="http://iamtutu.com/2015/04/23/category/"/>
-    <id>http://iamtutu.com/2015/04/23/category/</id>
-    <published>2015-04-23T14:44:48.000Z</published>
-    <updated>2015-04-24T01:29:49.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="这是什么布局">这是什么布局</h1>]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="这是什么布局">这是什么布局</h1>]]>
-    </summary>
     
   </entry>
   
@@ -636,40 +610,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[Angular 模版学习2]]></title>
-    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson3%20-%20part2/"/>
-    <id>http://iamtutu.com/2014/09/26/0926-angular lesson3 - part2/</id>
-    <published>2014-09-26T03:06:59.000Z</published>
-    <updated>2015-02-13T06:22:48.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="Filtering_Repeaters">Filtering Repeaters</h1><h2 id="step_3">step 3</h2><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -f step-3</span><br><span class="line"><span class="bullet">...</span><br><span class="line"></span>npm start</span><br></pre></td></tr></table></figure>
-<h3 id="controller">controller</h3><p>没啥改变</p>
-<h3 id="template">template</h3><p><code>app/index.html</code> </p>
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container-fluid"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-md-2"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--Sidebar content--&gt;</span></span><br><span class="line"></span><br><span class="line">      Search: <span class="tag">&lt;<span class="title">input</span> <span class="attribute">ng-model</span>=<span class="value">"query"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-md-10"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--Body content--&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"phones"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span> <span class="attribute">ng-repeat</span>=<span class="value">"phone in phones | filter:query"</span>&gt;</span></span><br><span class="line">          </span><span class="expression">&#123;&#123;<span class="variable">phone.name</span>&#125;&#125;</span><span class="xml"></span><br><span class="line">          <span class="tag">&lt;<span class="title">p</span>&gt;</span></span><span class="expression">&#123;&#123;<span class="variable">phone.snippet</span>&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>使用<code>&lt;input&gt;</code> 标签和Angular 的filter函数来处理ngRepeat指令的输入。用户可以实时看到搜索的结果：</p>
-<ul>
-<li>数据绑定：当页面load时，Angular绑定input的名字到一个在数据模型里的同名变量，然后保持两个同步。</li>
-<li>使用filter：filter函数使用<code>query</code> 的值来创建一个新的数组，数组为匹配query的结果。即输入input的是一个过滤用的关键词，什么我输入了一个正则？？</li>
-</ul>
-<p>ngRepeater 自动更新视图以回应由 filter 返回的phones数组的变化</p>
-<h2 id="测试">测试</h2><p>单元测试完美适合于控制器和其他组件的测试，但是没法测试DOM 操作或其他app操作。为此，使用一个end-to-end端对端的测试是更好的choice。</p>
-<p>下面是个end-to-end test来验证我们的搜索功能，<code>test/e2e/scenarios.js:</code></p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">describe<span class="list">(<span class="quoted">'PhoneCat</span> App', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">describe<span class="list">(<span class="quoted">'Phone</span> list view', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">  beforeEach<span class="list">(<span class="keyword">function</span><span class="list">()</span> &#123;</span><br><span class="line">    browser.get<span class="list">(<span class="quoted">'app/index</span>.html')</span><span class="comment">;</span></span><br><span class="line">  &#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  it<span class="list">(<span class="quoted">'should</span> filter the phone list as a user types into the search box', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    var phoneList = element.all<span class="list">(<span class="keyword">by</span>.repeater<span class="list">(<span class="quoted">'phone</span> in phones')</span>)</span><span class="comment">;</span></span><br><span class="line">    var query = element<span class="list">(<span class="keyword">by</span>.model<span class="list">(<span class="quoted">'query</span>')</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">3</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    query.sendKeys<span class="list">(<span class="quoted">'nexus</span>')</span><span class="comment">;</span></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">1</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    query.clear<span class="list">()</span><span class="comment">;</span></span><br><span class="line">    query.sendKeys<span class="list">(<span class="quoted">'motorola</span>')</span><span class="comment">;</span></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">2</span>)</span><span class="comment">;</span></span><br><span class="line">  &#125;)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>这个end-to-end使用的是 Protractor 的 API。更多语法相关<a href="https://github.com/angular/protractor/blob/master/docs/api.md" target="_blank" rel="external">点这里 </a>.</p>
-<p>使用 <code>npm run protractor</code> 命令开始测试。需要能翻墙到google，ou no !!! T^T !!!</p>
-<blockquote>
-<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[Angular phonecat 教程 part 3 —— 模版（2）]]>
-    
-    </summary>
-    
-      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[Angular Bootstrapping 引导]]></title>
     <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson2/"/>
     <id>http://iamtutu.com/2014/09/26/0926-angular lesson2/</id>
@@ -702,6 +642,40 @@
 ]]></content>
     <summary type="html">
     <![CDATA[Angular phonecat 教程 part 2 —— bootstrapping]]>
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Angular 模版学习2]]></title>
+    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson3%20-%20part2/"/>
+    <id>http://iamtutu.com/2014/09/26/0926-angular lesson3 - part2/</id>
+    <published>2014-09-26T03:06:59.000Z</published>
+    <updated>2015-02-13T06:22:48.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Filtering_Repeaters">Filtering Repeaters</h1><h2 id="step_3">step 3</h2><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -f step-3</span><br><span class="line"><span class="bullet">...</span><br><span class="line"></span>npm start</span><br></pre></td></tr></table></figure>
+<h3 id="controller">controller</h3><p>没啥改变</p>
+<h3 id="template">template</h3><p><code>app/index.html</code> </p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container-fluid"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-md-2"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--Sidebar content--&gt;</span></span><br><span class="line"></span><br><span class="line">      Search: <span class="tag">&lt;<span class="title">input</span> <span class="attribute">ng-model</span>=<span class="value">"query"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-md-10"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--Body content--&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"phones"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span> <span class="attribute">ng-repeat</span>=<span class="value">"phone in phones | filter:query"</span>&gt;</span></span><br><span class="line">          </span><span class="expression">&#123;&#123;<span class="variable">phone.name</span>&#125;&#125;</span><span class="xml"></span><br><span class="line">          <span class="tag">&lt;<span class="title">p</span>&gt;</span></span><span class="expression">&#123;&#123;<span class="variable">phone.snippet</span>&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>使用<code>&lt;input&gt;</code> 标签和Angular 的filter函数来处理ngRepeat指令的输入。用户可以实时看到搜索的结果：</p>
+<ul>
+<li>数据绑定：当页面load时，Angular绑定input的名字到一个在数据模型里的同名变量，然后保持两个同步。</li>
+<li>使用filter：filter函数使用<code>query</code> 的值来创建一个新的数组，数组为匹配query的结果。即输入input的是一个过滤用的关键词，什么我输入了一个正则？？</li>
+</ul>
+<p>ngRepeater 自动更新视图以回应由 filter 返回的phones数组的变化</p>
+<h2 id="测试">测试</h2><p>单元测试完美适合于控制器和其他组件的测试，但是没法测试DOM 操作或其他app操作。为此，使用一个end-to-end端对端的测试是更好的choice。</p>
+<p>下面是个end-to-end test来验证我们的搜索功能，<code>test/e2e/scenarios.js:</code></p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">describe<span class="list">(<span class="quoted">'PhoneCat</span> App', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">describe<span class="list">(<span class="quoted">'Phone</span> list view', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">  beforeEach<span class="list">(<span class="keyword">function</span><span class="list">()</span> &#123;</span><br><span class="line">    browser.get<span class="list">(<span class="quoted">'app/index</span>.html')</span><span class="comment">;</span></span><br><span class="line">  &#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  it<span class="list">(<span class="quoted">'should</span> filter the phone list as a user types into the search box', function<span class="list">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    var phoneList = element.all<span class="list">(<span class="keyword">by</span>.repeater<span class="list">(<span class="quoted">'phone</span> in phones')</span>)</span><span class="comment">;</span></span><br><span class="line">    var query = element<span class="list">(<span class="keyword">by</span>.model<span class="list">(<span class="quoted">'query</span>')</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">3</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    query.sendKeys<span class="list">(<span class="quoted">'nexus</span>')</span><span class="comment">;</span></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">1</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    query.clear<span class="list">()</span><span class="comment">;</span></span><br><span class="line">    query.sendKeys<span class="list">(<span class="quoted">'motorola</span>')</span><span class="comment">;</span></span><br><span class="line">    expect<span class="list">(<span class="keyword">phoneList</span>.count<span class="list">()</span>)</span>.toBe<span class="list">(<span class="number">2</span>)</span><span class="comment">;</span></span><br><span class="line">  &#125;)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这个end-to-end使用的是 Protractor 的 API。更多语法相关<a href="https://github.com/angular/protractor/blob/master/docs/api.md" target="_blank" rel="external">点这里 </a>.</p>
+<p>使用 <code>npm run protractor</code> 命令开始测试。需要能翻墙到google，ou no !!! T^T !!!</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[Angular phonecat 教程 part 3 —— 模版（2）]]>
     
     </summary>
     
@@ -832,6 +806,76 @@
     </summary>
     
       <category term="svg" scheme="http://iamtutu.com/categories/svg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[前端规范与思维导图]]></title>
+    <link href="http://iamtutu.com/2014/06/27/0627-%E5%89%8D%E7%AB%AF%E8%A7%84%E8%8C%83--%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"/>
+    <id>http://iamtutu.com/2014/06/27/0627-前端规范--思维导图/</id>
+    <published>2014-06-27T03:06:59.000Z</published>
+    <updated>2015-02-13T06:19:57.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="开始写文档">开始写文档</h2><p>今天开始写公司项目前端规范文档，因为之前的项目里面前端文件的管理不是很规范，所以现在整理起来几乎是要重写的节奏啊！~~~</p>
+<p>本来准备用DOC写的，一不小心度娘了一下，发现一个写得极其优美的思维导图，顺便挖到了这个网站<a href="http://www.mindmeister.com/?r=140271" target="_blank" rel="external">mindmeister</a>。这个网站做出来的图很不错，可以导出各种格式，只不过免费的用户就只能导出图片和pdf了。</p>
+<p>我飞快的用了一个度娘来的测试VISA号码注册了一个免费的用户（真惭愧）。然后上手写规范。</p>
+<h2 id="思维导图">思维导图</h2><p>写出来的内容一经更改，目前的版本是<a href="http://www.mindmeister.com/428049060/_" target="_blank" rel="external">这样的</a>。</p>
+<p><img src="http://iamtutu.qiniudn.com/%E5%89%8D%E7%AB%AF%E8%A7%84%E8%8C%83.png" alt="前端规范"></p>
+<p>之后还会继续思考更好更详细的代码组织方法。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[自己琢磨的前端规范的思维导图]]>
+    
+    </summary>
+    
+      <category term="规范" scheme="http://iamtutu.com/categories/%E8%A7%84%E8%8C%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[grunt 项目架设]]></title>
+    <link href="http://iamtutu.com/2014/06/25/0625-grunt%20%E9%A1%B9%E7%9B%AE%E6%9E%B6%E8%AE%BE/"/>
+    <id>http://iamtutu.com/2014/06/25/0625-grunt 项目架设/</id>
+    <published>2014-06-25T03:06:59.000Z</published>
+    <updated>2015-02-13T06:19:23.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>参考文章<br><a href="http://www.hulufei.com/post/grunt-introduction" target="_blank" rel="external">《前端工作流，Grunt上手指南》</a><br><a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">《Grunt+Livereload 搭建本地前端开发环境》</a></p>
+</blockquote>
+<p>废话就不多说了，直接开始架设一个grunt控制的项目吧！O(∩_∩)O</p>
+<h2 id="1-_假设你已经安装了nodeJS和用npm全局安装了grunt-cli。">1. 假设你已经安装了nodeJS和用npm全局安装了grunt-cli。</h2><h2 id="2-_新建package-json和Gruntfile-js">2. 新建package.json和Gruntfile.js</h2><p>先进入项目文件夹的根目录下<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> pj</span><br><span class="line">$ <span class="built_in">cd</span> pj</span><br></pre></td></tr></table></figure></p>
+<h3 id="package-json">package.json</h3><p>根据上面的参考文章，直接执行<code>npm install</code>会生成一个空的package.js，但是我尝试之后失败了，是版本的问题吗？<br>顺便一说，我的版本是<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grunt -<span class="constant">V </span></span><br><span class="line">grunt-cli v<span class="number">0</span>.<span class="number">1.13</span></span><br><span class="line">grunt v<span class="number">0</span>.<span class="number">4.5</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>npm -v</span><br><span class="line"><span class="number">1.4</span>.<span class="number">9</span></span><br></pre></td></tr></table></figure></p>
+<p>于是从前几篇的grunt笔记里面copy一个现有的<code>package.json</code> ，里面写好了要安装的一些常用的grunt项目插件包括grunt本身，大概酱紫。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"pj3"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.1.0"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">grunt</span>": <span class="value"><span class="string">"^0.4.5"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-concat</span>": <span class="value"><span class="string">"^0.4.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-jshint</span>": <span class="value"><span class="string">"^0.10.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-nodeunit</span>": <span class="value"><span class="string">"^0.4.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-qunit</span>": <span class="value"><span class="string">"^0.5.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-uglify</span>": <span class="value"><span class="string">"^0.5.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-watch</span>": <span class="value"><span class="string">"^0.6.1"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，现在执行一下 <code>npm install</code>就会自动帮你安装以上列出来的依赖。而且安装好之后根据安装的版本，会更改到你的package.json的文件中。所以我上面的package.json其实是已经安装，并被更改过的了。现在文件结构是<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Gruntfile-js">Gruntfile.js</h3><p>可以从之前的笔记上或者官网上手动创建，下面介绍用 <code>grunt-init</code>安装一些架构的方法。</p>
+<ol>
+<li>全局安装<code>npm install -g grunt-init</code></li>
+<li><p>克隆要使用的模板,下面是clone到一个创建一个包含QUnit单元测试的jQuery插件的模板，模板更多介绍<a href="http://www.gruntjs.org/article/project_scaffolding.html" target="_blank" rel="external">在这里</a></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/gruntjs</span><span class="regexp">/grunt-init-jquery.git ~/</span>.grunt-init/jquery</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我用上面的方法clone了一个 <code>grunt-init-gruntfile</code> ，然后再执行 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt-<span class="keyword">init</span>  gruntfile</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>好了，现在grunt-init已经根据你的package.json的配置，帮你写好一个Gruntfile.js，可以在此模板上根据需要修改下</p>
+<p>然后我手贱安装了下 <code>grunt-init jquery</code>，假装我要写一个叫jquery.barAnime的插件，于是在执行安装之前，grunt-init细心的询问了我各种问题，然后生成一个 <code>jquery.barAnime.jquery.json</code>来记录。=&gt;（可能是我起的名字问题，json名字略奇葩</p>
+<p>目录变成酱紫了，欧也(^o^)/<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- libs/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|<span class="comment">-- test/</span></span><br><span class="line">|<span class="comment">-- .gitignore</span></span><br><span class="line">|<span class="comment">-- .jshintrc</span></span><br><span class="line">|<span class="comment">-- CONTRIBUTING.md</span></span><br><span class="line">|<span class="comment">-- jquery.barAnime.jquery.json</span></span><br><span class="line">|<span class="comment">-- LICENSE-MIT</span></span><br><span class="line">|<span class="comment">-- README.md</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
+<p>生成了一些奇怪的文件，发现里面还有一个<code>LICENSE-MIT</code>，小白的我瞬间觉得UP了(⊙o⊙)哦</p>
+<h2 id="3-_执行grunt命令">3. 执行grunt命令</h2><p>根据Gruntfile.js里面的配置，执行 <code>grunt</code>命令时，会执行 <code>default</code>任务<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">grunt</span>.<span class="atom">registerTask</span>(<span class="string">'default'</span>, [<span class="string">'jshint'</span>, <span class="string">'qunit'</span>, <span class="string">'clean'</span>, <span class="string">'concat'</span>, <span class="string">'uglify'</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>我用 <code>grunt-init jquery</code> 自动生成的Gruntfile里面主要执行的就是以上几个命令，根目录会多出一个dist文件夹，里面是<code>concat</code>合并的 <code>jquery.barAnime.js</code> 和 <code>uglify</code>压缩的 <code>jquery.barAnime.min.js</code>。</p>
+<h2 id="4-_手动建立一个项目，并创建livereload">4. 手动建立一个项目，并创建livereload</h2><p>利用 <code>grunt watch</code> 和 <code>grunt connect</code> 和 <code>connect-livereload</code>的配合就能省去F5与浏览器的livereload插件了，啊哈哈，快点开始吧</p>
+<p>参照这个大大的<a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">文章</a>。我重新新建了一个项目，叫做pj4的<br>按照上面的步骤，我安装了与上面一样的grunt和grunt插件，为了livereload的实现，还得再安装一些东西<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev grunt-contrib-<span class="keyword">connect</span> <span class="keyword">connect</span>-livereload grunt-<span class="keyword">open</span></span><br></pre></td></tr></table></figure></p>
+<p>现在的文档目录如下。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pj4/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|    |<span class="comment">-- js/</span></span><br><span class="line">|    |<span class="comment">-- css/</span></span><br><span class="line">|    |<span class="comment">-- img/</span></span><br><span class="line">|    `<span class="comment">-- index.html</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure>
+<p>下面是特别重要的Gruntfile.js的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 自动化脚本定义</span><br><span class="line"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"><span class="pi">  'use strict'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//load all grunt tasks</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'matchdep'</span>).filterDev(<span class="string">'grunt-*'</span>).forEach(grunt.loadNpmTasks);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//define tasks</span></span><br><span class="line">  grunt.registerTask(<span class="string">'server'</span>, [<span class="string">'connect:server'</span>, <span class="string">'open:server'</span>, <span class="string">'watch:server'</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//env cfg</span></span><br><span class="line">  <span class="keyword">var</span> pkg = grunt.file.readJSON(<span class="string">'package.json'</span>);</span><br><span class="line">  <span class="keyword">var</span> cfg = &#123;</span><br><span class="line">    src: <span class="string">'src'</span>,</span><br><span class="line">    <span class="comment">// Change 'localhost' to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">    serverHost: <span class="string">'localhost'</span>,</span><br><span class="line">    serverPort: <span class="number">9000</span>,</span><br><span class="line">    livereload: <span class="number">35729</span></span><br><span class="line">  &#125;;  </span><br><span class="line"></span><br><span class="line">  <span class="comment">//grunt config</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line">    <span class="comment">//======== 配置相关 ========</span></span><br><span class="line">    pkg: pkg,</span><br><span class="line">    cfg: cfg,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//======== 开发相关 ========</span></span><br><span class="line">   <span class="comment">//开启服务</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: cfg.serverPort,</span><br><span class="line">        hostname: cfg.serverHost,</span><br><span class="line">        middleware: <span class="function"><span class="keyword">function</span><span class="params">(connect, options)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> [</span><br><span class="line">            <span class="built_in">require</span>(<span class="string">'connect-livereload'</span>)(&#123;</span><br><span class="line">              port: cfg.livereload</span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="comment">// Serve static files. </span></span><br><span class="line">            <span class="comment">//In my environment options.base is a type of Object</span></span><br><span class="line">            connect.static(options.base.toString()),</span><br><span class="line">            <span class="comment">// Make empty directories browsable.</span></span><br><span class="line">             connect.directory(options.base),</span><br><span class="line">          ];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          <span class="comment">// keepalive: true,</span></span><br><span class="line">          base: cfg.src,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开浏览器</span></span><br><span class="line">    open: &#123;</span><br><span class="line">      server: &#123;</span><br><span class="line">        url: <span class="string">'http://localhost:'</span> + cfg.serverPort</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//监控文件变化</span></span><br><span class="line">    watch: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        livereload: cfg.livereload,</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        files: [</span><br><span class="line">        <span class="string">'&lt;%= cfg.src %&gt;/&#123;,*/&#125;*.html'</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/css/*.css"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/js/*.js"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/img/*"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="comment">// tasks: [''],       </span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后执行 <code>grunt server</code>，就会在你的浏览器打开这个地址 <code>http://localhost:9000</code>。</p>
+<p><del>的撒大声地</del></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[Grunt 搭建项目的时候的基本流程，只是自己经验的记录]]>
+    
+    </summary>
+    
+      <category term="Grunt" scheme="http://iamtutu.com/categories/Grunt/"/>
     
   </entry>
   
