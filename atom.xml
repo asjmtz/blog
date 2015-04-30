@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不想做画家的黑客不是好前端o(∩_∩)o]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://iamtutu.com/"/>
-  <updated>2015-04-27T09:19:56.000Z</updated>
+  <updated>2015-04-30T02:22:27.000Z</updated>
   <id>http://iamtutu.com/</id>
   
   <author>
@@ -15,11 +15,134 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[a 标签中的 input 文本不能被选中]]></title>
+    <link href="http://iamtutu.com/2015/04/30/a-%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84-input-%E6%96%87%E6%9C%AC%E4%B8%8D%E8%83%BD%E8%A2%AB%E9%80%89%E4%B8%AD/"/>
+    <id>http://iamtutu.com/2015/04/30/a-标签中的-input-文本不能被选中/</id>
+    <published>2015-04-30T02:14:14.000Z</published>
+    <updated>2015-04-30T02:22:27.000Z</updated>
+    <content type="html"><![CDATA[<p>若你写了这样一个 <code>html</code> 结构</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="tag">a</span> href=<span class="string">"http://iamtutu.com"</span>&gt; </span><br><span class="line">	&lt;<span class="tag">input</span> type=<span class="string">"text"</span> value=<span class="string">"something"</span> /&gt;</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>会发现 <code>&lt;input&gt;</code> 中的文字不能选中，会触发 <code>&lt;a&gt;</code> 。</p>
+<p>尝试把 <code>href = &quot;javascript:void();&quot;</code> 这样，但是还是不能选中。</p>
+<p>最后，将 <code>&lt;a&gt;</code> 的attr属性移除<code>$().removeAttr()</code> 就能选中了。</p>
+<p>虽然表面看起来就没有必要有 <code>&lt;a&gt;</code> 了，但是如果在需要编辑一个连接的文本时，这个结构还是不错的。编辑的时候，将 <code>href</code> 属性先储存在别的地方，移除 <code>&lt;a&gt;</code> 的 href 属性，编辑完成之后，再恢复就 OK 了。</p>
+<p>另外，css 选中文本的样式<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">::selection &#123; background:lightblue;</span> &#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[a 标签中的 input 文本不能被选中]]>
+    
+    </summary>
+    
+      <category term="html" scheme="http://iamtutu.com/categories/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[git config 常用命令]]></title>
+    <link href="http://iamtutu.com/2015/04/30/git-config-%E5%B8%B8%E7%94%A8%E5%91%BD/"/>
+    <id>http://iamtutu.com/2015/04/30/git-config-常用命/</id>
+    <published>2015-04-30T02:11:17.000Z</published>
+    <updated>2015-04-30T02:11:50.000Z</updated>
+    <content type="html"><![CDATA[<p>P.S:  做全局的设置时，可以这样 <code>git config --global</code></p>
+<h3 id="帮助">帮助</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">git</span> config --help <span class="comment"># 打开详细版手册</span></span><br><span class="line">git config -h     <span class="comment"># 简单暴力我喜欢</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看">查看</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config -<span class="keyword">l</span> </span><br><span class="line">git config --<span class="keyword">list</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改">修改</h3><p>没有特殊情况下，都可以设置为全局配置。<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.co checkout</span><br></pre></td></tr></table></figure></p>
+<h3 id="增加">增加</h3><p>如果事先没有这个配置名称，git 会提示你在前面增加  <code>--add</code> 命令</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">git</span> <span class="comment">config</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">global</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">add</span> <span class="comment">core</span><span class="string">.</span><span class="comment">editor</span> <span class="comment">"'C:\xxx\xxx\sublime_text</span><span class="string">.</span><span class="comment">ext'</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">wait"</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除">删除</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">git</span> <span class="comment">config</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">global</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">unset</span> <span class="comment">alias</span><span class="string">.</span><span class="comment">co</span> <span class="comment">checkout</span></span><br></pre></td></tr></table></figure>
+<p>如果提示什么有多个相同的设置。。。的英文时，按照错误指示<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> --unset-<span class="keyword">all</span> alias.<span class="keyword">co</span> checkout</span><br></pre></td></tr></table></figure></p>
+<p>不得不说，git 的提示是挺周到的。</p>
+<h2 id="git_config_小抄">git config 小抄</h2><p>下面是我现在用的配置</p>
+<h3 id="1-_设置别名">1. 设置别名</h3><p>有些常用命令略长，当 tab 键也不能释放我们的愤怒时，可以试试给他们起外号。</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.co checkout</span><br><span class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.ci commit</span><br><span class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.br branch</span><br><span class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.st status</span><br><span class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.mg <span class="string">'merge --no-ff'</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-设置默认浏览器">2.设置默认浏览器</h3><p>在 git commit 的时候，可以使用浏览器来写提交注释，基本告别了挤在一行的悲惨命运</p>
+<p>P.S :  Windows 环境，sublime text 3 版本<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">git</span> <span class="comment">config</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">global</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">add</span> <span class="comment">core</span><span class="string">.</span><span class="comment">editor</span> <span class="comment">"'C:\xxx\xxx\sublime_text</span><span class="string">.</span><span class="comment">ext'</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">wait"</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[git config 常用命令]]>
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[git bash 使用 sublime text 打开文件]]></title>
+    <link href="http://iamtutu.com/2015/04/30/git-bash-%E4%BD%BF%E7%94%A8-sublime-text-%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6/"/>
+    <id>http://iamtutu.com/2015/04/30/git-bash-使用-sublime-text-打开文件/</id>
+    <published>2015-04-30T02:09:46.000Z</published>
+    <updated>2015-04-30T02:25:51.000Z</updated>
+    <content type="html"><![CDATA[<p>用 hexo 写博客时，使用 <code>hexo new postname</code> 新建了一个新的文件，每次想直接打开都要从文件夹打开，实在不符合我们这些 Geek（懒人）的做派。纠结很久之后，终于找到这篇大大的<a href="https://danlimerick.wordpress.com/2014/01/07/git-for-windows-tip-opening-sublime-text-from-bash/" target="_blank" rel="external">博客</a>，他的解决办法如下。</p>
+<h3 id="1-_新建一个文件命名为你想要的命令，比如_subl_没有后缀（重要），内容如下：">1. 新建一个文件命名为你想要的命令，比如 <code>subl</code> 没有后缀（重要），内容如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="string">"C:\Program Files\Sublime Text 2\sublime_text.exe"</span> <span class="variable">$1</span> &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一行是说这是个 shell 脚本</li>
+<li>第二行的字符串是sublime 的安装目录</li>
+<li>第二行的$1 是取的命令之后输入的参数</li>
+<li>第二行的&amp;是此命令在后台打开，这样sublime打开之后，就不会阻塞你的git bash</li>
+</ul>
+<h3 id="2-_保存到_C:\Program_Files_(x86)\Git\bin_目录下">2. 保存到 <code>C:\Program Files (x86)\Git\bin</code> 目录下</h3><h3 id="3-_使用方法">3. 使用方法</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subl <span class="type">text</span>.txt</span><br></pre></td></tr></table></figure>
+<p>在当前目录打开一个新文件</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subl .</span><br></pre></td></tr></table></figure>
+<p>是不是 so easy ！shell 脚本麻吉强大，此时墙裂后悔上课时(～﹃～)~zZ啊。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[git bash 使用 sublime text 打开文件]]>
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[JSON 是否为空]]></title>
+    <link href="http://iamtutu.com/2015/04/30/JSON-%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/"/>
+    <id>http://iamtutu.com/2015/04/30/JSON-是否为空/</id>
+    <published>2015-04-30T02:08:28.000Z</published>
+    <updated>2015-04-30T02:09:17.000Z</updated>
+    <content type="html"><![CDATA[<p>jquery 中的写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.isEmptyObject = <span class="function"><span class="keyword">function</span> <span class="params">( obj )</span> </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> name;</span><br><span class="line">		<span class="keyword">for</span> ( name <span class="keyword">in</span> obj ) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[js 判断 JSON对象是否为空的写法]]>
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[git bash 之 export 与 ~/.bashrc]]></title>
+    <link href="http://iamtutu.com/2015/04/30/git-bash-%E4%B9%8B-export-%E4%B8%8E-bashrc/"/>
+    <id>http://iamtutu.com/2015/04/30/git-bash-之-export-与-bashrc/</id>
+    <published>2015-04-30T02:05:35.000Z</published>
+    <updated>2015-04-30T02:23:40.000Z</updated>
+    <content type="html"><![CDATA[<p>在 git bash 里面，用 export 命令可以显示出当前命令行工具的变量。常见的如 <code>PATH</code> 或 <code>PWD</code> 等。</p>
+<h3 id="1-_环境变量_in_Windows">1. 环境变量 in Windows</h3><ul>
+<li>在环境变量里面增加变量，需要重启电脑才会在生效之后，才能 <code>export</code> 的时候读到新变量。</li>
+</ul>
+<h3 id="2-_~/-bashrc_文件">2. ~/.bashrc 文件</h3><ul>
+<li>~/.bashrc 文件会在每次打开 git bash 时候被执行</li>
+<li>在 ~/.bashrc 文件中写入函数，可以在 git bash 中用函数名执行函数中的命令</li>
+<li>~/.bashrc 文件中用 <code>export http_proxy=http://proxy.XXX.com:8080</code> 的形式，可以向命令行添加变量，在每次打开 git bash 后会执行。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[git bash 之 export 与 ~/.bashrc]]>
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[JS 怎么克隆对象？]]></title>
     <link href="http://iamtutu.com/2015/04/27/JS-%E6%80%8E%E4%B9%88%E5%85%8B%E9%9A%86%E5%AF%B9%E8%B1%A1%EF%BC%9F/"/>
     <id>http://iamtutu.com/2015/04/27/JS-怎么克隆对象？/</id>
     <published>2015-04-27T09:12:03.000Z</published>
-    <updated>2015-04-27T09:19:56.000Z</updated>
+    <updated>2015-04-30T02:29:28.000Z</updated>
     <content type="html"><![CDATA[<h2 id="对象克隆">对象克隆</h2><p>不能影响到原来的对象，并且需要深层拷贝的情况，比如原始对象为：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var oldObj = &#123;<span class="string">a:</span><span class="number">2123</span>, <span class="string">b:</span><span class="number">2312</span>, <span class="string">c:</span>[<span class="number">2</span>,<span class="number">3</span>,<span class="number">45</span>,<span class="number">2</span>]&#125;;</span><br></pre></td></tr></table></figure>
 <p>考虑以下方法：</p>
@@ -40,7 +163,7 @@
     
     </summary>
     
-      <category term="JS" scheme="http://iamtutu.com/categories/JS/"/>
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
     
   </entry>
   
@@ -329,28 +452,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[恢复博客]]></title>
-    <link href="http://iamtutu.com/2015/02/13/%E6%81%A2%E5%A4%8D%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://iamtutu.com/2015/02/13/恢复博客/</id>
-    <published>2015-02-13T03:06:59.000Z</published>
-    <updated>2015-02-13T03:55:17.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="asd">asd</h2><p>weqweqweqw</p>
-<h3 id="sadasda">sadasda</h3>]]></content>
-    <summary type="html">
-    <![CDATA[asdasdasj]]>
-    
-    </summary>
-    
-      <category term="hello" scheme="http://iamtutu.com/categories/hello/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[AMD 与 CMD]]></title>
     <link href="http://iamtutu.com/2015/01/12/CMD%20%E5%92%8C%20AMD/"/>
     <id>http://iamtutu.com/2015/01/12/CMD 和 AMD/</id>
     <published>2015-01-12T03:06:59.000Z</published>
-    <updated>2015-02-13T06:30:27.000Z</updated>
+    <updated>2015-04-30T02:30:00.000Z</updated>
     <content type="html"><![CDATA[<table>
 <thead>
 <tr>
@@ -399,7 +505,7 @@
     
     </summary>
     
-      <category term="AMD" scheme="http://iamtutu.com/categories/AMD/"/>
+      <category term="规范" scheme="http://iamtutu.com/categories/%E8%A7%84%E8%8C%83/"/>
     
   </entry>
   
@@ -433,7 +539,7 @@
     <link href="http://iamtutu.com/2014/11/02/1101-history/"/>
     <id>http://iamtutu.com/2014/11/02/1101-history/</id>
     <published>2014-11-02T03:06:59.000Z</published>
-    <updated>2015-02-13T06:29:32.000Z</updated>
+    <updated>2015-04-30T02:27:55.000Z</updated>
     <content type="html"><![CDATA[<h2 id="复习">复习</h2><p>模拟用户点击浏览器后退按钮<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.<span class="keyword">back</span>();</span><br></pre></td></tr></table></figure></p>
 <p>模拟用户点击浏览器前进按钮<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.history.forward();</span><br></pre></td></tr></table></figure></p>
 <p>可以用go()方法加载在session历史记录中的某个页面，参数是一个相对于当前页面的index值（当前页面是index0）</p>
@@ -448,7 +554,7 @@
     
     </summary>
     
-      <category term="history" scheme="http://iamtutu.com/categories/history/"/>
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
     
   </entry>
   
@@ -474,11 +580,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[Protractor学习笔记]]></title>
+    <title><![CDATA[Protractor 学习笔记]]></title>
     <link href="http://iamtutu.com/2014/09/30/0930-protractor/"/>
     <id>http://iamtutu.com/2014/09/30/0930-protractor/</id>
     <published>2014-09-30T03:06:59.000Z</published>
-    <updated>2015-02-13T06:24:16.000Z</updated>
+    <updated>2015-04-30T02:32:00.000Z</updated>
     <content type="html"><![CDATA[<h2 id="准备活动">准备活动</h2><h3 id="简介">简介</h3><p>protractor 是个 <a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a> 程序。所以首先得安装 Node.js。然后就可以使用npm 安装 protractor 了。</p>
 <p>通常 protractor 使用 <a href="http://jasmine.github.io/1.3/introduction.html" target="_blank" rel="external">Jasmine</a> 测试框架作为他的测试接口。</p>
 <p>下面的教程的测试将使用一个独立的 Selenium Server 来控制浏览器。需要安装 JDK 来运行这个服务器。可以用 <code>java -version</code> 命令来测试是否安装成功 JDK。</p>
@@ -541,7 +647,47 @@
     
     </summary>
     
-      <category term="Protractor" scheme="http://iamtutu.com/categories/Protractor/"/>
+      <category term="test" scheme="http://iamtutu.com/categories/test/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Angular Bootstrapping 引导]]></title>
+    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson2/"/>
+    <id>http://iamtutu.com/2014/09/26/0926-angular lesson2/</id>
+    <published>2014-09-26T03:06:59.000Z</published>
+    <updated>2015-02-13T06:11:24.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="angular_Bootstrapping——_引导">angular Bootstrapping—— 引导</h2><h2 id="step_0">step 0</h2><p>进入 <code>angular-phonecat</code> 的目录，运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="operator">-f</span> step-<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>这个命令会重置我们的工作区到教程的初始步骤step 0。<br>跑 <code>npm start</code> ，进可以通过 <a href="http://localhost:8000/app/" target="_blank" rel="external">http://localhost:8000/app/</a> 浏览app页面。</p>
+<h2 id="这些code是要闹哪样呢？">这些code是要闹哪样呢？</h2><p><code>app/index.html</code> 的code</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span> <span class="attribute">ng-app</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>My HTML File<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"bower_components/bootstrap/dist/css/bootstrap.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"css/app.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">p</span>&gt;</span>Nothing here &#123; &#123;'yet' + '!'&#125; &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="ng-app"><code>ng-app</code></h3><p><code>ng-app</code> 代表Angular指令 <code>ngApp</code>,  用来标记我们的HTML元素，会让Angular 认定为 app 的 root element。大家可以自由的决定app的入口元素在哪里，html或其他元素。</p>
+<h2 id="{_{_}_}"><code>{ { } }</code></h2><p>数据绑定的code</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Nothing <span class="keyword">here</span> &#123; &#123;<span class="string">'yet'</span> + <span class="string">'!'</span>&#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>这行代码展示了两个Angular模板的核心特点：</p>
+<ul>
+<li>绑定使用双括号—— <code>{ { } }</code></li>
+<li>在绑定中使用简单的表达式—— <code>&#39;yet&#39; + &#39;!&#39;</code></li>
+</ul>
+<p>这个绑定告诉了Angular去计算表单式，然后把结果插入DOM里绑定数据的地方。在下一步我们会看到，与单向绑定不同的是，当表达式计算的结果改变时，数据会保持更新到DOM上。</p>
+<p><a href="https://docs.angularjs.org/guide/expression" target="_blank" rel="external"> Angular expression </a> 是类JS的代码缩写，他的 context 上下文是当前的module scope，而不是全局域 <code>(window)</code> 。</p>
+<h2 id="Bootstrapping_AngularJS_apps">Bootstrapping AngularJS apps</h2><p>使用 <code>ngApp</code> 指令引导Angular app 很方便也适用于大部分的应用。 但是，在一些其他的使用了scripts loader的栗子中，可以使用这个来引导app——<a href="https://docs.angularjs.org/guide/bootstrap" target="_blank" rel="external"> imperative / manual</a>。</p>
+<p>当APP引导的时候完成了三个重要的事情：</p>
+<ol>
+<li>注册器注册依赖？？</li>
+<li>注册器建立根作用域，他将作为我们应用的上下文context</li>
+<li>Angular从 <code>ngApp</code> 根元素开始编译DOM，处理根下面的指令和绑定们</li>
+</ol>
+<p>一旦一个app被引导完成，他会等待浏览器事件的触发（例如鼠标点击，键盘事件，或者HTTP应答）。一旦事件被触发，Angular就去侦测是否他会改变任何Model，然后通过更新所有相关的绑定，将改变的地方映射到View去。</p>
+<p>示意图：<br><img src="http://iamtutu.qiniudn.com/tutorial_00.png" alt="angular ng-app"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[Angular phonecat 教程 part 2 —— bootstrapping]]>
+    
+    </summary>
+    
+      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
     
   </entry>
   
@@ -602,46 +748,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[Angular phonecat 教程 part 3 —— 模版]]>
-    
-    </summary>
-    
-      <category term="Angular" scheme="http://iamtutu.com/categories/Angular/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Angular Bootstrapping 引导]]></title>
-    <link href="http://iamtutu.com/2014/09/26/0926-angular%20lesson2/"/>
-    <id>http://iamtutu.com/2014/09/26/0926-angular lesson2/</id>
-    <published>2014-09-26T03:06:59.000Z</published>
-    <updated>2015-02-13T06:11:24.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="angular_Bootstrapping——_引导">angular Bootstrapping—— 引导</h2><h2 id="step_0">step 0</h2><p>进入 <code>angular-phonecat</code> 的目录，运行命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="operator">-f</span> step-<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>这个命令会重置我们的工作区到教程的初始步骤step 0。<br>跑 <code>npm start</code> ，进可以通过 <a href="http://localhost:8000/app/" target="_blank" rel="external">http://localhost:8000/app/</a> 浏览app页面。</p>
-<h2 id="这些code是要闹哪样呢？">这些code是要闹哪样呢？</h2><p><code>app/index.html</code> 的code</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span> <span class="attribute">ng-app</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>My HTML File<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"bower_components/bootstrap/dist/css/bootstrap.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"css/app.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">p</span>&gt;</span>Nothing here &#123; &#123;'yet' + '!'&#125; &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="ng-app"><code>ng-app</code></h3><p><code>ng-app</code> 代表Angular指令 <code>ngApp</code>,  用来标记我们的HTML元素，会让Angular 认定为 app 的 root element。大家可以自由的决定app的入口元素在哪里，html或其他元素。</p>
-<h2 id="{_{_}_}"><code>{ { } }</code></h2><p>数据绑定的code</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Nothing <span class="keyword">here</span> &#123; &#123;<span class="string">'yet'</span> + <span class="string">'!'</span>&#125; &#125;</span><br></pre></td></tr></table></figure>
-<p>这行代码展示了两个Angular模板的核心特点：</p>
-<ul>
-<li>绑定使用双括号—— <code>{ { } }</code></li>
-<li>在绑定中使用简单的表达式—— <code>&#39;yet&#39; + &#39;!&#39;</code></li>
-</ul>
-<p>这个绑定告诉了Angular去计算表单式，然后把结果插入DOM里绑定数据的地方。在下一步我们会看到，与单向绑定不同的是，当表达式计算的结果改变时，数据会保持更新到DOM上。</p>
-<p><a href="https://docs.angularjs.org/guide/expression" target="_blank" rel="external"> Angular expression </a> 是类JS的代码缩写，他的 context 上下文是当前的module scope，而不是全局域 <code>(window)</code> 。</p>
-<h2 id="Bootstrapping_AngularJS_apps">Bootstrapping AngularJS apps</h2><p>使用 <code>ngApp</code> 指令引导Angular app 很方便也适用于大部分的应用。 但是，在一些其他的使用了scripts loader的栗子中，可以使用这个来引导app——<a href="https://docs.angularjs.org/guide/bootstrap" target="_blank" rel="external"> imperative / manual</a>。</p>
-<p>当APP引导的时候完成了三个重要的事情：</p>
-<ol>
-<li>注册器注册依赖？？</li>
-<li>注册器建立根作用域，他将作为我们应用的上下文context</li>
-<li>Angular从 <code>ngApp</code> 根元素开始编译DOM，处理根下面的指令和绑定们</li>
-</ol>
-<p>一旦一个app被引导完成，他会等待浏览器事件的触发（例如鼠标点击，键盘事件，或者HTTP应答）。一旦事件被触发，Angular就去侦测是否他会改变任何Model，然后通过更新所有相关的绑定，将改变的地方映射到View去。</p>
-<p>示意图：<br><img src="http://iamtutu.qiniudn.com/tutorial_00.png" alt="angular ng-app"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[Angular phonecat 教程 part 2 —— bootstrapping]]>
     
     </summary>
     
@@ -772,110 +878,6 @@
     </summary>
     
       <category term="svg" scheme="http://iamtutu.com/categories/svg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[jQuery 插件自定义]]></title>
-    <link href="http://iamtutu.com/2014/08/20/0820-jquery%20%E6%8F%92%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89/"/>
-    <id>http://iamtutu.com/2014/08/20/0820-jquery 插件自定义/</id>
-    <published>2014-08-20T03:06:59.000Z</published>
-    <updated>2015-02-13T06:21:20.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="jquery_插件">jquery 插件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jQuery.myPlugin = &#123;</span><br><span class="line">	foo: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		alert(<span class="string">'This is a test. This is only a test.'</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	bar: <span class="function"><span class="keyword">function</span><span class="params">(param)</span> </span>&#123;</span><br><span class="line">		alert(<span class="string">'This function takes a parameter, which is "'</span> + param + <span class="string">'".'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//采用命名空间的函数仍然是全局函数，调用时采用的方法：</span></span><br><span class="line">$.myPlugin.foo();</span><br><span class="line">$.myPlugin.bar(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">($)</span> </span>&#123;</span><br><span class="line">	$.fn.extend(&#123;</span><br><span class="line">		pluginName: <span class="function"><span class="keyword">function</span><span class="params">(opt, callback)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// Our plugin implementation code goes here.</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)(jQuery);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//闭包</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">($)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//插件定义</span></span><br><span class="line">	$.fn.swipe = <span class="function"><span class="keyword">function</span><span class="params">(options)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//extend default options with those provided</span></span><br><span class="line">		<span class="comment">//if deep extend is true,the merge becomes recursive(递归)</span></span><br><span class="line">		<span class="keyword">var</span> opts = $.extend(<span class="literal">true</span>, $.fn.swipe.defaults, options);</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将默认的参数写在外外面，对于插件的使用者而言，更容易用较少的代码覆盖和修改插件的配置</span></span><br><span class="line">	$.fn.swipe.defaults = &#123;</span><br><span class="line">		background: <span class="string">"red"</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;)(jQuery);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//这个只需要调用一次，且不一定要在ready块中调用</span></span><br><span class="line">$.fn.swipe.defaults.foreground = <span class="string">'blue'</span>;</span><br><span class="line"></span><br><span class="line">$(<span class="string">"#swipe"</span>).swipe();</span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[如何自定义一个 jQuery 的插件]]>
-    
-    </summary>
-    
-      <category term="jQuery" scheme="http://iamtutu.com/categories/jQuery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[SVG 图表]]></title>
-    <link href="http://iamtutu.com/2014/08/12/0812-SVG%20%E4%BF%A1%E6%81%AF%E5%9B%BE%E8%A1%A8%E2%80%94%E2%80%94%E5%AE%9E%E4%BE%8B%E6%B5%81%E7%A8%8B%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://iamtutu.com/2014/08/12/0812-SVG 信息图表——实例流程介绍/</id>
-    <published>2014-08-12T03:06:59.000Z</published>
-    <updated>2015-02-13T06:20:18.000Z</updated>
-    <content type="html"><![CDATA[<p>参考文章：<a href="http://designmodo.com/svg-infographic/" target="_blank" rel="external">SVG Infographic</a></p>
-<h2 id="SVG_信息化图表">SVG 信息化图表</h2><p>最喜欢扁平的动画了，不多说了，直接开始做吧O(∩_∩)O~~</p>
-<h3 id="1、">1、</h3>]]></content>
-    <summary type="html">
-    <![CDATA[SVG 信息化图表什么的。。。。]]>
-    
-    </summary>
-    
-      <category term="svg" scheme="http://iamtutu.com/categories/svg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[前端规范与思维导图]]></title>
-    <link href="http://iamtutu.com/2014/06/27/0627-%E5%89%8D%E7%AB%AF%E8%A7%84%E8%8C%83--%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"/>
-    <id>http://iamtutu.com/2014/06/27/0627-前端规范--思维导图/</id>
-    <published>2014-06-27T03:06:59.000Z</published>
-    <updated>2015-02-13T06:19:57.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="开始写文档">开始写文档</h2><p>今天开始写公司项目前端规范文档，因为之前的项目里面前端文件的管理不是很规范，所以现在整理起来几乎是要重写的节奏啊！~~~</p>
-<p>本来准备用DOC写的，一不小心度娘了一下，发现一个写得极其优美的思维导图，顺便挖到了这个网站<a href="http://www.mindmeister.com/?r=140271" target="_blank" rel="external">mindmeister</a>。这个网站做出来的图很不错，可以导出各种格式，只不过免费的用户就只能导出图片和pdf了。</p>
-<p>我飞快的用了一个度娘来的测试VISA号码注册了一个免费的用户（真惭愧）。然后上手写规范。</p>
-<h2 id="思维导图">思维导图</h2><p>写出来的内容一经更改，目前的版本是<a href="http://www.mindmeister.com/428049060/_" target="_blank" rel="external">这样的</a>。</p>
-<p><img src="http://iamtutu.qiniudn.com/%E5%89%8D%E7%AB%AF%E8%A7%84%E8%8C%83.png" alt="前端规范"></p>
-<p>之后还会继续思考更好更详细的代码组织方法。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[自己琢磨的前端规范的思维导图]]>
-    
-    </summary>
-    
-      <category term="规范" scheme="http://iamtutu.com/categories/%E8%A7%84%E8%8C%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[grunt 项目架设]]></title>
-    <link href="http://iamtutu.com/2014/06/25/0625-grunt%20%E9%A1%B9%E7%9B%AE%E6%9E%B6%E8%AE%BE/"/>
-    <id>http://iamtutu.com/2014/06/25/0625-grunt 项目架设/</id>
-    <published>2014-06-25T03:06:59.000Z</published>
-    <updated>2015-02-13T06:19:23.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>参考文章<br><a href="http://www.hulufei.com/post/grunt-introduction" target="_blank" rel="external">《前端工作流，Grunt上手指南》</a><br><a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">《Grunt+Livereload 搭建本地前端开发环境》</a></p>
-</blockquote>
-<p>废话就不多说了，直接开始架设一个grunt控制的项目吧！O(∩_∩)O</p>
-<h2 id="1-_假设你已经安装了nodeJS和用npm全局安装了grunt-cli。">1. 假设你已经安装了nodeJS和用npm全局安装了grunt-cli。</h2><h2 id="2-_新建package-json和Gruntfile-js">2. 新建package.json和Gruntfile.js</h2><p>先进入项目文件夹的根目录下<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> pj</span><br><span class="line">$ <span class="built_in">cd</span> pj</span><br></pre></td></tr></table></figure></p>
-<h3 id="package-json">package.json</h3><p>根据上面的参考文章，直接执行<code>npm install</code>会生成一个空的package.js，但是我尝试之后失败了，是版本的问题吗？<br>顺便一说，我的版本是<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>grunt -<span class="constant">V </span></span><br><span class="line">grunt-cli v<span class="number">0</span>.<span class="number">1.13</span></span><br><span class="line">grunt v<span class="number">0</span>.<span class="number">4.5</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>npm -v</span><br><span class="line"><span class="number">1.4</span>.<span class="number">9</span></span><br></pre></td></tr></table></figure></p>
-<p>于是从前几篇的grunt笔记里面copy一个现有的<code>package.json</code> ，里面写好了要安装的一些常用的grunt项目插件包括grunt本身，大概酱紫。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"pj3"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.1.0"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">grunt</span>": <span class="value"><span class="string">"^0.4.5"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-concat</span>": <span class="value"><span class="string">"^0.4.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-jshint</span>": <span class="value"><span class="string">"^0.10.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-nodeunit</span>": <span class="value"><span class="string">"^0.4.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-qunit</span>": <span class="value"><span class="string">"^0.5.1"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-uglify</span>": <span class="value"><span class="string">"^0.5.0"</span></span>,</span><br><span class="line">    "<span class="attribute">grunt-contrib-watch</span>": <span class="value"><span class="string">"^0.6.1"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>好了，现在执行一下 <code>npm install</code>就会自动帮你安装以上列出来的依赖。而且安装好之后根据安装的版本，会更改到你的package.json的文件中。所以我上面的package.json其实是已经安装，并被更改过的了。现在文件结构是<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="Gruntfile-js">Gruntfile.js</h3><p>可以从之前的笔记上或者官网上手动创建，下面介绍用 <code>grunt-init</code>安装一些架构的方法。</p>
-<ol>
-<li>全局安装<code>npm install -g grunt-init</code></li>
-<li><p>克隆要使用的模板,下面是clone到一个创建一个包含QUnit单元测试的jQuery插件的模板，模板更多介绍<a href="http://www.gruntjs.org/article/project_scaffolding.html" target="_blank" rel="external">在这里</a></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/gruntjs</span><span class="regexp">/grunt-init-jquery.git ~/</span>.grunt-init/jquery</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我用上面的方法clone了一个 <code>grunt-init-gruntfile</code> ，然后再执行 </p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt-<span class="keyword">init</span>  gruntfile</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>好了，现在grunt-init已经根据你的package.json的配置，帮你写好一个Gruntfile.js，可以在此模板上根据需要修改下</p>
-<p>然后我手贱安装了下 <code>grunt-init jquery</code>，假装我要写一个叫jquery.barAnime的插件，于是在执行安装之前，grunt-init细心的询问了我各种问题，然后生成一个 <code>jquery.barAnime.jquery.json</code>来记录。=&gt;（可能是我起的名字问题，json名字略奇葩</p>
-<p>目录变成酱紫了，欧也(^o^)/<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pj/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- libs/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|<span class="comment">-- test/</span></span><br><span class="line">|<span class="comment">-- .gitignore</span></span><br><span class="line">|<span class="comment">-- .jshintrc</span></span><br><span class="line">|<span class="comment">-- CONTRIBUTING.md</span></span><br><span class="line">|<span class="comment">-- jquery.barAnime.jquery.json</span></span><br><span class="line">|<span class="comment">-- LICENSE-MIT</span></span><br><span class="line">|<span class="comment">-- README.md</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure></p>
-<p>生成了一些奇怪的文件，发现里面还有一个<code>LICENSE-MIT</code>，小白的我瞬间觉得UP了(⊙o⊙)哦</p>
-<h2 id="3-_执行grunt命令">3. 执行grunt命令</h2><p>根据Gruntfile.js里面的配置，执行 <code>grunt</code>命令时，会执行 <code>default</code>任务<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">grunt</span>.<span class="atom">registerTask</span>(<span class="string">'default'</span>, [<span class="string">'jshint'</span>, <span class="string">'qunit'</span>, <span class="string">'clean'</span>, <span class="string">'concat'</span>, <span class="string">'uglify'</span>]);</span><br></pre></td></tr></table></figure></p>
-<p>我用 <code>grunt-init jquery</code> 自动生成的Gruntfile里面主要执行的就是以上几个命令，根目录会多出一个dist文件夹，里面是<code>concat</code>合并的 <code>jquery.barAnime.js</code> 和 <code>uglify</code>压缩的 <code>jquery.barAnime.min.js</code>。</p>
-<h2 id="4-_手动建立一个项目，并创建livereload">4. 手动建立一个项目，并创建livereload</h2><p>利用 <code>grunt watch</code> 和 <code>grunt connect</code> 和 <code>connect-livereload</code>的配合就能省去F5与浏览器的livereload插件了，啊哈哈，快点开始吧</p>
-<p>参照这个大大的<a href="http://my.oschina.net/liuyong25/blog/140110#OSC_h4_6" target="_blank" rel="external">文章</a>。我重新新建了一个项目，叫做pj4的<br>按照上面的步骤，我安装了与上面一样的grunt和grunt插件，为了livereload的实现，还得再安装一些东西<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev grunt-contrib-<span class="keyword">connect</span> <span class="keyword">connect</span>-livereload grunt-<span class="keyword">open</span></span><br></pre></td></tr></table></figure></p>
-<p>现在的文档目录如下。</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pj4/</span><br><span class="line">|<span class="comment">-- node_modules/</span></span><br><span class="line">|<span class="comment">-- src/</span></span><br><span class="line">|    |<span class="comment">-- js/</span></span><br><span class="line">|    |<span class="comment">-- css/</span></span><br><span class="line">|    |<span class="comment">-- img/</span></span><br><span class="line">|    `<span class="comment">-- index.html</span></span><br><span class="line">|<span class="comment">-- Gruntfile.js</span></span><br><span class="line">`<span class="comment">-- package.json</span></span><br></pre></td></tr></table></figure>
-<p>下面是特别重要的Gruntfile.js的内容。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 自动化脚本定义</span><br><span class="line"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">(grunt)</span> </span>&#123;</span><br><span class="line"><span class="pi">  'use strict'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//load all grunt tasks</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'matchdep'</span>).filterDev(<span class="string">'grunt-*'</span>).forEach(grunt.loadNpmTasks);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//define tasks</span></span><br><span class="line">  grunt.registerTask(<span class="string">'server'</span>, [<span class="string">'connect:server'</span>, <span class="string">'open:server'</span>, <span class="string">'watch:server'</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//env cfg</span></span><br><span class="line">  <span class="keyword">var</span> pkg = grunt.file.readJSON(<span class="string">'package.json'</span>);</span><br><span class="line">  <span class="keyword">var</span> cfg = &#123;</span><br><span class="line">    src: <span class="string">'src'</span>,</span><br><span class="line">    <span class="comment">// Change 'localhost' to '0.0.0.0' to access the server from outside.</span></span><br><span class="line">    serverHost: <span class="string">'localhost'</span>,</span><br><span class="line">    serverPort: <span class="number">9000</span>,</span><br><span class="line">    livereload: <span class="number">35729</span></span><br><span class="line">  &#125;;  </span><br><span class="line"></span><br><span class="line">  <span class="comment">//grunt config</span></span><br><span class="line">  grunt.initConfig(&#123;</span><br><span class="line">    <span class="comment">//======== 配置相关 ========</span></span><br><span class="line">    pkg: pkg,</span><br><span class="line">    cfg: cfg,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//======== 开发相关 ========</span></span><br><span class="line">   <span class="comment">//开启服务</span></span><br><span class="line">    connect: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        port: cfg.serverPort,</span><br><span class="line">        hostname: cfg.serverHost,</span><br><span class="line">        middleware: <span class="function"><span class="keyword">function</span><span class="params">(connect, options)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> [</span><br><span class="line">            <span class="built_in">require</span>(<span class="string">'connect-livereload'</span>)(&#123;</span><br><span class="line">              port: cfg.livereload</span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="comment">// Serve static files. </span></span><br><span class="line">            <span class="comment">//In my environment options.base is a type of Object</span></span><br><span class="line">            connect.static(options.base.toString()),</span><br><span class="line">            <span class="comment">// Make empty directories browsable.</span></span><br><span class="line">             connect.directory(options.base),</span><br><span class="line">          ];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        options: &#123;</span><br><span class="line">          <span class="comment">// keepalive: true,</span></span><br><span class="line">          base: cfg.src,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开浏览器</span></span><br><span class="line">    open: &#123;</span><br><span class="line">      server: &#123;</span><br><span class="line">        url: <span class="string">'http://localhost:'</span> + cfg.serverPort</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//监控文件变化</span></span><br><span class="line">    watch: &#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        livereload: cfg.livereload,</span><br><span class="line">      &#125;,</span><br><span class="line">      server: &#123;</span><br><span class="line">        files: [</span><br><span class="line">        <span class="string">'&lt;%= cfg.src %&gt;/&#123;,*/&#125;*.html'</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/css/*.css"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/js/*.js"</span>,</span><br><span class="line">        <span class="string">"&lt;%= cfg.src %&gt;/img/*"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="comment">// tasks: [''],       </span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>然后执行 <code>grunt server</code>，就会在你的浏览器打开这个地址 <code>http://localhost:9000</code>。</p>
-<p><del>的撒大声地</del></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[Grunt 搭建项目的时候的基本流程，只是自己经验的记录]]>
-    
-    </summary>
-    
-      <category term="Grunt" scheme="http://iamtutu.com/categories/Grunt/"/>
     
   </entry>
   

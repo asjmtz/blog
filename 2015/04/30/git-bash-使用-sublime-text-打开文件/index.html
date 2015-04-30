@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>音乐乐理笔记 | Asjmtz&#39;s Blog</title>
+    <title>git bash 使用 sublime text 打开文件 | Asjmtz&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Asjmtz">
     
-    <meta name="description" itemprop="description" content="简单的音乐乐理的概念，包括音名和唱名、调和调式的介绍">
+    <meta name="description" itemprop="description" content="git bash 使用 sublime text 打开文件">
     
     
     
@@ -69,15 +69,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/02/14/0214-音乐乐理笔记/" title="音乐乐理笔记" itemprop="url">音乐乐理笔记</a>
+      <a href="/2015/04/30/git-bash-使用-sublime-text-打开文件/" title="git bash 使用 sublime text 打开文件" itemprop="url">git bash 使用 sublime text 打开文件</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://iamtutu.com" title="Asjmtz">Asjmtz</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-02-14T09:02:21.000Z" itemprop="datePublished">Feb 14 2015</time>
-    更新日期:<time datetime="2015-02-13T09:05:35.000Z" itemprop="dateModified">Feb 13 2015</time>
+    <time datetime="2015-04-30T02:09:46.000Z" itemprop="datePublished">Apr 30 2015</time>
+    更新日期:<time datetime="2015-04-30T02:25:51.000Z" itemprop="dateModified">Apr 30 2015</time>
     
   </p>
 </header>
@@ -86,170 +86,36 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#我的吉他乐理笔记"><span class="toc-number">1.</span> <span class="toc-text">我的吉他乐理笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#音名和唱名"><span class="toc-number">1.1.</span> <span class="toc-text">音名和唱名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#音名（字母名）"><span class="toc-number">1.1.1.</span> <span class="toc-text">音名（字母名）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唱名"><span class="toc-number">1.1.2.</span> <span class="toc-text">唱名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唱名法"><span class="toc-number">1.1.3.</span> <span class="toc-text">唱名法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调"><span class="toc-number">1.2.</span> <span class="toc-text">调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调式"><span class="toc-number">1.3.</span> <span class="toc-text">调式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.3.1.</span> <span class="toc-text"> </span></a></li></ol></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_新建一个文件命名为你想要的命令，比如_subl_没有后缀（重要），内容如下："><span class="toc-number">1.</span> <span class="toc-text">1. 新建一个文件命名为你想要的命令，比如 subl 没有后缀（重要），内容如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_保存到_C:\Program_Files_(x86)\Git\bin_目录下"><span class="toc-number">2.</span> <span class="toc-text">2. 保存到 C:\Program Files (x86)\Git\bin 目录下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_使用方法"><span class="toc-number">3.</span> <span class="toc-text">3. 使用方法</span></a></li></ol>
 		</div>
 		
-		<p>@(音乐)[guitar,乐理]&gt;</p>
-<h1 id="我的吉他乐理笔记">我的吉他乐理笔记</h1><p>之前，有借到同事的一本李重光写的《新编通俗基本乐理》，想要学习下乐理的调式和声这些东西，但是狼吞虎咽的看下来，许多概念有些混淆了。</p>
-<p>之后，又在<a href="http://www.jitashe.net/thread/21405/" target="_blank" rel="external">吉他社</a>发现了这个帖子，找到大神写的一些给我们菜鸟科普的乐理教程，于是整理整理，写点笔记。</p>
-<h2 id="音名和唱名">音名和唱名</h2><h3 id="音名（字母名）">音名（字母名）</h3><blockquote>
-<p> <strong>音名</strong> = 基本音级的名称 + 变化音级的名称</p>
-</blockquote>
-<p><strong>音名在钢琴上和五线谱上，都是固定不变的。</strong></p>
-<p><strong>基本音级：</strong><code>C D E F G A B</code></p>
-<p><strong>变化音级：</strong> 升音级 + 降音级 + 重升音级 + 重降音级</p>
+		<p>用 hexo 写博客时，使用 <code>hexo new postname</code> 新建了一个新的文件，每次想直接打开都要从文件夹打开，实在不符合我们这些 Geek（懒人）的做派。纠结很久之后，终于找到这篇大大的<a href="https://danlimerick.wordpress.com/2014/01/07/git-for-windows-tip-opening-sublime-text-from-bash/" target="_blank" rel="external">博客</a>，他的解决办法如下。</p>
+<h3 id="1-_新建一个文件命名为你想要的命令，比如_subl_没有后缀（重要），内容如下：">1. 新建一个文件命名为你想要的命令，比如 <code>subl</code> 没有后缀（重要），内容如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="string">"C:\Program Files\Sublime Text 2\sublime_text.exe"</span> <span class="variable">$1</span> &amp;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>升音级：<code>#C #D ...</code> </li>
-<li>降音级：<code>bC bD ...</code> </li>
-<li>重升音级：<code>*C *D ...</code> （升高一个全音）</li>
-<li>重降音级：<code>bbC bbD ...</code> （降低一个全音）</li>
+<li>第一行是说这是个 shell 脚本</li>
+<li>第二行的字符串是sublime 的安装目录</li>
+<li>第二行的$1 是取的命令之后输入的参数</li>
+<li>第二行的&amp;是此命令在后台打开，这样sublime打开之后，就不会阻塞你的git bash</li>
 </ul>
-<p>PS: 变化音级的升号（#）降号（b）等写在音名的左上角。</p>
-<h3 id="唱名">唱名</h3><p><code>do re mi fa sol la si</code></p>
-<p><strong>唱名在钢琴键盘和谱子上的叫法，不固定，视唱名法的不同而不同。</strong></p>
-<h3 id="唱名法">唱名法</h3><blockquote>
-<p>唱名法就是唱谱的方法，常用的有：固定唱名法和首调唱名法。</p>
-</blockquote>
-<p><strong>固定唱名法</strong></p>
-<p>所有的调都按C调的唱名唱，字母名和唱名是统一的。遇到升号唱高半音，遇到降号唱低半音，唱名固定。</p>
-<p><strong>首调唱名法</strong></p>
-<p>什么调的谱子就把什么音当做<code>Do</code>来唱。正如简谱中的 <code>1=C, 1=D, 1=bB</code> 一样。</p>
-<p>采用首调唱名法学习乐理，关键是搞清楚每个调的<code>do re mi fa sol la si</code> 的字母名是什么。</p>
-<p>首调唱名法的优点是：无论什么调，音程、和弦、调式音阶的唱名是一样的。也就是只要把C调的这些东西搞懂后，其他的调同理可得。</p>
-<h2 id="调">调</h2><p><strong>调和调式是两个完全不同的概念。</strong></p>
-<blockquote>
-<p>对调的定义有个简单的解释：在首调唱名法中，do的音高的位置叫做调。（即 do = C 为C调，do = #F为#F调）</p>
-</blockquote>
-<h2 id="调式">调式</h2><blockquote>
-<p>由特定数量的音按照特定的音程关系组成的音的排列就是调式</p>
-</blockquote>
-<p>由C调来举例，C调中得音构成的调式都属于C调，即C调的常用调式有：C大调、a小调、C宫调、D商调、E角调、G徵调、A羽调。</p>
-<p>调式中的音的数量不是固定的，下面是一些常用的调式的音和音程关系。（-表示一个半音）</p>
-<p>调式中每个音都有自己特有的名称和号数，例如：在C大调和a小调中</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">调式</th>
-<th style="text-align:center">唱名</th>
-<th style="text-align:center">级别</th>
-<th style="text-align:center">名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">do</td>
-<td style="text-align:center">第 Ⅰ 级</td>
-<td style="text-align:center">主音</td>
-</tr>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">re</td>
-<td style="text-align:center">第 Ⅱ 级</td>
-<td style="text-align:center">上主音</td>
-</tr>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">mi</td>
-<td style="text-align:center">第 Ⅲ 级</td>
-<td style="text-align:center">中音</td>
-</tr>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">fa</td>
-<td style="text-align:center">第 Ⅳ 级</td>
-<td style="text-align:center">下属音</td>
-</tr>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">sol</td>
-<td style="text-align:center">第 Ⅴ 级</td>
-<td style="text-align:center">属音</td>
-</tr>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">la</td>
-<td style="text-align:center">第 Ⅵ 级</td>
-<td style="text-align:center">下中音</td>
-</tr>
-<tr>
-<td style="text-align:center">C大调</td>
-<td style="text-align:center">si</td>
-<td style="text-align:center">第 Ⅶ 级</td>
-<td style="text-align:center">导音</td>
-</tr>
-</tbody>
-</table>
-<p><strong>a小调：</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">调式</th>
-<th style="text-align:center">唱名</th>
-<th style="text-align:center">级别</th>
-<th style="text-align:center">名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">la</td>
-<td style="text-align:center">第 Ⅰ 级</td>
-<td style="text-align:center">主音</td>
-</tr>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">si</td>
-<td style="text-align:center">第 Ⅱ 级</td>
-<td style="text-align:center">上主音</td>
-</tr>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">do</td>
-<td style="text-align:center">第 Ⅲ 级</td>
-<td style="text-align:center">中音</td>
-</tr>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">re</td>
-<td style="text-align:center">第 Ⅳ 级</td>
-<td style="text-align:center">下属音</td>
-</tr>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">mi</td>
-<td style="text-align:center">第 Ⅴ 级</td>
-<td style="text-align:center">属音</td>
-</tr>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">fa</td>
-<td style="text-align:center">第 Ⅵ 级</td>
-<td style="text-align:center">下中音</td>
-</tr>
-<tr>
-<td style="text-align:center">a小调</td>
-<td style="text-align:center">sol</td>
-<td style="text-align:center">第 Ⅶ 级</td>
-<td style="text-align:center">导音</td>
-</tr>
-</tbody>
-</table>
-<h3 id=""> </h3>  
+<h3 id="2-_保存到_C:\Program_Files_(x86)\Git\bin_目录下">2. 保存到 <code>C:\Program Files (x86)\Git\bin</code> 目录下</h3><h3 id="3-_使用方法">3. 使用方法</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subl <span class="type">text</span>.txt</span><br></pre></td></tr></table></figure>
+<p>在当前目录打开一个新文件</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subl .</span><br></pre></td></tr></table></figure>
+<p>是不是 so easy ！shell 脚本麻吉强大，此时墙裂后悔上课时(～﹃～)~zZ啊。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/音乐/">音乐</a>
+  <a class="article-category-link" href="/categories/git/">git</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://iamtutu.com/2015/02/14/0214-音乐乐理笔记/" data-title="音乐乐理笔记 | Asjmtz&#39;s Blog" data-tsina="asjmtz" class="share clearfix">
+  <div data-url="http://iamtutu.com/2015/04/30/git-bash-使用-sublime-text-打开文件/" data-title="git bash 使用 sublime text 打开文件 | Asjmtz&#39;s Blog" data-tsina="asjmtz" class="share clearfix">
   </div>
 
 </div>
@@ -259,18 +125,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/04/22/我就是记不住-callee-与-caller-的区别/" title="我就是记不住 callee 与 caller 的区别">
+ <a href="/2015/04/30/git-config-常用命/" title="git config 常用命令">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  我就是记不住 callee 与 caller 的区别</span>
+  git config 常用命令</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/02/13/0213-clipstadiopaint初学教程/"  title="clip stadio paint 初学教程及使用方法（Ver 1.3.9）">
+<a href="/2015/04/30/JSON-是否为空/"  title="JSON 是否为空">
  <strong>NEXT:</strong><br/> 
- <span>clip stadio paint 初学教程及使用方法（Ver 1.3.9）
+ <span>JSON 是否为空
 </span>
 </a>
 </div>
@@ -287,7 +153,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#我的吉他乐理笔记"><span class="toc-number">1.</span> <span class="toc-text">我的吉他乐理笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#音名和唱名"><span class="toc-number">1.1.</span> <span class="toc-text">音名和唱名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#音名（字母名）"><span class="toc-number">1.1.1.</span> <span class="toc-text">音名（字母名）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唱名"><span class="toc-number">1.1.2.</span> <span class="toc-text">唱名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#唱名法"><span class="toc-number">1.1.3.</span> <span class="toc-text">唱名法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调"><span class="toc-number">1.2.</span> <span class="toc-text">调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调式"><span class="toc-number">1.3.</span> <span class="toc-text">调式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.3.1.</span> <span class="toc-text"> </span></a></li></ol></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_新建一个文件命名为你想要的命令，比如_subl_没有后缀（重要），内容如下："><span class="toc-number">1.</span> <span class="toc-text">1. 新建一个文件命名为你想要的命令，比如 subl 没有后缀（重要），内容如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_保存到_C:\Program_Files_(x86)\Git\bin_目录下"><span class="toc-number">2.</span> <span class="toc-text">2. 保存到 C:\Program Files (x86)\Git\bin 目录下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_使用方法"><span class="toc-number">3.</span> <span class="toc-text">3. 使用方法</span></a></li></ol>
   </div>
 
 <div id="asidepart">
