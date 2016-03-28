@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- Use <%= page.title %> for dynamic title -->
+	<title><%= page.title || config.title %></title>
+
+	
+	<%- css(['Semantic-UI/semantic.min.css', 'css/index', 'highlight/styles/monokai-sublime.css']) %>
+	<%- js('highlight/highlight.pack.js') %>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+	<div class="blog-wrapper">
+		<header class="blog-header">
+			<div class="ui container blog-navbar">
+		      	<div class="ui large secondary pointing menu">
+		        	<div class="left item">
+		        		<div class="logo">Logo</div>
+		        	</div>	
+        			<% for (var i in theme.menu){ %>
+        				<% var link = url_for(theme.menu[i]).substring(1) %>
+        				<% if( !!link ) {%>
+        				<% var active = is_current(link) ? 'active' : '' %>
+        				<% } else { %>
+        				<% var active = is_home() ? 'active' : '' %>
+        				<% } %>	
+			        	<a class="item <%=active%>" href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
+
+		        	<%	} %>
+		        	<!-- <a class="item">Work</a>
+		        	<a class="item">Company</a>
+		        	<a class="item">Careers</a> -->
+		      	</div>
+		    </div>
+		    <div class="ui text container blog-motto">
+		      	<h1>
+		      	爱斯基摩兔子的 blog 没有涂鸦
+		      	</h1>
+		      	<div class="blog-author-image">
+					<img src="/image/author-image.svg" alt="super front-end man">
+		      	</div>
+		    </div>
+		</header>
+
+		<div class='ui grid container blog-post-list-wrapper'>
+			<%- body %>
+		</div>
+
+		<footer class="blog-footer"></footer>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+$header-bg-url: "../image/cloud-bg.svg"; 
+.blog-header{
+	background:	url($header-bg-url) no-repeat center/contain #ecfbff;
+	.blog-navbar .menu{
+		border-bottom-color: transparent !important;
+	}
+
+	.blog-motto{
+	    padding: 5rem;
+   	 	position: relative;
+		h1{
+		}
+	
+		.blog-author-image{
+			width: 200px;
+		    top: 0;
+    		position: absolute;
+    		right: 100px;
+		}
+	}
+
+}

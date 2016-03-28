@@ -1,0 +1,34 @@
+<div class='ten wide column'>
+ 	<a class='btn btn-default' href='/'>Home</a>
+	<img src="<%= page.photos[0] %>" class="post-image" />
+
+ 	<div class="post-date">
+    	<div class="day"><%- moment(page.date).format('DD') %></div>
+    	<div class="month"><%= date(page.date, 'MMM') %>/<%= date(page.date, 'YY') %> </div>
+    </div>
+ 	<h1 class="post-title"><%- page.title %></h1>
+ 	<%- page.content %>
+
+</div>
+<div class='six wide column'>
+	<%- toc(page.content) %>
+
+  	<% site.posts.each(function(post, i){ %>
+  		<p><%- post.date.format('YYYYMMDD') %></p>
+  	<% }) %>
+	<div class="relative-post">
+		<pre>
+			<code>
+			<% console.log('=====================\n\n==================\n\n',site.posts.data[0].date.format('YYYYMMDD')) %>
+			</code>
+		</pre>
+	</div>
+</div>
+
+<script>
+	var dateMap = []; 
+	<% site.posts.each(function(post,i){%>
+		dateMap.push(<%- post.date.format('YYYYMMDD')%>)
+	<% }) %>
+	console.log('site.posts', dateMap)
+</script>

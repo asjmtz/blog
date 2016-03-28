@@ -1,0 +1,92 @@
+<!-- <div class='row text-center'>
+ <h1><%= config.author %></h1>
+    <p><%= config.title %></p>
+
+</div>
+<div class='row'>
+</div> -->
+
+<div class="ten wide column">
+  
+	<div class="ui list blog-post-list">
+	<% page.posts.each(function(post){ %>
+    	<div class="item">
+      		<img src="<%= post.photos[0] %>" class="post-image" />
+
+            <div class='post-header'>
+	            <div class='post-date'>
+	            	<div class="day"><%= date(post.date, 'DD') %> </div>
+	            	<div class="month"><%= date(post.date, 'MMM') %>/<%= date(post.date, 'YY') %> </div>
+
+	            </div>
+	            <div class='post-tags'>
+            		<% post.tags.forEach(function(item){ %>
+						<a class="ui tag label" href="<%= item.path %>">
+							<%= item.name %></a>
+					<% }) %>
+	            </div>
+	            
+            </div>
+      		
+
+      		<h2 class="post-title">
+          		<a href="<%- url_for(post.path) %>">
+           			<%= post.title %>
+          		</a>
+            </h2>
+            
+            <% if(post.excerpt) { %>
+                <div class="post-desc">
+                    <%- post.excerpt %>
+                </div>
+            <% } %>
+
+            <div class="post-read-more">read more</div>
+     	</div>
+   	<% }) %>
+ 	</div>
+
+ 	<div class="blog-pagination">
+ 		
+	 	<div class="ui pagination menu">
+		 	<%- paginator() %>
+	 	</div>
+ 		
+ 	</div>
+
+</div>
+
+<div class="six wide column">
+  	<div class="blog-sidebar">
+  		<div class="ui disabled icon input">
+			<i class="search icon"></i>
+			<input type="text" placeholder="Search...">
+		</div>
+		
+		<!--Recent Comments -->
+		<div class="ui segment">
+			<h4 class="ui header">recent comments</h4>
+
+		</div>
+
+
+		<!-- Tags -->
+		<div class="ui segment">
+			<h4 class="ui header">tags cloud</h4>
+			<div class="ui labels">
+				<% site.tags.forEach(function(tag){ %>
+					<a class="ui label" href="<%= tag.path %>"><%= tag.name %></a>
+				<% }) %>				
+			</div>
+		</div>
+
+		<!-- archive -->
+		<div class="ui segment">
+			<h4 class="ui header">archives</h4>
+			<%- list_archives() %>
+			
+		</div>
+
+  	</div>
+
+</div>
