@@ -2,7 +2,6 @@ title: "Aurelia-文档小翻译（二）"
 date: 2015-06-13 14:07:27
 categories: Aurelia
 description: Aurelia 文档翻译下部分，from Routing part
-photos: http://aurelia.io/images/main-logo.svg
 ---
 
 
