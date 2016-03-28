@@ -68,7 +68,9 @@ theme: usagi
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repository: git@github.com:asjmtz/blog.git
+  branch: gh-pages
 
 node_sass:
   outputStyle: nested
