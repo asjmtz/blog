@@ -1,0 +1,32 @@
+language: node_js
+node_js: stable
+
+# Travis-CI Caching
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install  #安装hexo及插件
+
+script:
+  - hexo cl  #清除
+  - hexo g  #生成
+
+after_script:
+  - cd public
+  - git init
+  - git config user.name "asjmtz"
+  - git config user.email "asjmtzhang@gmail.com"
+  - git add .
+  - git commit -m "Auto deploy from Travis-CI."
+  - git push --force --quiet "https://$GH_Token@github.com/$GH_REPO.git" master:gh-pages
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+    - GH_REPO: asjmtz/blog
+    - secure: "W4EjZ2kgBGlmdUpz7alUIg5+8OZmznjdLSz0jPm1fMZVWaY93HJyCTr9+wnu7W1P7K4g4NOs7lEjv3IQDAWgJujjZ0ObpeWhy7GRMU2064Tomkut4qD5RnfuhbtjAkX1LsLJR3rNhLjTRIGcckerBLDGyUpSIDAkM3eVtil9qs6ZkezgRN+5UHlz4Gp1h2SLlmBvWchmdQC7c7xiJEuLwHtuNA5h4g0wCdrwMzjwUg3FHQJWNiu3Vp6hM8TzFJFH6VmTAw7s4dPb8xPp4ExdszQymz5AgoVJzc9AxGL7Mrue0uRKd6PxRKucjWOiVYG+xg8DIY2WS3V0hJcRF0r//ECzgPosBBSzjVPRvGTp5l/DFxHh6vAQtFIYqmtv2fnKFeCXH4krcUdNUvBWUBCqQzE49JflMZ5busJM1bxWqIqeY4np2B5EQvb4/2+XNsXFrw1joMSvhfizPtcYgu0YLJZ/75agDTkt4kOufpE82WNU5ArvD6zhXYEc+K/uquhqMJaVilT303mkNUZ1Ifsn6j1vGEG61zPm+YKXMF06W2WG+6fUvJjjhB2e5XctYSA+E6/+k+ADWo+rn2BdZBRcCSJOBq9/Xtby1icl9KJ8kinYytUY8o4ObTAcasgLYa4yAb1jvPl9F1M23OBuHVLf5ZtFhDGD8P7yIlokxNuhik4="
