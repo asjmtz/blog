@@ -46,7 +46,8 @@ description: thinking-of-css-design-pattern
 
 - Theme — 
 	- These define things like a color scheme or typographic treatment across a sit
-	- 
+	
+	
 
 
 
@@ -54,7 +55,7 @@ description: thinking-of-css-design-pattern
 
 Use JSON structure to comprehensive
 
-```
+```javascript
 {
 	block: 'page',
 	content: [
@@ -118,7 +119,7 @@ ideal target：
 
 usage 
 
-```
+```html
 // .module 
 <button class="btn"></button>
 
