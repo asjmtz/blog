@@ -91,6 +91,9 @@ Naming:
 .Block__Element-Modifiers
 
 
+## rscss.io
+
+
 ## tips
 
 - Grids control width
@@ -117,23 +120,12 @@ ideal target：
 
 usage 
 
-```html
-// .module 
-<button class="btn"></button>
 
-// .module + .module-modifier
-<button class="btn btn-xl"></button>
-
-// .module + .module-modifier + .module-theme
-<button class="btn btn-xl btn-primary"></button>
-
-// .module + .module-modifier + ... + .module-modifier + .module-theme
-<button class="btn btn-xl btn-active btn-primary"></button>
-
-```
+<p data-height="300" data-theme-id="6215" data-slug-hash="zoWVyX" data-default-tab="html,result" data-user="asjmtz" data-embed-version="2" data-pen-title="css design pattern -- button" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/asjmtz/pen/zoWVyX/">css design pattern -- button</a> by asjmtz (<a href="http://codepen.io/asjmtz">@asjmtz</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-
+modifier(structure) + modifier(skin) => ''
 
 
 realistic target:
