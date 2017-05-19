@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ASJMTZ&#39;s Blog</title>
+  <subtitle>wahaha</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://iamtutu.com/"/>
+  <updated>2017-05-19T08:47:20.355Z</updated>
+  <id>http://iamtutu.com/</id>
+  
+  <author>
+    <name>ASJMTZ</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSS 设计模式的思考（一）之结构篇</title>
+    <link href="http://iamtutu.com/2016/12/06/thinking-of-css-design-pattern-1-structuring/"/>
+    <id>http://iamtutu.com/2016/12/06/thinking-of-css-design-pattern-1-structuring/</id>
+    <published>2016-12-06T18:53:14.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>面对日渐庞大的 CSS 文件们，如何组织和分类他们呢？怎么样才能写出好维护又易扩展的 CSS 样式，真是头疼呢！<br><a id="more"></a></p>
+<p>现在项目用上了 React，写起页面来 component + component，十分的愉快。但是看到旁边的样式，及时用上了 SCSS、CSS modules，还是一如既往的混乱，而且有病入膏肓的迹象。这几天稍微得了点闲，我决定研究看看有没有什么好的解决方案。没想到从此打开了新世界的大门。</p>
+<p>loooong long ago，就已经有大牛们意识到这些问题了。对于如何写好 CSS，他们给出了一些结构模式。<br>我按照时间轴来介绍下。</p>
+<h2 id="OOCSS-Object-Oriented-CSS-2011"><a href="#OOCSS-Object-Oriented-CSS-2011" class="headerlink" title="OOCSS - Object Oriented CSS (2011)"></a><a href="https://www.smashingmagazine.com/2011/12/an-introduction-to-object-oriented-css-oocss/" target="_blank" rel="external">OOCSS - Object Oriented CSS</a> (2011)</h2><p>他的主要思想是下面这两个：</p>
+<h4 id="1-Separate-Structure-and-Skin-结构和主题"><a href="#1-Separate-Structure-and-Skin-结构和主题" class="headerlink" title="1. Separate Structure and Skin (结构和主题)"></a>1. Separate Structure and Skin (结构和主题)</h4><p>将结构和主题的样式分开，然后在使用的时候可以按照需要，为不同的结构加上各种主题的 CSS 类。<br>如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.button</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="selector-class">.skin</span> &#123;</div><div class="line">  <span class="attribute">border</span>: solid <span class="number">1px</span> <span class="number">#ccc</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#ccc, #222);</div><div class="line">  <span class="attribute">box-shadow</span>: <span class="built_in">rgba</span>(0, 0, 0, .5) <span class="number">2px</span> <span class="number">2px</span> <span class="number">5px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.button</code> 和 <code>.box</code> 是结构性的类，而 <code>.skin</code> 是一个主题性的类</p>
+<h4 id="2-Separate-Container-and-Content-（容器和内容"><a href="#2-Separate-Container-and-Content-（容器和内容" class="headerlink" title="2. Separate Container and Content （容器和内容)"></a>2. Separate Container and Content （容器和内容)</h4><p>提倡将有共性的功能，提取到一个独立的类中，作为一个 module 。<br>比如原来有个 header，可以定义为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.header-inside</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">980px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">260px</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但考虑到他的容器性也可以为其他元素所用，所以可以提取为下面这两个类：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.global-width</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">980px</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">  <span class="attribute">padding-left</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">padding-right</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.header-inside</span> &#123;</div><div class="line">  <span class="attribute">padding-top</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">padding-bottom</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">260px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.global-width</code> 是一个容器类，定义了一个容器的宽度、设置了 <code>position</code> 的上下文、与子元素的距离等</p>
+<h4 id="总结起来-OOCSS-推崇的是："><a href="#总结起来-OOCSS-推崇的是：" class="headerlink" title="总结起来 OOCSS 推崇的是："></a>总结起来 OOCSS 推崇的是：</h4><blockquote>
+<p>基于 CSS class 的模块构建，不推荐使用 ID、后代选择器（如：<code>.sidebar h2</code>）</p>
+</blockquote>
+<p>接着又出来了一个新想法</p>
+<h2 id="SMACSS-Scalable-and-Modular-Architecture-for-CSS-2012"><a href="#SMACSS-Scalable-and-Modular-Architecture-for-CSS-2012" class="headerlink" title="SMACSS(Scalable and Modular Architecture for CSS) (2012)"></a><a href="https://smacss.com/book/categorizing" target="_blank" rel="external">SMACSS(Scalable and Modular Architecture for CSS)</a> (2012)</h2><p>SMACSS 的观点为，可以将项目中 CSS 的类型或功能分为这五个类型：</p>
+<ul>
+<li>Base  <ul>
+<li>【定义】直接在 html 的元素 (html, body, h1, ul, etc) 上设定的样式。<br>可以理解为我们为元素设置的默认样式，比如我们常用到了 <code>reset.css</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Layout</p>
+<ul>
+<li>【定义】顾名思义，布局用的样式，比如我们用的 <code>grid system</code></li>
+<li>【命名】加前缀 <code>l-</code> 或 <code>layout-</code> </li>
+</ul>
+</li>
+<li><p>Module</p>
+<ul>
+<li>【定义】模块的样式</li>
+<li>【命名】为 <code>modulename</code> 和 <code>modulename-</code>，比如：<code>alert</code> 和 <code>alert-body</code></li>
+</ul>
+</li>
+<li><p>State</p>
+<ul>
+<li>【定义】状态类型的样式用来定义在特定状态下的样式，如(hidden or expanded, active/inactive)</li>
+<li>【命名】加前缀 <code>is-</code>, 比如：<code>is-active</code>、<code>is-hidden</code></li>
+</ul>
+</li>
+<li><p>Theme </p>
+<ul>
+<li>【定义】主题类型可以用来自定义一些颜色，字体，或者其他模块的特殊样式</li>
+</ul>
+</li>
+</ul>
+<p>如果你对他感兴趣，建议到他的官网仔细看看每个类型详细的规则</p>
+<p>P.S:<br>我很是喜欢这个分类，和我前期脑补的理想分类差不多</p>
+<p>然后又又出来一个新结构</p>
+<h2 id="BEM-——-Block-Element-Modifier-2013"><a href="#BEM-——-Block-Element-Modifier-2013" class="headerlink" title="BEM —— Block + Element + Modifier (2013)"></a><a href="https://en.bem.info/" target="_blank" rel="external">BEM —— Block + Element + Modifier</a> (2013)</h2><p>他的理念即 CSS 分类为 Block、Element、Modifier，和 SMACSS 也有些类似的地方。</p>
+<ul>
+<li><p>Block</p>
+<ul>
+<li>【定义】类似我们之前说的 module 或 component 或者像乐高积木</li>
+<li>【命名】<code>bloak-name</code></li>
+</ul>
+</li>
+<li><p>Element</p>
+<ul>
+<li>【定义】Block 的一部分组成，不能独立使用</li>
+<li>【命名】<code>block-name__element-name</code> ，如 <code>search-form__input</code></li>
+</ul>
+</li>
+<li><p>Modifier </p>
+<ul>
+<li>【定义】定义 Block 或 Element 的状态</li>
+<li>【命名】<code>block-name_modifier-name</code> | <code>block-name__element-name_modifier-name</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- The `search-form` block has the `theme` modifier with the value `islands` --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form search-form_theme_islands"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- The `button` element has the `size` modifier with the value `m` --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button search-form__button_size_m"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>BEM 官网上有更多详细的规则。BEM 有蛮多的推崇者，但是他这牵家带口的命名语法也让很多人敬而远之。</p>
+<p>江湖纷争不断，后面又涌现了一些 <a href="http://patternlab.io/" target="_blank" rel="external">ACSS</a>、CCSS 等等。但是即使有了这么多门绝世武功，许多 CSS 码民仍旧水深火热的 coding 中。</p>
+<p>为啥呢？是不是他们都还不够好？正在我苦恼的总结发散时，我又又又发现了他</p>
+<h2 id="rscss-io"><a href="#rscss-io" class="headerlink" title="rscss.io"></a>rscss.io</h2><p>他的基本概念融合了 BEM 和 SMACSS 的精华，又在命名上有些独特的创新</p>
+<ul>
+<li><p>Component</p>
+<ul>
+<li>【定义】就是那个 component，你懂的</li>
+<li>【命名】<code>component-name</code> ，这里一定要两个字连个线</li>
+</ul>
+</li>
+<li><p>Element</p>
+<ul>
+<li>【定义】类似 BEM 的 Element，<br>  定义这个 element 的类时，只能使用直接子选择器 <code>.component-name &gt; .element</code></li>
+<li>【命名】<code>elementname</code> ，此处一定要一个字，一个字 </li>
+</ul>
+</li>
+<li><p>Variant</p>
+<ul>
+<li>【定义】类似 BEM 的 Modifier 或 SMACSS 的 State</li>
+<li>【命名】加前缀 <code>-</code> ，如：<code>-disabled</code>, <code>-active</code> （这是模仿了命令行的写法）</li>
+</ul>
+</li>
+<li><p>Helper</p>
+<ul>
+<li>【定义】可以强制覆盖来修改样式的一些类，用来应急。非特殊情况不推荐使用</li>
+<li>【命名】加前缀 <code>_</code>，如：<code>._pull-left { float: left !important; }</code></li>
+</ul>
+</li>
+<li><p>Layout</p>
+<ul>
+<li>【定义】布局管理的类</li>
+<li>【命名】<code>component-name</code>，没有特殊化 </li>
+</ul>
+</li>
+</ul>
+<h4 id="rscss-io-上的对比"><a href="#rscss-io-上的对比" class="headerlink" title="rscss.io 上的对比"></a>rscss.io 上的对比</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">RSCSS</th>
+<th style="text-align:center">BEM</th>
+<th style="text-align:center">SMACSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Component</td>
+<td style="text-align:center">Block</td>
+<td style="text-align:center">Module</td>
+</tr>
+<tr>
+<td style="text-align:center">Element</td>
+<td style="text-align:center">Element</td>
+<td style="text-align:center">Sub-Component</td>
+</tr>
+<tr>
+<td style="text-align:center">Layout</td>
+<td style="text-align:center">?</td>
+<td style="text-align:center">Layout</td>
+</tr>
+<tr>
+<td style="text-align:center">Variant</td>
+<td style="text-align:center">Modifier</td>
+<td style="text-align:center">Sub-Module &amp; State</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
+<li>Grids control width</li>
+<li>Content control height </li>
+</ul>
+<h2 id="Tips-for-sass"><a href="#Tips-for-sass" class="headerlink" title="Tips for sass"></a>Tips for sass</h2><p>=============================================</p>
+<h2 id="Real-World"><a href="#Real-World" class="headerlink" title="Real World"></a>Real World</h2><p>situation:</p>
+<ul>
+<li>Bootstrap based: coupling with html decade</li>
+<li>module styled</li>
+</ul>
+<p>ideal target：</p>
+<ul>
+<li>Base: reset + grid </li>
+<li>Theme : color ( primary + secondary + …  ) + typographic( font-size + font-family + 字体行间距 。。。)</li>
+<li>Module: UI ( buttons + Media + Label + … ) + Form ( Form + Editors… )<ul>
+<li>structure + skin </li>
+<li>block + modifier</li>
+</ul>
+</li>
+</ul>
+<p>usage </p>
+<p></p><p data-height="300" data-theme-id="6215" data-slug-hash="zoWVyX" data-default-tab="html,result" data-user="asjmtz" data-embed-version="2" data-pen-title="css design pattern -- button" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/asjmtz/pen/zoWVyX/" target="_blank" rel="external">css design pattern – button</a> by asjmtz (<a href="http://codepen.io/asjmtz" target="_blank" rel="external">@asjmtz</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<p>modifier(structure) + modifier(skin) =&gt; ‘’</p>
+<p>realistic target:</p>
+<ul>
+<li>bootstrap</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      thinking of css design pattern , something about OOCSS, SMACSS, BEM and RSCSS, and their structuring ideologies
+    
+    </summary>
+    
+      <category term="css" scheme="http://iamtutu.com/categories/css/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>React 图表框架的调查笔记</title>
+    <link href="http://iamtutu.com/2016/11/23/survey-report-of-react-charts-framework/"/>
+    <id>http://iamtutu.com/2016/11/23/survey-report-of-react-charts-framework/</id>
+    <published>2016-11-23T12:08:28.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>一些 react 图表绘制框架的调查<br><a id="more"></a></p>
+<blockquote>
+<p>想到不久后 react 项目中可能将会遇到一些绘制图表的数据可视化的需要，让我来小小调查一番，面对疾风吧。</p>
+</blockquote>
+<p>Google + Github 了一番，综合相关库的健康状态——维护和人气，我选出下面几个高富帅（人气高，图形丰富，<del>我觉得帅</del>）。并分别用他们来实现一个图表 demo。</p>
+<h2 id="1-recharts"><a href="#1-recharts" class="headerlink" title="1. recharts"></a>1. <a href="https://github.com/recharts/recharts" target="_blank" rel="external">recharts</a></h2><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>此库应该是我目前所知道最火的 react 图形库之一，在写这篇笔记时，他的 star 已将近 4000。乍一看全是英文的文档，实际上他是 ALIBABA 的团队开源的（GOOD)。 他的核心库为著名的 D3，也就是说<br>这是由 SVG 绘制的图形，天然的矢量图形。</p>
+<p><img src="http://7jpqdg.com1.z0.glb.clouddn.com/rechart-3.jpg" alt="rechart-desc"></p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>API 组成形式是将图表的元素分解为灵活的组件，可以生成多种自定义图形</li>
+<li>在图表组件中可以嵌入 SVG <code>&lt;defs/&gt;</code> ，来使用渐变、滤镜等 SVG 的特效 </li>
+<li>文档比较完整</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>实时数据下，频繁更新 DOM 的时候，可能会造成性能的问题</li>
+</ul>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> RechartsDemo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">	<span class="keyword">const</span> data = [</div><div class="line">		&#123; <span class="attr">name</span>: <span class="string">'uv1'</span>, <span class="attr">uv</span>: <span class="number">20</span>, <span class="attr">pv</span>: <span class="number">40</span> &#125;,</div><div class="line">		&#123; <span class="attr">name</span>: <span class="string">'uv2'</span>, <span class="attr">uv</span>: <span class="number">60</span>, <span class="attr">pv</span>: <span class="number">20</span> &#125;,</div><div class="line">		&#123; <span class="attr">name</span>: <span class="string">'uv3'</span>, <span class="attr">uv</span>: <span class="number">30</span>, <span class="attr">pv</span>: <span class="number">80</span> &#125;,</div><div class="line">		<span class="comment">// &#123; name: 'pv', value: 50 &#125;,</span></div><div class="line">		<span class="comment">// &#123; name: 'pv', value: 20 &#125;,</span></div><div class="line">	]</div><div class="line">	<span class="keyword">return</span> (</div><div class="line">		&lt;div style=&#123;&#123;height: 300&#125;&#125;&gt;</div><div class="line">			&lt;ResponsiveContainer &gt;</div><div class="line">			 	&lt;ComposedChart width=&#123;500&#125; height=&#123;300&#125; data=&#123;data&#125;&gt;</div><div class="line">			 		&lt;defs&gt;</div><div class="line">					    &lt;linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1"&gt;</div><div class="line">					      &lt;stop offset="5%" stopColor="#8884d8" stopOpacity=&#123;0.8&#125;/&gt;</div><div class="line">					      &lt;stop offset="95%" stopColor="#8884d8" stopOpacity=&#123;0&#125;/&gt;</div><div class="line">					    &lt;/linearGradient&gt;</div><div class="line">					&lt;/defs&gt;</div><div class="line">				    &lt;XAxis dataKey="name"/&gt;</div><div class="line">				    &lt;YAxis/&gt;</div><div class="line">				    &lt;CartesianGrid stroke="#eee" strokeDasharray="5 5"/&gt;</div><div class="line">				    &lt;Tooltip /&gt;</div><div class="line">				    &lt;Legend /&gt;</div><div class="line">				    &lt;Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity=&#123;1&#125; fill="url(#colorUv)"/&gt;</div><div class="line">			    	&lt;Line type="monotone" dataKey="pv" stroke="#ff7000"/&gt;</div><div class="line">			  	&lt;/ComposedChart&gt;</div><div class="line"></div><div class="line">			&lt;/ResponsiveContainer&gt;</div><div class="line"></div><div class="line">		&lt;/div&gt;</div><div class="line">	)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7jpqdg.com1.z0.glb.clouddn.com/rechart-demo.jpg" alt="rechart-demo"><br><!-- <script async src="//jsfiddle.net/5j2799j4/2/embed/js,result/"></script> --></p>
+<h2 id="2-react-chartjs"><a href="#2-react-chartjs" class="headerlink" title="2. react-chartjs"></a>2. <a href="https://github.com/reactjs/react-chartjs" target="_blank" rel="external">react-chartjs</a></h2><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>光看他的名字——reactjs/react-chartjs，就知此库背景不简单，出自的 react 官方社区之手，核心库为以轻量和漂亮著称的图形库大家 Chart.js。</p>
+<p><img src="http://7jpqdg.com1.z0.glb.clouddn.com/react-chartjs.jpg" alt="react-chartjs"></p>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>他的图表渲染由 Canvas 实现，继承了 Canvas 绘图的优点，在大数据量时性能比 SVG 绘图要好。</li>
+<li>体积比 recharts 小</li>
+<li>只把 Chart.js 的顶级图表，简单地封装为 react 组件，参数完全可照搬。（各种意义上的方便）</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>更新活跃度不高（？最后看到是九月份时的更新，大神们不是挖完坑就跑了吧？）</li>
+<li>依赖 Chart.js@1.1.1，而最新版为 Chart.js@2.4.0，并且官网上是 v2 的文档。<br>所以 Chart.js 官网推荐使用这两个包 <a href="https://github.com/topdmc/react-chartjs2" target="_blank" rel="external">react-chartjs2</a> &amp; <a href="https://github.com/gor181/react-chartjs-2" target="_blank" rel="external">react-chartjs-2</a><br>（为什么在我翻完这么长的文档才发现，鞠了一把老泪）</li>
+</ul>
+<div class="tip"><br>    此处有坑<br></div>
+
+<h4 id="Demo-react-chartjs-2"><a href="#Demo-react-chartjs-2" class="headerlink" title="Demo ( react-chartjs-2 )"></a>Demo ( react-chartjs-2 )</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> doughnutData = &#123;</div><div class="line">    <span class="attr">labels</span>: [</div><div class="line">        <span class="string">"Red"</span>,</div><div class="line">        <span class="string">"Blue"</span>,</div><div class="line">        <span class="string">"Yellow"</span></div><div class="line">    ],</div><div class="line">    <span class="attr">datasets</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="attr">data</span>: [<span class="number">300</span>, <span class="number">50</span>, <span class="number">100</span>],</div><div class="line">            <span class="attr">backgroundColor</span>: [</div><div class="line">                <span class="string">"#FF6384"</span>,</div><div class="line">                <span class="string">"#36A2EB"</span>,</div><div class="line">                <span class="string">"#FFCE56"</span></div><div class="line">            ],</div><div class="line">            <span class="attr">hoverBackgroundColor</span>: [</div><div class="line">                <span class="string">"#FF6384"</span>,</div><div class="line">                <span class="string">"#36A2EB"</span>,</div><div class="line">                <span class="string">"#FFCE56"</span></div><div class="line">            ]</div><div class="line">        &#125;]</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> ChartJSDemo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line"></div><div class="line">	<span class="keyword">return</span>(</div><div class="line">		&lt;div&gt;</div><div class="line">			&lt;Doughnut data=&#123;doughnutData&#125;/&gt;</div><div class="line">		&lt;/div&gt;</div><div class="line"></div><div class="line">	)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7jpqdg.com1.z0.glb.clouddn.com/react-chartjs-2.jpg" alt="react-chartjs-2"></p>
+<h2 id="3-victory"><a href="#3-victory" class="headerlink" title="3. victory"></a>3. <a href="https://github.com/FormidableLabs/victory" target="_blank" rel="external">victory</a></h2><h4 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h4><p>Victory 为了构建可交互的数据可视化的一组 react 组件，他的组件类型是这三个库中最丰富的，由 SVG 实现底层图形。使用他也可以高度自定义化你的图表，他还有个兄弟库 victory-native，可以用在 react-native 项目中。</p>
+<p><img src="http://7jpqdg.com1.z0.glb.clouddn.com/victory-1.jpg" alt="victory-desc"></p>
+<h4 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>类型多，很强大</li>
+<li>可灵活的定制化图形</li>
+<li>支持 native</li>
+<li>平滑的动态更新</li>
+<li>文档全面</li>
+</ul>
+<h4 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>寂寞</li>
+</ul>
+<h4 id="Demo-1"><a href="#Demo-1" class="headerlink" title="Demo"></a>Demo</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> VictoryDemo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">	<span class="keyword">const</span> data = [</div><div class="line"> 		&#123;<span class="attr">quarter</span>: <span class="number">1</span>, <span class="attr">earnings</span>: <span class="number">13000</span>&#125;,</div><div class="line">  		&#123;<span class="attr">quarter</span>: <span class="number">2</span>, <span class="attr">earnings</span>: <span class="number">16500</span>&#125;,</div><div class="line">  		&#123;<span class="attr">quarter</span>: <span class="number">3</span>, <span class="attr">earnings</span>: <span class="number">14250</span>&#125;,</div><div class="line">  		&#123;<span class="attr">quarter</span>: <span class="number">4</span>, <span class="attr">earnings</span>: <span class="number">19000</span>&#125;		</div><div class="line">	]</div><div class="line">	<span class="keyword">return</span> (</div><div class="line">		&lt;VictoryChart domainPadding=&#123;20&#125;&gt;</div><div class="line">	        &lt;VictoryAxis</div><div class="line">	          // tickValues specifies both the number of ticks and where</div><div class="line">	          // they are placed on the axis</div><div class="line">	          tickValues=&#123;["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]&#125;/&gt;</div><div class="line">	        &lt;VictoryAxis</div><div class="line">	          dependentAxis</div><div class="line">	          // tickFormat specifies how ticks should be displayed</div><div class="line">	          tickFormat=&#123;(x) =&gt; (`$$&#123;x / 1000&#125;k`)&#125; /&gt;</div><div class="line">	        &lt;VictoryBar</div><div class="line">	        	data=&#123;data&#125;</div><div class="line">	        	x="quarter"</div><div class="line">	        	y="earnings"/&gt;</div><div class="line">        &lt;/VictoryChart&gt;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7jpqdg.com1.z0.glb.clouddn.com/QQ20161123-15.png" alt="victory-demo"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一些 react 图表绘制框架的调查&lt;br&gt;
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+    
+      <category term="react" scheme="http://iamtutu.com/tags/react/"/>
+    
+      <category term="chart" scheme="http://iamtutu.com/tags/chart/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>怎样还原已经推送的 git commit？</title>
+    <link href="http://iamtutu.com/2016/03/29/git-howto-revert-a-commit-already-pushed-to-a-remote-reposit/"/>
+    <id>http://iamtutu.com/2016/03/29/git-howto-revert-a-commit-already-pushed-to-a-remote-reposit/</id>
+    <published>2016-03-29T22:06:00.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>原文：<a href="http://christoph.ruegg.name/blog/git-howto-revert-a-commit-already-pushed-to-a-remote-reposit.html" target="_blank" rel="external">Git Howto: Revert a Commit Already Pushed to a Remote Repository</a></p>
+</blockquote>
+<h3 id="怎样还原已经推送的-git-commit？"><a href="#怎样还原已经推送的-git-commit？" class="headerlink" title="怎样还原已经推送的 git commit？"></a>怎样还原已经推送的 git commit？</h3><p>如果当你刚刚推送一个本地分支到远端分支上，结果发现这个 <code>commit</code> 有些错误，是不应该的存在。</p>
+<p>好吧，<code>Git</code> 大法是不会这么轻易的 go die 的，我们来搞定它。不过我们得在别人更新到这个 <code>commit</code> 之前消灭他，不然之后就只有呵呵了 &lt;(￣oo,￣)/</p>
+<p>首先这介绍两个方法，他们会完整保存已提交的历史记录：</p>
+]]></content>
+    
+    <summary type="html">
+    
+      在 git 中，push 一个 commit 后，如果想要还原文件到之前的 commit 点上，应该怎么做呢？
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>After effects motion graphics learning 1</title>
+    <link href="http://iamtutu.com/2016/03/29/after-effect-motion-graphics-learning-1/"/>
+    <id>http://iamtutu.com/2016/03/29/after-effect-motion-graphics-learning-1/</id>
+    <published>2016-03-29T22:06:00.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>视频地址：Summit 1.1 - Intro to Motion Graphics - After Effects [ <a href="https://www.youtube.com/watch?v=Mtv8QptWNbg" target="_blank" rel="external">Youtube</a> ] [    <a href="http://www.bilibili.com/video/av1872147/index_2.html" target="_blank" rel="external">bilibili</a> ]</p>
+<p>Motion Graphics: <a href="https://en.wikipedia.org/wiki/Motion_graphics" target="_blank" rel="external">Wiki</a></p>
+</blockquote>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p><strong>合成：</strong></p>
+<ul>
+<li>新建合成：Ctrl + N</li>
+</ul>
+<p><strong>solid layer：</strong></p>
+<ul>
+<li>新建 solid layer：Ctrl + Y</li>
+<li>设置 solid layer：选中一个 solid layer，然后 Ctrl + Shift + Y</li>
+</ul>
+<p><strong>工具栏：</strong></p>
+<ul>
+<li>切换形状工具：Q</li>
+<li>创建填充舞台大小的一个形状：双击形状工具</li>
+</ul>
+<p><strong>图层动画：</strong></p>
+<p>先选中图层</p>
+<ul>
+<li>Scale: S</li>
+<li>Position：P</li>
+</ul>
+<p><strong>时间轴：</strong></p>
+<ul>
+<li>切换预览工作区：B（开始点） 和 N（结束点）</li>
+<li>切换前后关键帧：J（向前）和 K（向后）</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      跟着 youtube 上面的 MG 教程学习，做些笔记，第一讲《Intro to Motion Graphics》
+    
+    </summary>
+    
+      <category term="AE" scheme="http://iamtutu.com/categories/AE/"/>
+    
+    
+      <category term="AE" scheme="http://iamtutu.com/tags/AE/"/>
+    
+      <category term="MG" scheme="http://iamtutu.com/tags/MG/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Aurelia-文档小翻译（二）</title>
+    <link href="http://iamtutu.com/2015/06/13/Aurelia-%E6%96%87%E6%A1%A3%E5%B0%8F%E7%BF%BB%E8%AF%91%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://iamtutu.com/2015/06/13/Aurelia-文档小翻译（二）/</id>
+    <published>2015-06-13T14:07:27.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h2><p>你可能会需要创建许多不同的应用类型。从 navigation apps、dashboards，到 MDI interfaces，Aurelia 都能完全掌控。这些架构中大多数的关键组件都是一个客户端路由，用来将 url 解析到应用状态中。</p>
+<p>如果你读过了开始向导，你会知道完成路由需要两步。首先，在你的 view-model 中有一个 <code>Router</code>，我们通过添加一些路由信息和控制向导来配置他。之后，view 中 的一个 <code>router-view</code> 负责展示路由中定义的当前状态指向的模块。</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">export class App &#123;</div><div class="line">  configureRouter(config, router)&#123;</div><div class="line">    this.router = router;</div><div class="line"></div><div class="line">    config.title = &apos;Aurelia&apos;;</div><div class="line">    config.map([</div><div class="line">      &#123; route: [&apos;&apos;, &apos;home&apos;],       name: &apos;home&apos;,       moduleId: &apos;./home/index&apos; &#125;,</div><div class="line">      &#123; route: &apos;users&apos;,            name: &apos;users&apos;,      moduleId: &apos;./users/index&apos;,                      nav: true &#125;,</div><div class="line">      &#123; route: &apos;users/:id/detail&apos;, name: &apos;userDetail&apos;, moduleId: &apos;./users/detail&apos; &#125;,</div><div class="line">      &#123; route: &apos;files*path&apos;,       name: &apos;files&apos;,      moduleId: &apos;./files/index&apos;,     href:&apos;#files&apos;,   nav: true &#125;</div><div class="line">    ]);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们开始先实现 <code>configureRouter</code> 方法。我们可以有选择的设置下 <code>title</code>，这个属性用来构建文档的标题，但是更重要的部分是设置路由。路由的 <code>map</code> 方法用一个简单的 JSON 数据来展示路由表。</p>
+<p>两个最重要的属性是 <code>route</code> （一个数组或字符串），定义 route pattern；<code>moduleId</code>，指向你的 view-model 的相对 module id 路径。你也可以设置 <code>name</code>属性，用来生成一个路由的链接，<code>title</code>属性用来生成文档的 title，<code>nav</code>属性表明了向导模型（navigation model）是否包含该路由，在向导模型中 <code>href</code>用来绑定。</p>
+<blockquote>
+<p>Note: Any properties that you leave off will be conventionally determined by the framework based on what you have provided.</p>
+</blockquote>
+<p>So，对于 route pattern 你有那些选择哪：</p>
+<ul>
+<li>静态路由<ul>
+<li>例如：’home’ - 直接匹配字符串</li>
+</ul>
+</li>
+<li>有参数的路由<ul>
+<li>例如：’users/:id/detail’ - 匹配字符串并且解析一个 <code>id</code> 参数。你的 view-model 的 <code>activate</code> 回调会被调用，并将会传入一个带着 <code>id</code> 的对象，<code>id</code> 的值是从 url 中提取的</li>
+</ul>
+</li>
+<li>通配符路由（wildcard routes）<ul>
+<li>例如：’files*path’ - 匹配字符串和其他符合他的。你的 view-model 的 <code>activate</code> 回调会被调用，且传入一个带着 <code>path</code> 属性的对象，<code>path</code> 的值是给通配符的值。</li>
+</ul>
+</li>
+</ul>
+<p>所有的路由实际都有一个 <code>nav</code> 属性被组合进 <code>navigation</code> 数组。这使得用数据绑定来生成菜单结构变得很简单。另一个对绑定很重要的属性是 <code>isNavigating</code>。下面是一个简单的例子，向你展示如何使用上面的路由构建一个 view：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;ul&gt;</div><div class="line">    &lt;li class=&quot;loader&quot; if.bind=&quot;router.isNavigating&quot;&gt;</div><div class="line">      &lt;i class=&quot;fa fa-spinner fa-spin fa-2x&quot;&gt;&lt;/i&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">    &lt;li repeat.for=&quot;item of router.navigation&quot;&gt;</div><div class="line">      &lt;a href.bind=&quot;item.href&quot;&gt;$&#123;item.title&#125;&lt;/a&gt;</div><div class="line">    &lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line"></div><div class="line">  &lt;router-view&gt;&lt;/router-view&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure>
+<h3 id="The-Screen-Activation-Lifecycle"><a href="#The-Screen-Activation-Lifecycle" class="headerlink" title="The Screen Activation Lifecycle"></a>The Screen Activation Lifecycle</h3><p>无论路由何时处理一个向导，在路由来往的这两个 view-model，都会创建一个准确的生命周期（Whenever the router processes a navigation, it enforces a strict lifecycle on the view-models that it is navigating to and from）。这个生命周期有四个阶段。通过的在 view-model 的类中实现对应的方法，你可以有选择使用这些阶段， Here’s a list of the lifecycle callbacks:</p>
+<ul>
+<li><code>canActivate(params, routeConfig, navigationInstruction)</code> - 控制是否能路由进入（ navigate to）到你的 view-model。返回一个 boolean 值、一个返回boolean 值的 promise，或者一个向导命令（navigation command）。</li>
+<li><code>activate(params, routeConfig, navigationInstruction)</code> - 在 view-model 展示之前执行你的自定义逻辑。可以有选择的返回一个 promise 来告诉路由等待直到你完成你的逻辑，才进行数据和视图的绑定。</li>
+<li><code>canDeactivate()</code> -  控制是否能路由离开（ navigate away）你的 view-model。返回一个 boolean 值、一个返回boolean 值的 promise，或者一个向导命令（navigation command）。</li>
+<li><code>deactivate()</code> - 在离开 view-model 之后执行你的自定义逻辑。可以有选择的返回一个 promise 来告诉路由等待直到你完成你的逻辑。</li>
+</ul>
+<p><code>param</code> 是由路由解析的每个参数组成的对象。<code>routeConfig</code> 是你设置的路由配置参数。<code>routeConfig</code>  也会有一个新的 <code>navModel</code> 属性，他可以用你的 view-model 中加载的数据来改变 document 标题。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">activate(params, routeConfig) &#123;</div><div class="line">  this.userService.getUser(params.id)</div><div class="line">    .then(user =&gt; &#123;</div><div class="line">      routeConfig.navModel.setTitle(user.name);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: 一个向导的命令是一个带有 <code>navigate(router)</code> 方法的对象。 When one is encountered, the navigation will be cancelled and control will be passed to the navigation command. One navigation command is provided out of the box: <code>Redirect</code>.</p>
+</blockquote>
+<h3 id="Child-Routers"><a href="#Child-Routers" class="headerlink" title="Child Routers"></a>Child Routers</h3><p>如果你已经阅读了 “Get Started” 向导，我们建议你现在特别注意这个章节  “Bonus: Leveraging Child Routers”。</p>
+<p>即使你已经设置一个路由映射到view-model，这个 view-model 也还可以包含他自己的路由，然后子路由的 view-model 也可以包含自己的子路由，如此循环……路由模式（route patterns）相对于父级路由，而模块和视图 id 是相对于view-model。他让你可以简单的封装特性或者子应用，以及控制复杂的分层状态（hierarchical state）。</p>
+<p>子路由与其他路由并无差异。So，我们上面所讨论的路由相关都适用于他。添加子路由只需要再次实现 <code>configureRouter</code> 方法。上面讨论的  screen activation lifecycle 也适用于他。Each phase of the lifecycle is run against the entire router hierarchy before moving on to the next phase. The activate hooks run from top to bottom and the deactivate hooks run from bottom to top.</p>
+<h3 id="Conventional-Routing"><a href="#Conventional-Routing" class="headerlink" title="Conventional Routing"></a>Conventional Routing</h3><p>As with everything in Aurelia, we have strong support for conventions. 你可以选择配置动态路由而不是一个预先配置的路由。动态路由的栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">export class App &#123;</div><div class="line">  configureRouter(config)&#123;</div><div class="line">    config.mapUnknownRoutes(instruction =&gt; &#123;</div><div class="line">      //check instruction.fragment</div><div class="line">      //set instruction.config.moduleId</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你只需要设置 <code>config.moduleId</code> 属性，也可以从 <code>mapUnknownRoutes</code> 返回一个 promise 来异步设置路由目标。</p>
+<blockquote>
+<p>Note: Though not necessarily related to conventional routing, you may sometimes have a need to asynchronously configure your router. For example, you may need to call a web service to get user permissions before setting up routes. To do this, return a promise from <code>configureRouter</code>.</p>
+</blockquote>
+<h3 id="Customizing-the-Navigation-Pipeline"><a href="#Customizing-the-Navigation-Pipeline" class="headerlink" title="Customizing the Navigation Pipeline"></a>Customizing the Navigation Pipeline</h3><p>The router pipeline is composed out of separate steps that run in succession. Each of these steps has the ability to modify what happens during routing, or stop the routing altogether. The pipeline also contains a few extensibility points where you can add your own steps. These are authorize and modelbind. authorize happens before modelbind. These extensions are called route filters.</p>
+<p>下面是一个添加授权（authorization）到应用中的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import &#123;Redirect&#125; from &apos;aurelia-router&apos;;</div><div class="line"></div><div class="line">export class App &#123;</div><div class="line">	configureRouter(config)&#123;</div><div class="line">		config.title = &apos;Aurelia&apos;;</div><div class="line"></div><div class="line">		//Add a route filter to the authorize extensibility point</div><div class="line">		config.addPipelineStep(&apos;authorize&apos;, AuthorizeStep); </div><div class="line"></div><div class="line">		config.map([</div><div class="line">			&#123; </div><div class="line">				route: [&apos;welcome&apos;],</div><div class="line">				name: &apos;welcome&apos;,</div><div class="line">				moduleId: &apos;welcome&apos;,</div><div class="line">				nav: true,</div><div class="line">				title: &apos;Welcome&apos;</div><div class="line">			&#125;,</div><div class="line">			&#123;</div><div class="line">				route: &apos;flickr&apos;,</div><div class="line">				name: &apos;flickr&apos;,</div><div class="line">				module: &apos;flickr&apos;,</div><div class="line">				nav: true,</div><div class="line">				auth: true</div><div class="line">			&#125;,</div><div class="line">			&#123;</div><div class="line">				route: &apos;&apos;,</div><div class="line">				redirect: &apos;welcome&apos;</div><div class="line">			&#125;</div><div class="line">		]);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class AuthorizeStep&#123;</div><div class="line">	run(routingContext, next)&#123;</div><div class="line">		// Check if the route has an &apos;auth&apos; key</div><div class="line">		// The reason for using &apos;nextInstructions&apos; is because</div><div class="line">		// this includes child routes</div><div class="line"></div><div class="line">		if( routingContext.nextInstructions.some(i =&gt; i.config.auth) ) &#123;</div><div class="line">			var isLoggedIn = /* insert magic here */false;</div><div class="line">			if ( !isLoggedIn ) &#123;</div><div class="line">				return next.cancel(new Redirect(&apos;login&apos;));</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return next();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这些扩展点也有自己的小管道线，每个小管道都能添加多步骤。例如，上面栗子中的 <code>AuthorizeStep</code> 会检查用户是否登录，你可以在 <code>authorize</code> 的扩展点加入 <code>IsAdminStep</code> ——是否 Admin 的步骤，他们将会按顺序进行。</p>
+<p>你也可以创建自己的 filters，只要在 <code>addPipelineStep</code> 中传入一个不同的名字，具体是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">config.addPipelineStep(&apos;myname&apos;, MyFirstStep); // Transparently creates the pipeline &quot;myname&quot; if it doesn&apos;t already exist.</div><div class="line">config.addPipelineStep(&apos;myname&apos;, MySecondStep); // Adds another step to it.</div><div class="line">config.addPipelineStep(&apos;modelbind&apos;, &apos;myname&apos;); // Makes the entire `myname` pipeline run as part of the `modelbind` pipeline.</div></pre></td></tr></table></figure>
+<h3 id="Configuring-PushState"><a href="#Configuring-PushState" class="headerlink" title="Configuring PushState"></a>Configuring PushState</h3><p>如果你不喜欢 <code>#</code> 的哈希标识出现在你的 URLs，你就需要在你的应用中使用 <code>pushState</code>。为了让他正常跑起来，你还需要在 server 端做点工作。让我们先从 Aurelia 这边开始码。</p>
+<p>首先你需要在 <code>router</code> 的 <code>config</code> 中告诉 Aurelia ，你想使用 <code>pushState</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">export class App &#123;</div><div class="line">	configureRouter(config)&#123;</div><div class="line">		config.title = &apos;Aurelia&apos;;</div><div class="line">		config.options.pushState = true; // &lt;-- this is all you need here</div><div class="line">		config.map([</div><div class="line">	      &#123; route: [&apos;welcome&apos;],    name: &apos;welcome&apos;,     moduleId: &apos;welcome&apos;,      nav: true, title:&apos;Welcome&apos; &#125;,</div><div class="line">	      &#123; route: &apos;flickr&apos;,       name: &apos;flickr&apos;,      moduleId: &apos;flickr&apos;,       nav: true, auth: true &#125;,</div><div class="line">	      &#123; route: &apos;child-router&apos;, name: &apos;childRouter&apos;, moduleId: &apos;child-router&apos;, nav: true, title:&apos;Child Router&apos; &#125;,</div><div class="line">	      &#123; route: &apos;&apos;,             redirect: &apos;welcome&apos; &#125;</div><div class="line">	    ]);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你还需要添加一个 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" target="_blank" rel="external">base 标签</a> 在html 文档的 head。这个很重要，请别忘记他。</p>
+<p>接下来， server 端需要配置：不管发送什么请求都需要返回同个 <code>index.html</code>，因为所有的路由操作都在客户端。所以，如果你在依照栗子用 <code>gulp watch</code> 和 <code>browsersync</code>，你可以将设置改为：</p>
+<p>npm 安装 依赖包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save connect-history-api-fallback</div></pre></td></tr></table></figure>
+<p>这是在下载安装你需要的中间件。之后打开 <em>build/tasks</em> 文件夹的 <em>Server</em> 任务，将下面这句放在顶部与其他引用的语句一起：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var historyApiFallback = require(&apos;connect-history-api-fallback&apos;);</div></pre></td></tr></table></figure>
+<p>下面就可以用新的 <code>middleware</code> 修改 <code>serve</code> task“</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;serve&apos;, [&apos;build&apos;], function()&#123;</div><div class="line">	browserSync(&#123;</div><div class="line">		open: false,</div><div class="line">		port: 9000,</div><div class="line">		serve: &#123;</div><div class="line">			baseDir: [&apos;.&apos;],</div><div class="line">			middleware: [historyApiFallback, function(req, res, next)&#123;</div><div class="line">				res.setHeader(&apos;Access-Control-Allow-Origin&apos;,&apos;*&apos;);</div><div class="line">				next();</div><div class="line">			&#125;]</div><div class="line">		&#125;</div><div class="line">	&#125;, done);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>现在，你的 node 服务器就会将路由控制权交给 Aurelia 了。</p>
+<p>如果你在使用 ASP.NET 或 MVC 等 .NET 服务端框架，可以像这样配置：</p>
+<ul>
+<li>创建一个控制器叫他 <code>ApplicationController</code> 或者其他你想叫的:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">public class ApplicationController : Controller &#123;</div><div class="line">  public ActionResult Index() &#123;</div><div class="line">    return View();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>创建一个 “index.cshtml” 视图在视图文件夹</li>
+<li>设置路由配置为：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">context.MapRoute(</div><div class="line">  name: &quot;AureliaRouting&quot;,</div><div class="line">  url: &quot;&#123;*.&#125;&quot;,</div><div class="line">  defaults: new &#123; controller = &quot;Application&quot;, action = &quot;Index&quot; &#125;</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>注意上面的配置将强制使用一个 Razor 视图文件。如果你想使用一个普通 HTML 文件，将使用不同的方法：<a href="http://stackoverflow.com/questions/20871938/render-html-file-in-asp-net-mvc-view" target="_blank" rel="external"> This SO article might help you.</a></p>
+<p>If you are using <a href="http://nancyfx.org/" target="_blank" rel="external">Nancy FX</a>, then the config is just as simple. Locate your <code>IndexModule.cs</code> or whatever you called it and make sure it looks something like this and all will be well:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public class IndexModule : NancyModule &#123;</div><div class="line">  public IndexModule()     &#123;</div><div class="line">    this.Get[&quot;/robots.txt&quot;] = p =&gt; this.Response.AsFile(&quot;robots.txt&quot;);</div><div class="line">    this.Get[&quot;/sitemap.xml&quot;] = p =&gt; this.Response.AsFile(&quot;sitemap.xml&quot;);</div><div class="line">    this.Get[&quot;/&quot;] = x =&gt; this.View[&quot;index&quot;];</div><div class="line">    this.Get[&quot;/&#123;path*&#125;&quot;] = x =&gt; this.View[&quot;index&quot;];</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Similar techniques can be used in other server environments - you just need to make sure that whatever server you’re using, it needs to send back the same <code>index.html</code> regardless of the request being made. All server side frameworks should be able to achieve this. Aurelia will figure out which page to load based on its own route data.</p>
+<h3 id="Reusing-an-existing-VM"><a href="#Reusing-an-existing-VM" class="headerlink" title="Reusing an existing VM"></a>Reusing an existing VM</h3><p>有时你会想要在不同的路由中重用已存在的 View-Model。Aurelia 默认会将那 些路由作为同个 View-Model 的别名，然后只会 build 生命周期、绑定一次。可能这并不是你想要的。看下面的栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">export class App &#123;</div><div class="line">  configureRouter(config) &#123;</div><div class="line">    config.title = &apos;Aurelia&apos;;</div><div class="line">    config.map([</div><div class="line">      &#123; route: &apos;product/a&apos;,    moduleId: &apos;./product&apos;,     nav: true &#125;,</div><div class="line">      &#123; route: &apos;product/b&apos;,    moduleId: &apos;./product&apos;,     nav: true &#125;,</div><div class="line">    ]);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      Aurelia 文档翻译下部分，from Routing part
+    
+    </summary>
+    
+      <category term="Aurelia" scheme="http://iamtutu.com/categories/Aurelia/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Aurelia 文档小翻译</title>
+    <link href="http://iamtutu.com/2015/06/09/Aurelia-%E6%96%87%E6%A1%A3%E5%B0%8F%E7%BF%BB%E8%AF%91/"/>
+    <id>http://iamtutu.com/2015/06/09/Aurelia-文档小翻译/</id>
+    <published>2015-06-09T15:52:02.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>##Browser Support</p>
+<p>Aurelia 支持现代浏览器，包括 Chrome，Firefox，IE11，Safari 8。但是我们也提供兼容 IE9 及以上的方法。</p>
+<p>为了需要兼容 IE9 及以上，我们需要为 MutationObservers 添加一个额外的 polyfill。实现方法，用 <code>jspm</code> 安装 <code>github:polymer/mutationobservers</code>。接着在 <code>aurelia-bootstrapper</code> 的外层这样调用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;jspm_packages/github/polymer/mutationobservers@0.4.2/MutationObserver.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;jspm_packages/system.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;config.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  // Loads WeakMap polyfill needed by MutationObservers</div><div class="line">  System.import(&apos;core-js&apos;).then( function() &#123;</div><div class="line">    // Imports MutationObserver polyfill</div><div class="line">    System.import(&apos;mutationobservers&apos;).then( function() &#123;</div><div class="line">      // Ensures start of Aurelia when all required IE9 dependencies are loaded</div><div class="line">      System.import(&apos;aurelia-bootstrapper&apos;);</div><div class="line">    &#125;)</div><div class="line">  &#125;);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: Aurelia 本身不需要 WeakMap，但是上面的 MutationObserver ployfill 会用到。 </p>
+</blockquote>
+<h2 id="Startup-amp-Configuration"><a href="#Startup-amp-Configuration" class="headerlink" title="Startup &amp; Configuration"></a>Startup &amp; Configuration</h2><p>大多数的平台都为代码执行设置有一个 “main” 或者入口点，Aurelia 也不例外。如果你已经看过了 <a href="http://aurelia.io/get-started.html" target="_blank" rel="external">Get Started</a>，你会发现这个 <code>aurelia-app</code> 属性。把它简单的放到一个 HTML 元素中，Aurelia 的引导器会加载一个 <code>app.js</code> 和 <code>app.html</code>，将他们通过数据绑定在一起，然后将他们注册到 <code>aurelia-app</code> 属性放置的地方。</p>
+<p>有时，我们想要配置框架，或者在向用户展示信息之前优先跑些代码，又或者，在项目进行中时，向需要 startup 配置的方向发展。因此，我们可以给 <code>aurelia-app</code> 一个值，这个值指向一个配置模块。该模块 export 一个单独的函数 <code>configure</code>。Aurelia 引用 <code>configure</code> 函数，向他传入 Aurelia 对象，之后我们可以用来 配置框架的这些那些东西 : ) 。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import &#123;LogManager&#125; from &apos;aurelia-framework&apos;;</div><div class="line">import &#123;ConsoleAppender&#125; from &apos;aurelia-logging-console&apos;;</div><div class="line"></div><div class="line">LogManager.addAppender(new ConsoleAppender());</div><div class="line">LogManager.setLevel(LogManager.logLevel.debug);</div><div class="line"></div><div class="line">export function configure(aurelia) &#123;</div><div class="line">  aurelia.use</div><div class="line">    .defaultBindingLanguage()</div><div class="line">    .defaultResources()</div><div class="line">    .router()</div><div class="line">    .eventAggregator()</div><div class="line">    .plugin(&apos;./path/to/plugin&apos;);</div><div class="line"></div><div class="line">  aurelia.start().then(a =&gt; a.setRoot(&apos;app&apos;, document.body));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>除了自定义插件的代码，以上的代码都是 <code>aurelia-app</code> 默认会帮你完成的工作。如果你使用配置文件的方法，你需要自己配置这些文件，但是你也可以安装自定义的插件，用一些 services 设置依赖注入的 container，安装视图模版中用到的全局资源等。</p>
+<p>如果你使用配置文件的方法，你可以只写一个简单的文件，他包含了所有我们上面栗子的标准选项，然后这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">export function configure(aurelia) &#123;</div><div class="line">  aurelia.use</div><div class="line">    .standardConfiguration()</div><div class="line">    .developmentLogging();</div><div class="line"></div><div class="line">  aurelia.start().then(a =&gt; a.setRoot());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h3><p>Aurelia 框架有一个简单的 logging abstraction，默认是无操作的。上面的配置展示了如何安装一个附件( appender )来向控制台 console 输出 log 数据。我们还可以设置 log level，<code>logLevel</code> 的值可以为：<code>none</code>, <code>error</code>, <code>warn</code>, <code>info</code> and <code>debug</code>。</p>
+<p>你可以简单的创建自己的 <code>appender</code>。配合 appender 接口来实现一个 类。最好的栗子是看源码：<a href="https://github.com/aurelia/logging-console/blob/master/src/index.js" target="_blank" rel="external">console log appender’s source</a></p>
+<h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><p><strong>插件</strong> 是只有一个 exported <code>configure</code> 函数的  module 。当启动时，Aurelia 会 load 所有插件模块 ，将 Aurelia 的实例传入插件们的 <code>configure</code> 函数并执行。</p>
+<p>插件可从 配置函数 返回一个 <code>Promise</code> 来完成异步的配置任务。在写插件时，要确保明确的提供所有的 metadata，包括给 Custom Elements 使用的 View Strategy。</p>
+<p>为了 配置你的插件的来源，在 app 中你可以设置一个函数或者对象作为配置函数的第二个参数，在插件中可以用到，你的插件的使用者可以这么用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aurelia.use.plugin(&apos;./path/to/plugin&apos;, config =&gt; &#123; /* configuration work */ &#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note:  插件不能依赖 Aurelia 的命名约定。因为 Aurelia 的命名约定是可配置的，所以第三方插件应该明确，确保在不同的上下文环境下函数的执行。</p>
+</blockquote>
+<h4 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h4><p>Aurelia 默认使用 ES6 原生的 Promises 或者 polyfill。你也可以使用这个不错的 Promise 库 <a href="https://github.com/petkaantonov/bluebird" target="_blank" rel="external">Bluebird</a> 来替换。使用它只需要将它放到页面上其他引用的脚本前面，他回使用自己标准的 Promise 实现，这个方法比原生的 Promise 要快，并且拥有更好的 debugging 支持。另外，在使用 Babel 编译器的时候，可以使用 <a href="http://babeljs.io/docs/usage/transformers/other/bluebird-coroutines/" target="_blank" rel="external">coroutines</a> 来改进异步代码的书写。</p>
+<h3 id="The-Aurelia-Object"><a href="#The-Aurelia-Object" class="headerlink" title="The Aurelia Object"></a>The Aurelia Object</h3><p>因为自定义配置模块和插件都需要用到 Aurelia Object，下面是一个简单的 API 的解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">export class Aurelia &#123;</div><div class="line">  loader:Loader; //the module loader</div><div class="line">  container:Container; //the app-level dependency injection container</div><div class="line">  use:Plugins; //the plugins api (see above)</div><div class="line"></div><div class="line">  withInstance(type, instance):Aurelia; //DI helper method (pass through to container)</div><div class="line">  withSingleton(type, implementation):Aurelia; //DI helper method (pass through to container)</div><div class="line">  globalizeResources(...resourcePaths):Aurelia; //module ids of resources relative to the configuration/plugin module</div><div class="line">  renameGlobalResource(resourcePath, newName); //renames a globally available resource to avoid naming conflicts</div><div class="line"></div><div class="line">  start():Promise; //starts the framework, causing plugins to be installed and resources to be loaded</div><div class="line">  setRoot(root, applicationHost):Promise; //set your &quot;root&quot; or &quot;app&quot; view-model and display it</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Views-and-View-Models"><a href="#Views-and-View-Models" class="headerlink" title="Views and View Models"></a>Views and View Models</h2><p>在 Aurelia 中，用户交互元素由 View 和 View-model 对来实现。View 由 HTML 完成，会被渲染到 DOM 中，View-model 由 JavaScript 完成， 向 View 提供数据和交互行为。模版引擎和 DI（依赖注入）负责创建配对之间的联系，并且为进程执行一个可预言的生命周期？（不理解）</p>
+<p>在连接成功之后， Aurelia 强大的数据绑定就能将 View 和 View-model 的数据和视图联合起来，实现数据双向绑定。</p>
+<ul>
+<li>这样的分隔方法有利于 开发和设计 的合作: ) </li>
+<li>可维护性、灵活的架构、甚至代码控制……</li>
+</ul>
+<h3 id="Dependency-Injection-DI"><a href="#Dependency-Injection-DI" class="headerlink" title="Dependency Injection (DI)"></a>Dependency Injection (DI)</h3><p>View-model 和其他的交互元素：Custom Elements、Customs Attributes，都被作为 类来创建，然后框架中使用依赖注入容器来实例化。 这种代码容易模块化和测试。</p>
+<p>你可以将需求拆分为小的对象，合作来完成一个目标，而不是写一个巨大的类。DI 可以配合完成拼接。</p>
+<p>使用 DI时，在你的 类中的 constructor 中传入，下面是栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import &#123;inject&#125; from &apos;aurelia-framework&apos;;</div><div class="line">import &#123;HttpClient&#125; from &apos;aurelia-http-client&apos;;</div><div class="line"></div><div class="line">@inject(HttpClient)</div><div class="line">export class CustomerDetail&#123;</div><div class="line">    constructor(http)&#123;</div><div class="line">        this.http = http;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在 ES7 或者 TypeScript 中可以使用 Decrators，这时你只需要加一个 <code>inject</code> decorator，每注入一个类型传一个参数。如果你使用的语法没有支持 Decrators，或者是不想用，也可以添加一个叫 <code>inject</code> 的静态属性或者方法到你的类中。这样必须返回一个可注入的类型数组（array of injectable types）。下面是一个在 CoffeeScript 结合 CommomJS 模块的栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HttpClient = require(&apos;aurelia-http-client&apos;).HttpClient;</div><div class="line"></div><div class="line">class Flickr</div><div class="line">  constructor: (@http) -&gt;</div><div class="line">  @inject:[HttpClient]</div></pre></td></tr></table></figure>
+<p>如果你正在使用　TypeScript 开发，可以用 <code>--emitDecoratorMetadata</code> 编译标识配合 Aurelia 的 <code>autoinject()</code> decorator 来让框架读取标准 TS 类型信息。这样做之后，就不需要去复制类型了。代码实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import &#123;autoinject&#125; from &apos;aurelia-framework&apos;;</div><div class="line">import &#123;HttpClient&#125; from &apos;aurelia-http-client&apos;;</div><div class="line"></div><div class="line">@autoinject()</div><div class="line">export class CustomerDetail&#123;</div><div class="line">    constructor(http:HttpClient)&#123;</div><div class="line">        this.http = http;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: TypeScript 实现这个编译选项的方式中有个有趣的细节，他适用于任何decorator。所以，如果你在自己的 TS 类中拿到一些其他的 Decorator ，就不需要引入 <code>autoinject</code> decorator，那些 Type information 仍然能被 Aurelia 的依赖注入框架发现。</p>
+</blockquote>
+<p>当明确的声明依赖时，他们不一定非得是 constructor types，还可以是 resolvers 的实例。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import &#123;Lazy, inject&#125; from &apos;aurelia-framework&apos;;</div><div class="line">import &#123;HttpClient&#125; from &apos;aurelia-http-client&apos;;</div><div class="line"></div><div class="line">@inject(Lazy.of(HttpClient))</div><div class="line">export class CustomerDetail&#123;</div><div class="line">    constructor(getHTTP)&#123;</div><div class="line">        this.getHTTP = getHTTP;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样的 <code>Lazy</code> resolver 实际上没有提供一个 <code>HttpClient</code> 的实例，它提供一个可以随时返回 <code>HttpClient</code> 实例的函数。你可以通过写个类继承 Resolver 来创建 resolvers，或者使用我们提供的一些方便的 resolvers：</p>
+<ul>
+<li><code>lazy</code> -  Injects a function for lazily evaluating the dependency.<ul>
+<li>ex . <code>Lazy.of(HttpClient)</code></li>
+</ul>
+</li>
+<li><code>All</code> - Injects an array of all services registered with the provided key<ul>
+<li>ex. <code>All.of(Plugin)</code></li>
+</ul>
+</li>
+<li><code>Optional</code> -  Injects an instance of a class only if it already exists in the container; null otherwise.<ul>
+<li>ex. <code>Optional.of(LoggedInUser)</code></li>
+</ul>
+</li>
+</ul>
+<p>另外关于 resolvers，你也可以用 <code>Registration</code> decorators 来指定一个默认的注册(registration)，或者一个实例的生命周期。默认情况下，DI 容器假设每个实例都是单例？（everything is a singleton instance）one instance for the app。但是你可以用一个registration decorator 来修改，示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import &#123;transient, inject&#125; from &apos;aurelia-framework&apos;;</div><div class="line">import &#123;HttpClient&#125; from &apos;aurelia-http-client&apos;;</div><div class="line"></div><div class="line">@transient()</div><div class="line">@inject(HttpClient)</div><div class="line">export class CustomerDetail&#123;</div><div class="line">    constructor(http)&#123;</div><div class="line">        this.http = http;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如上所写，每次请求 DI 容器返回 CustomerDetail 的时候会返回一个新的实例，而不是一个 singleton。<code>singleton</code> 和 <code>transient</code> registrations 都提供给外部使用，但是你也可以通过构建一个实现 <code>register(container, key, fn)</code> 函数的类，来创建 registration 。之后，就可以简单了用 <code>registration</code> decorator 来把它的实例添加到你的类中。</p>
+<p>如果你不能或不想用 decorators。don’t worry! 我们准备了后备方案。只要提供一个静态的 <code>decorators</code> 属性或方法，然后使用我们 链式的 <code>Decorators</code> helper。 这位 helper 有对应我们所有 decorators 的方法。So，无论你使用何种语言都十分简单使用。下面是 CoffeeScript 的实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">HttpClient = require(&apos;aurelia-http-client&apos;).HttpClient;</div><div class="line">Decorators = require(&apos;aurelia-framework&apos;).Decorators;</div><div class="line"></div><div class="line">class CustomerDetail</div><div class="line">  constructor: (@http) -&gt;</div><div class="line">  @decorators:Decorators.transient().inject(HttpClient);</div></pre></td></tr></table></figure>
+<h3 id="Parent-View-Models"><a href="#Parent-View-Models" class="headerlink" title="Parent View Models"></a>Parent View Models</h3><p>By default a View-model’s access is limited to injected objects as well as children of the class. Sometimes it may be desirable to refer to objects and methods on a parent View-model, which can be achieved by storing the parent during the bind method of the view lifecycle:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class ChildViewModel &#123;</div><div class="line">  bind(bindingContext) &#123;</div><div class="line">    this.$parent = bindingContext;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Tamplating"><a href="#Tamplating" class="headerlink" title="Tamplating"></a>Tamplating</h2><p>Aurelia 的模版引擎负责加载视图和他们所需要的资源，以及完美编译 HTML 和渲染 UI 到屏幕上。创建一个视图，你仅仅需要一个HTML文件，在里面加上<code>HTMLTemplate</code> 即可，下面是个简单的视图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">    &lt;div&gt;Hello World!&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure>
+<p>所有在 <code>template</code> 标签中的内容都由 Aurelia 管理。但是，因为 Aurelia 使用 HTMLImport 技术来加载视图，所以你也可以写入 <code>links</code> ，他们也会被正确的加载，还可以用相对路径的写法哦，具体是指：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./hello.css&quot;&gt;</div><div class="line"></div><div class="line">&lt;template&gt;</div><div class="line">    &lt;div class=&quot;hello&quot;&gt;Hello World!&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure>
+<p>这样你就可以为每个视图选择需要加载的样式，还可以使用 Web components on the fly。</p>
+<p>当你需要引入一个 Aurelia 特制 (Aurelia-specific) 的资源时，比如一个 Aurelia Custom Element，Custom Attribute or Value Converter，你会在视图中用到一个 <code>require</code> 元素。栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;require from=&apos;./nav-bar&apos;&gt;&lt;/require&gt;</div><div class="line"></div><div class="line">  &lt;nav-bar router.bind=&quot;router&quot;&gt;&lt;/nav-bar&gt;</div><div class="line"></div><div class="line">  &lt;div class=&quot;page-host&quot;&gt;</div><div class="line">    &lt;router-view&gt;&lt;/router-view&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure>
+<p>在这个例子中 <code>nav-bar</code> 是一个我们需要使用的 Aurelia Custom Element。在 我们使用 <code>require</code> element 时，框架的资源管道会处理输入的元件。这么做有以下好处：</p>
+<ul>
+<li>去重 - 资源只会在 app 中被 download 一次，即使其他的视图需要相同的元素，也只会被下载一次。</li>
+<li>一次编译 - 模版中这样引入自定义元素在整个应用周期只会被编译一次</li>
+<li>Local Scope( 本地作用域？ ) - 引入的资源只能在引入他的视图中可见，通过这样排除全局作用域的方法，可以有效减少命名冲突的可能性、加强可维护性和易懂性</li>
+<li>重命名 - 资源可以被重命名，这样当你在同一视图，引入两个名字相同或相似的第三方资源时，就可以使用这个特性<ul>
+<li>ex. <code>&lt;require from=&quot;./nav-bar&quot; as=&quot;foo-bar&quot;&gt;&lt;/require&gt;</code> - 现在你可以使用 <code>foo-bar</code> 元素来替代 <code>nav-bar</code> 元素。（这是基于 ES6 的import 语法，重命名被认为是代替 Alias 的方法，因为他完全的重命名了type ）</li>
+</ul>
+</li>
+<li>包 - require 可以指向一个包括多资源的模块，包中的所有的资源会被导入同个视图</li>
+<li>可扩展性 - 我们可以定义新的资源类型，You can define new types of resources which, when required in this way, can execute custom loading (async one-time) and registration (once per-view). This is a declarative, extensible resource loading pipeline.</li>
+<li>ES6 - 代码是由 ES6 loader 加载而不是 HTMLImport 机制， enabling all the features and extensibility of your loader。这么设计完全统一了所有app资源的加载方法，无论是 JS 还是 HTML</li>
+</ul>
+<p>在你的视图中，你会用到上面提到的各种不同的资源以及数据绑定</p>
+<blockquote>
+<p>Note: 你可能会觉得每个视图中都要引入东西很无聊╮(╯▽╰)╭。Remember ，在引导（ bootstrapping）阶段，你可以配置 Aurelia 可以让所有视图使用的全局资源。Just use <code>aurelia.globalizeResources(...resourcePaths)</code>。</p>
+</blockquote>
+<p>Aurelia  polyfills browsers 不包括支持 templates。但是，模版的一些特性可以被 polyfilled ，需要 workarounds。特别当 <code>template</code> 元素在 <code>select</code> 和 <code>table</code> 元素中时，下面的代码在不原生支持 templates 的浏览器中不能实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;table&gt;</div><div class="line">  &lt;template repeat.for=&quot;customer of customers&quot;&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">      &lt;td&gt;$&#123;customer.fullName&#125;&lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">  &lt;/template&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
+<p>为了重复输出 <code>tr</code> 元素，可以简单的修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;table&gt;</div><div class="line">  &lt;tr repeat.for=&quot;customer of customers&quot;&gt;</div><div class="line">    &lt;td&gt;$&#123;customer.fullName&#125;&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
+<h3 id="Databinding"><a href="#Databinding" class="headerlink" title="Databinding"></a>Databinding</h3><p>数据绑定让你可以将一个 JS 对象中的状态和行为连接到 HTML 视图中。当连接建立之后，任何的连接的属性改动都会在一个或两个方向上同步。</p>
+<p>JS 对象中的改变能反应在视图上，视图上的修改能映射到 JS 对象中。</p>
+<p>要建立这样连接，可以在 HTML 中利用 <code>binding commands</code> 。通过使用一个绑定操作符 <code>.</code> 来声明绑定命令。当 HTML 的属性中包含一个 <code>.</code>，编译器会将属性的名字和值传到绑定语言（binding language）来编译，当视图被创建时，通过建立的连接，我们就能使用一个或更多的绑定表达式了。</p>
+<p>可以自己扩展绑定命令，但是 Aurelia 提供了一个覆盖大多数常用使用案例的命令集合。</p>
+<h4 id="bind-one-way-two-way-amp-one-time"><a href="#bind-one-way-two-way-amp-one-time" class="headerlink" title="bind, one-way, two-way &amp; one-time"></a>bind, one-way, two-way &amp; one-time</h4><p>最常用的绑定命令是 <code>.bind</code>。这样会让所有的属性使用单向绑定来绑定，而元素的值使用双向绑定。</p>
+<p>这意味着神马呢？</p>
+<p><strong>单向绑定</strong>是说改变JS 的 view-models 会反映到 view 上，而反方向不会反应。<br><strong>双向绑定</strong>是指每个方向改变都会影响到对方。</p>
+<p><code>.bind</code> 会假设你在绑定表单元素的时候会希望 view 上的 form 改变反应到 view-model 上，而其他的情况下就使用单向绑定，这是因为，在许多的时候，双向绑定到一个非表单元素上是无意义的。下面是 <code>.bind</code> 的小栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;text&quot; value.bind=&quot;firstName&quot;&gt;</div><div class="line">&lt;a href.bind=&quot;url&quot;&gt;Aurelia&lt;/a&gt;</div></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>input</code> 元素会将他的值绑定到 view-model 的 <code>firstName</code> 属性上。改变 <code>firstName</code> 的属性会更新 <code>input.value</code> ，而改变 <code>input.value</code> 会更新 <code>firstName</code> 的值。另一边，<code>a</code> 标签的 <code>href</code> 属性绑在了 view-model 的 <code>url</code> 属性上。只有改变 <code>url</code> 的值会影响 <code>href</code>，反方向则不通。</p>
+<p>我们也可以明确的使用 <code>.one-way</code> 或者 <code>.two-way</code> 来代替 <code>.bind</code>。举一个常见的栗子：当需要引入一个 Web Components 作为输入类型的控件时，你可以这样使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;markdown-editor value.two-way=&quot;markdown&quot;&gt;&lt;/markdown-editor&gt;</div></pre></td></tr></table></figure>
+<p>为了优化性能和最小化 CPU 与内存的使用，你可以选择利用 <code>.one-time</code> 绑定命令来在初始绑定阶段，将 View-model 的数据“一次性”输出到 view，这之后就不会再有任何同步行为了。</p>
+<h4 id="delegate-trigger-amp-call"><a href="#delegate-trigger-amp-call" class="headerlink" title="delegate, trigger &amp; call"></a>delegate, trigger &amp; call</h4><p>绑定命令不只是能连接 View-model 和 view 的属性，还可以触发行为操作。例如，如果你想要在点击按钮的时候执行一个方法，你可以像这么使用 <code>trigger</code> 命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button click.trigger=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</div></pre></td></tr></table></figure>
+<p>当按钮被点击之后， view-model 的 <code>sayhello</code> 方法就会被执行。即便如此，像这样往每个单独的元素中绑定事件控制器并不是很有效率，所以通常你会比较倾向于使用事件委托。我们可以用 <code>.delegate</code> 命令来使用事件委托。例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button click.delegate=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</div></pre></td></tr></table></figure>
+<p>当你需要访问事件对象时，<code>$event</code> 可以作为参数传到 delegate/trigger 的函数中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button click.delegate=&quot;sayHello($event)&quot;&gt;Say Hello&lt;/button&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: 事件委派，是一个使用 DOM 事件冒泡特性的技术。当使用 <code>.delegate</code>，一个单独的事件控制器被绑定到 document，而不是一个绑定到单独的元素。当元素的事件被触发，它沿着 DOM 冒泡到 有绑着控制器的 document。这是一个能更有效利用内存来处理事件的方式，默认机制中推荐使用这个方法。</p>
+</blockquote>
+<p>All of this works against DOM events in some way or another. 有时，你在用 Aurelia Custom Attribute or Element 时，会想要一个函数直接的引用，然后在之后什么时候手动的执行它。用 <code>.call</code> 绑定可以传一个函数引用（since the attribute will call it later）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button touch.call=&quot;sayHello()&quot;&gt;Say Hello&lt;/button&gt;</div></pre></td></tr></table></figure>
+<p>如上，Custom Attribute <code>touch</code> 会获得一个函数，他可以执行你的 <code>sayhello()</code> 代码。依赖于 implementor 的特性，你也可以从 caller 得到传值。就像从 trigger/delegate 传 <code>$event</code> 对象。</p>
+<h4 id="string-interpolation"><a href="#string-interpolation" class="headerlink" title="string interpolation"></a>string interpolation</h4><p>有时你需要将属性直接绑定到 document 的内容中或插入属性值中。这时，你可以使用 string interpolation 语法 <code>${expression}</code>。 String interpolation 是单向绑定，他的输出被转化为字符串，这时例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;span&gt;$&#123;fullName&#125;&lt;/span&gt;</div></pre></td></tr></table></figure>
+<p><code>fullName</code> 属性会直接被插入 span 的内容。你还可以将这个用在 css class 的绑定上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;dot $&#123;color&#125; $&#123;isHappy ? &apos;green&apos; : &apos;red&apos;&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>在上面例子中，“dot” 是一个静态的类，<code>isHappy</code> 为 true 时是 “green”，false 时是 “red”。还有 <code>color</code> 的值会被作为一个类被加入。</p>
+<blockquote>
+<p>Note: 你可以在绑定中使用简单的表达式。但是不要试图做其他的更多的，因为在试图中最好不要涉及过多代码。你应该只想建立 view 和 view-model 的链接。</p>
+</blockquote>
+<h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><p>绑定语言还识别一个特别属性的用法：<code>ref</code>。使用 <code>ref</code> 你可以为一个元素创建 local name，然后可以在其他绑定表达式中使用。他也可以设置为 view-model 的属性，之后你就能在代码中访问到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;text&quot; ref=&quot;name&quot;&gt; $&#123;name.value&#125;</div></pre></td></tr></table></figure>
+<p>You can also use ref as a binding command to get the view-model instance that backs an Aurelia Custom Element or Custom Attribute. By using this technique, you can connect different components to each other:<br>通过这个技术，可以将不同的组件联系在一起：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;producer producer.ref=&quot;producerVM&quot;&gt;&lt;/producer&gt;</div><div class="line">&lt;consumer input.bind=&quot;producerVM.output&quot;&gt;&lt;/consumer&gt;</div></pre></td></tr></table></figure>
+<p><code>producer.ref = &quot;producerVM&quot;</code> 为 view-model 的 <code>producer</code> custom element 创建个假名，然后在别的地方用。下面是一些 <code>ref</code> 的用法：</p>
+<ul>
+<li><p><code>attribute-name.ref=&quot;someIndetifier&quot;</code> - 给 custom attribute 类的实例创建引用</p>
+</li>
+<li><p><code>element-name.ref=&quot;someIndetifier&quot;</code> - 给 custom element 类实例创建引用</p>
+</li>
+<li><p><code>ref=&quot;someIndetifier&quot;</code> - 给 DOM 中的 HTMLElement<br>创建一个引用</p>
+</li>
+</ul>
+<h4 id="select-elements"><a href="#select-elements" class="headerlink" title="select elements"></a>select elements</h4><p>HTMLSelectElement( HTML select 元素 ) 上的 <code>value.bind</code> 有一个特别的操作来支持单选或多选模式。</p>
+<p>经典的 select 元素使用一个 <code>value.bind</code> 和 <code>repeat</code> 结合来渲染时，可以这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;select value.bind=&quot;favoriteColor&quot;&gt;</div><div class="line">    &lt;option&gt;Select A Color&lt;/option&gt;</div><div class="line">    &lt;option repeat.for=&quot;color of colors&quot; value.bind=&quot;color&quot;&gt;$&#123;color&#125;&lt;/option&gt;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure>
+<p>但是，有时你想用对象实例而不是字符串。下面是用一个假设的雇员数组来构建 select 元素的栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;select value.bind=&quot;employeeOfTheMonth&quot;&gt;</div><div class="line">  &lt;option&gt;Select An Employee&lt;/option&gt;</div><div class="line">  &lt;option repeat.for=&quot;employee of employees&quot; model.bind=&quot;employee&quot;&gt;$&#123;employee.fullName&#125;&lt;/option&gt;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure>
+<p>与前个栗子主要的区别在于，我们将 option 的值储存在一个特别的属性 <code>model</code> 中，而不是只能接受字符串的 <code>value</code>。</p>
+<h4 id="multi-select-elements"><a href="#multi-select-elements" class="headerlink" title="multi select elements"></a>multi select elements</h4><p>在多选情景下，你可以将 select 元素的值绑定到一个数组。下面的栗子展示了如何绑定一个字符串数组 <code>favoriteColors</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;select value.bind=&quot;favoriteColors&quot; multiple&gt;</div><div class="line">    &lt;option repeat.for=&quot;color of colors&quot; value.bind=&quot;color&quot;&gt;$&#123;color&#125;&lt;/option&gt;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure>
+<p>同样适用于对象数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;select value.bind=&quot;favoriteEmployees&quot; multiple&gt;</div><div class="line">  &lt;option repeat.for=&quot;employee of employees&quot; model.bind=&quot;employee&quot;&gt;$&#123;employee.fullName&#125;&lt;/option&gt;</div><div class="line">&lt;/select&gt;</div></pre></td></tr></table></figure>
+<h4 id="radio"><a href="#radio" class="headerlink" title="radio"></a>radio</h4><p>在 HTMLInputElement （HTML input 元素）中使用  <code>checked.bind</code> 也有特殊的用法来支持绑定字符串或是对象这样的非 boolean 值。</p>
+<p>一个经典的 radio 按钮组渲染栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;label repeat.for=&quot;color of colors&quot;&gt;</div><div class="line">  &lt;input type=&quot;radio&quot; name=&quot;clrs&quot; value.bind=&quot;color&quot; checked.bind=&quot;$parent.favoriteColor&quot; /&gt;</div><div class="line">  $&#123;color&#125;</div><div class="line">&lt;/label&gt;</div></pre></td></tr></table></figure>
+<p>但是，有时你想使用对象实例而不是字符串。下面是用一个假设的雇员数组来构建 radio 按钮组的栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;label repeat.for=&quot;employee of employees&quot;&gt;</div><div class="line">  &lt;input type=&quot;radio&quot; name=&quot;emps&quot; model.bind=&quot;employee&quot; checked.bind=&quot;$parent.employeeOfTheMonth&quot; /&gt;</div><div class="line">  $&#123;employee.fullName&#125;</div><div class="line">&lt;/label&gt;</div></pre></td></tr></table></figure>
+<p>与前个栗子主要的区别在于，我们将 option 的值储存在一个特别的属性 <code>model</code> 中，而不是只能接受字符串的 <code>value</code>。</p>
+<p>你也可以将 boolean 属性绑定到一个 radio 组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;tacos&quot; model.bind=&quot;null&quot; checked.bind=&quot;likesTacos&quot; /&gt;Unanswered&lt;/label&gt;</div><div class="line">&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;tacos&quot; model.bind=&quot;true&quot; checked.bind=&quot;likesTacos&quot; /&gt;Yes&lt;/label&gt;</div><div class="line">&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;tacos&quot; model.bind=&quot;false&quot; checked.bind=&quot;likesTacos&quot; /&gt;No&lt;/label&gt;</div></pre></td></tr></table></figure>
+<h4 id="checkboxes"><a href="#checkboxes" class="headerlink" title="checkboxes"></a>checkboxes</h4><p>为了更好支持 多选 的情景，Aurelia 可以将 input 元素的 checked 属性绑定到数组。 下面是如果绑定字符串数组 <code>favoriteColors</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;label repeat.for=&quot;color of colors&quot;&gt;</div><div class="line">  &lt;input type=&quot;checkbox&quot; value.bind=&quot;color&quot; checked.bind=&quot;$parent.favoriteColors&quot; /&gt;</div><div class="line">  $&#123;color&#125;</div><div class="line">&lt;/label&gt;</div></pre></td></tr></table></figure>
+<p>同样可以绑定对象数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;label repeat.for=&quot;employee of employees&quot;&gt;</div><div class="line">  &lt;input type=&quot;checkbox&quot; model.bind=&quot;employee&quot; checked.bind=&quot;$parent.favoriteEmployees&quot; /&gt;</div><div class="line">  $&#123;employee.fullName&#125;</div><div class="line">&lt;/label&gt;</div></pre></td></tr></table></figure>
+<p>还可以绑定 boolean 类型的属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; checked.bind=&quot;wantsFudge&quot; /&gt;Fudge&lt;/label&gt;&lt;/li&gt;</div><div class="line">&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; checked.bind=&quot;wantsSprinkles&quot; /&gt;Sprinkles&lt;/label&gt;&lt;/li&gt;</div><div class="line">&lt;li&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; checked.bind=&quot;wantsCherry&quot; /&gt;Cherry&lt;/label&gt;&lt;/li&gt;</div></pre></td></tr></table></figure>
+<h4 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a>innerHTML</h4><p>你还可以用 <code>innerhtml</code> 属性绑定元素的 <code>innerHTML</code> 值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div innerhtml.bind=&quot;htmlProperty&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;div innerhtml=&quot;$&#123;htmlProperty&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>Aurelia 提供一个简单的 html sanitization 转化器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div innerhtml.bind=&quot;htmlProperty | sanitizeHtml&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;div innerhtml=&quot;$&#123;htmlProperty | sanitizeHtml&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>我们鼓励你使用一个更加完善的 html sanitizer 就像 <a href="https://www.npmjs.com/package/sanitize-html" target="_blank" rel="external">sanitize-html</a>。下面是使用这个包创建一个转换器的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jspm install npm:sanitize-html</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import sanitizeHtml from &apos;sanitize-html&apos;;</div><div class="line"></div><div class="line">export class MySanitizeHtmlValueConverter &#123;</div><div class="line">  toView(untrustedHtml) &#123;</div><div class="line">    return sanitizeHtml(untrustedHtml);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: 使用 <code>innerhtml</code> 属性绑定仅仅是设置了元素的 <code>innerHTML</code> 属性。这些 HTML 标签不会传到 Aurelia 的模版系统。 Binding expressions and require elements will not be evaluated. 已经有一个问题在 track 这个问题了 <a href="https://github.com/aurelia/templating/issues/35" target="_blank" rel="external">aurelia/templating#35</a>。</p>
+</blockquote>
+<h4 id="textContent"><a href="#textContent" class="headerlink" title="textContent"></a>textContent</h4><p>我们可以用 <code>textcontent</code> 属性绑定 元素的 <code>textContent</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div textcontent.bind=&quot;stringProperty&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;div textcontent=&quot;$&#123;stringProperty&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>双向绑定可以用在 <code>contenteditable</code> 元素上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div textcontent.bind=&quot;stringProperty&quot; contenteditable=&quot;true&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h4 id="style"><a href="#style" class="headerlink" title="style"></a>style</h4><p>我们可以还可以绑定 css 字符串或对象到一个元素的 <code>style</code> 属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export class Foo &#123;</div><div class="line">  constructor() &#123;</div><div class="line">    this.styleString = &apos;color: red; background-color: blue&apos;;</div><div class="line"></div><div class="line">    this.styleObject = &#123;</div><div class="line">      color: &apos;red&apos;,</div><div class="line">      &apos;background-color&apos;: &apos;blue&apos;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div style.bind=&quot;styleString&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;div style.bind=&quot;styleObject&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>当使用插值语法时，为了兼容 IE 可以使用 <code>style</code> 属性的别名<code>css</code> 来替代：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;!-- good: --&gt;</div><div class="line">&lt;div css=&quot;width: $&#123;width&#125;px; height: $&#123;height&#125;px;&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;!-- incompatible with Internet Explorer: --&gt;</div><div class="line">&lt;div style=&quot;width: $&#123;width&#125;px; height: $&#123;height&#125;px;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h4 id="Adaptive-Binding"><a href="#Adaptive-Binding" class="headerlink" title="Adaptive Binding"></a>Adaptive Binding</h4><p>Aurelia 有一个可适应绑定（adaptive binding） 系统，当需要决定如何最有效的观察变化时，他会从大量的策略中选择一个。更多关于这个系统如何运作的信息请看<a href="http://blog.durandal.io/2015/04/03/aurelia-adaptive-binding/" target="_blank" rel="external">这篇文章</a>。大多时候你都不需要考虑这些繁枝细节，然而了解他将有助于你了解使用绑定系统时应该避免的一些低效的方法。</p>
+<p><strong>首先需要了解：computed properties ( properties with getter functions ) 使用脏检查来观察变化。</strong> 更有效的策略，例如：Object.observe 和 property rewriting （属性重写）并不适用于 computed property 类型。</p>
+<p>当前的浏览器环境下，脏检查是一个必要的麻烦（necessary evil）。在写这边文章时，只有极少浏览器支持 Object.observe 。Aurelia 的脏检查机制与 <a href="https://www.polymer-project.org/" target="_blank" rel="external">Polymer</a>使用的很相似。他利用 Aurelia 的 micro-task-queue 来处理更新的DOM 是蛮有效的。</p>
+<p>在你的应用中有一些绑定使用脏检查时并不会造成性能问题，大量使用才会有问题。幸运的是，我们有个方法可以避免脏值检查简单的 computed properties。来看看下面的 <code>fullName</code> 属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  firstName = &apos;John&apos;;</div><div class="line">  lastName = &apos;Doe&apos;;</div><div class="line"></div><div class="line">  @computedFrom(&apos;firstName&apos;, &apos;lastName&apos;)</div><div class="line">  get fullName()&#123;</div><div class="line">    return `$&#123;this.firstName&#125; $&#123;this.lastName&#125;`;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们使用 <code>@computedFrom</code> decorator 来向 Aurelia 绑定系统供一个提示，这时系统就知道只有 <code>firstName</code> 或 <code>lastName</code> 改变时，<code>fullName</code> 才会改变。</p>
+<p>留意脏检查是怎么工作的也是很重要的。当一个属性使用了脏检查，绑定系统就定期检查现在属性值是否与原来的观察值有所不同。检测时间差默认为 120 毫秒。这就意味着你的属性的 getter 函数有可能被十分频繁的调用，也就不能尽可能的高效了。我们还需要避免不必要的返回对象或者数组的新实例，例如下面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;label for=&quot;search&quot;&gt;Search Issues:&lt;/label&gt;</div><div class="line">  &lt;input id=&quot;search&quot; type=&quot;text&quot; value.bind=&quot;searchText&quot; /&gt;</div><div class="line">  &lt;ul&gt;</div><div class="line">    &lt;li repeat.for=&quot;issue of filteredIssues&quot;&gt;$&#123;issue.abstract&#125;&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure>
+<p>原生的视图模型实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">export class IssueSearch &#123;</div><div class="line">  searchText = &apos;&apos;;</div><div class="line"></div><div class="line">  constructor(allIssues) &#123;</div><div class="line">    this.allIssues = allIssues;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // this returns a new array instance on every call which will in-turn result in a lot of DOM updates.</div><div class="line">  get filteredIssues() &#123;</div><div class="line">    if (this.searchText === &apos;&apos;)</div><div class="line">      return [];</div><div class="line">    return this.allIssues.filter(x =&gt; x.abstract.indexOf(this.searchText) !== -1);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>改进的视图模型实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">export class IssueSearch &#123;</div><div class="line">  filteredIssues = [];</div><div class="line">  _searchText = &apos;&apos;;</div><div class="line"></div><div class="line">  constructor(allIssues) &#123;</div><div class="line">    this.allIssues = allIssues;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  get searchText() &#123;</div><div class="line">    return this._searchText;</div><div class="line">  &#125;</div><div class="line">  set searchText(newValue) &#123;</div><div class="line">    this._searchText = newValue;</div><div class="line">    if (newValue === &apos;&apos;) &#123;</div><div class="line">      this.filteredIssues = [];</div><div class="line">    &#125; else &#123;</div><div class="line">      this.filteredIssues = this.allIssues.filter(x =&gt; x.abstract.indexOf(this.searchText) !== -1);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      在学习 Aurelia，整篇的英文文档很容易分神，顺手翻译一下文档，还有很多不懂的地方啊
+    
+    </summary>
+    
+      <category term="Aurelia" scheme="http://iamtutu.com/categories/Aurelia/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>a 标签中的 input 文本不能被选中</title>
+    <link href="http://iamtutu.com/2015/04/30/a-%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84-input-%E6%96%87%E6%9C%AC%E4%B8%8D%E8%83%BD%E8%A2%AB%E9%80%89%E4%B8%AD/"/>
+    <id>http://iamtutu.com/2015/04/30/a-标签中的-input-文本不能被选中/</id>
+    <published>2015-04-30T10:14:14.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>若你写了这样一个 <code>html</code> 结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;http://iamtutu.com&quot;&gt; </div><div class="line">	&lt;input type=&quot;text&quot; value=&quot;something&quot; /&gt;</div><div class="line">&lt;/a&gt;</div></pre></td></tr></table></figure>
+<p>会发现 <code>&lt;input&gt;</code> 中的文字不能选中，会触发 <code>&lt;a&gt;</code> 。</p>
+<p>尝试把 <code>href = &quot;javascript:void();&quot;</code> 这样，但是还是不能选中。</p>
+<p>最后，将 <code>&lt;a&gt;</code> 的attr属性移除<code>$().removeAttr()</code> 就能选中了。</p>
+<p>虽然表面看起来就没有必要有 <code>&lt;a&gt;</code> 了，但是如果在需要编辑一个连接的文本时，这个结构还是不错的。编辑的时候，将 <code>href</code> 属性先储存在别的地方，移除 <code>&lt;a&gt;</code> 的 href 属性，编辑完成之后，再恢复就 OK 了。</p>
+<p>另外，css 选中文本的样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">::selection &#123; background:lightblue; &#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      a 标签中的 input 文本不能被选中
+    
+    </summary>
+    
+      <category term="html" scheme="http://iamtutu.com/categories/html/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git config 常用命令</title>
+    <link href="http://iamtutu.com/2015/04/30/git-config-%E5%B8%B8%E7%94%A8%E5%91%BD/"/>
+    <id>http://iamtutu.com/2015/04/30/git-config-常用命/</id>
+    <published>2015-04-30T10:11:17.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>P.S:  做全局的设置时，可以这样 <code>git config --global</code></p>
+<h3 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --help # 打开详细版手册</div><div class="line">git config -h     # 简单暴力我喜欢</div></pre></td></tr></table></figure>
+<h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config -l </div><div class="line">git config --list</div></pre></td></tr></table></figure>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><p>没有特殊情况下，都可以设置为全局配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global alias.co checkout</div></pre></td></tr></table></figure></p>
+<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><p>如果事先没有这个配置名称，git 会提示你在前面增加  <code>--add</code> 命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global --add core.editor &quot;&apos;C:\xxx\xxx\sublime_text.ext&apos; --wait&quot;</div></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global --unset alias.co checkout</div></pre></td></tr></table></figure>
+<p>如果提示什么有多个相同的设置。。。的英文时，按照错误指示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global --unset-all alias.co checkout</div></pre></td></tr></table></figure></p>
+<p>不得不说，git 的提示是挺周到的。</p>
+<h2 id="git-config-小抄"><a href="#git-config-小抄" class="headerlink" title="git config 小抄"></a>git config 小抄</h2><p>下面是我现在用的配置</p>
+<h3 id="1-设置别名"><a href="#1-设置别名" class="headerlink" title="1. 设置别名"></a>1. 设置别名</h3><p>有些常用命令略长，当 tab 键也不能释放我们的愤怒时，可以试试给他们起外号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git config --global alias.co checkout</div><div class="line">git config --global alias.ci commit</div><div class="line">git config --global alias.br branch</div><div class="line">git config --global alias.st status</div><div class="line">git config --global alias.mg &apos;merge --no-ff&apos;</div></pre></td></tr></table></figure>
+<h3 id="2-设置默认浏览器"><a href="#2-设置默认浏览器" class="headerlink" title="2.设置默认浏览器"></a>2.设置默认浏览器</h3><p>在 git commit 的时候，可以使用浏览器来写提交注释，基本告别了挤在一行的悲惨命运</p>
+<p>P.S :  Windows 环境，sublime text 3 版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global --add core.editor &quot;&apos;C:\xxx\xxx\sublime_text.ext&apos; --wait&quot;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      git config 常用命令
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git bash 使用 sublime text 打开文件</title>
+    <link href="http://iamtutu.com/2015/04/30/git-bash-%E4%BD%BF%E7%94%A8-sublime-text-%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6/"/>
+    <id>http://iamtutu.com/2015/04/30/git-bash-使用-sublime-text-打开文件/</id>
+    <published>2015-04-30T10:09:46.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>用 hexo 写博客时，使用 <code>hexo new postname</code> 新建了一个新的文件，每次想直接打开都要从文件夹打开，实在不符合我们这些 Geek（懒人）的做派。纠结很久之后，终于找到这篇大大的<a href="https://danlimerick.wordpress.com/2014/01/07/git-for-windows-tip-opening-sublime-text-from-bash/" target="_blank" rel="external">博客</a>，他的解决办法如下。</p>
+<h3 id="1-新建一个文件命名为你想要的命令，比如-subl-没有后缀（重要），内容如下："><a href="#1-新建一个文件命名为你想要的命令，比如-subl-没有后缀（重要），内容如下：" class="headerlink" title="1. 新建一个文件命名为你想要的命令，比如 subl 没有后缀（重要），内容如下："></a>1. 新建一个文件命名为你想要的命令，比如 <code>subl</code> 没有后缀（重要），内容如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line">&quot;C:\Program Files\Sublime Text 2\sublime_text.exe&quot; $1 &amp;</div></pre></td></tr></table></figure>
+<ul>
+<li>第一行是说这是个 shell 脚本</li>
+<li>第二行的字符串是sublime 的安装目录</li>
+<li>第二行的$1 是取的命令之后输入的参数</li>
+<li>第二行的&amp;是此命令在后台打开，这样sublime打开之后，就不会阻塞你的git bash</li>
+</ul>
+<h3 id="2-保存到-C-Program-Files-x86-Git-bin-目录下"><a href="#2-保存到-C-Program-Files-x86-Git-bin-目录下" class="headerlink" title="2. 保存到 C:\Program Files (x86)\Git\bin 目录下"></a>2. 保存到 <code>C:\Program Files (x86)\Git\bin</code> 目录下</h3><h3 id="3-使用方法"><a href="#3-使用方法" class="headerlink" title="3. 使用方法"></a>3. 使用方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">subl text.txt</div></pre></td></tr></table></figure>
+<p>在当前目录打开一个新文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">subl .</div></pre></td></tr></table></figure>
+<p>是不是 so easy ！shell 脚本麻吉强大，此时墙裂后悔上课时(～﹃～)~zZ啊。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      git bash 使用 sublime text 打开文件
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JSON 是否为空</title>
+    <link href="http://iamtutu.com/2015/04/30/JSON-%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA/"/>
+    <id>http://iamtutu.com/2015/04/30/JSON-是否为空/</id>
+    <published>2015-04-30T10:08:28.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>jquery 中的写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.isEmptyObject = function ( obj ) &#123;</div><div class="line">		var name;</div><div class="line">		for ( name in obj ) &#123;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">		return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      js 判断 JSON对象是否为空的写法
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git bash 之 export 与 ~/.bashrc</title>
+    <link href="http://iamtutu.com/2015/04/30/git-bash-%E4%B9%8B-export-%E4%B8%8E-bashrc/"/>
+    <id>http://iamtutu.com/2015/04/30/git-bash-之-export-与-bashrc/</id>
+    <published>2015-04-30T10:05:35.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 git bash 里面，用 export 命令可以显示出当前命令行工具的变量。常见的如 <code>PATH</code> 或 <code>PWD</code> 等。</p>
+<h3 id="1-环境变量-in-Windows"><a href="#1-环境变量-in-Windows" class="headerlink" title="1. 环境变量 in Windows"></a>1. 环境变量 in Windows</h3><ul>
+<li>在环境变量里面增加变量，需要重启电脑才会在生效之后，才能 <code>export</code> 的时候读到新变量。</li>
+</ul>
+<h3 id="2-bashrc-文件"><a href="#2-bashrc-文件" class="headerlink" title="2. ~/.bashrc 文件"></a>2. ~/.bashrc 文件</h3><ul>
+<li>~/.bashrc 文件会在每次打开 git bash 时候被执行</li>
+<li>在 ~/.bashrc 文件中写入函数，可以在 git bash 中用函数名执行函数中的命令</li>
+<li>~/.bashrc 文件中用 <code>export http_proxy=http://proxy.XXX.com:8080</code> 的形式，可以向命令行添加变量，在每次打开 git bash 后会执行。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      git bash 之 export 与 ~/.bashrc
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JS 怎么克隆对象？</title>
+    <link href="http://iamtutu.com/2015/04/27/JS-%E6%80%8E%E4%B9%88%E5%85%8B%E9%9A%86%E5%AF%B9%E8%B1%A1%EF%BC%9F/"/>
+    <id>http://iamtutu.com/2015/04/27/JS-怎么克隆对象？/</id>
+    <published>2015-04-27T17:12:03.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="对象克隆"><a href="#对象克隆" class="headerlink" title="对象克隆"></a>对象克隆</h2><p>不能影响到原来的对象，并且需要深层拷贝的情况，比如原始对象为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var oldObj = &#123;a:2123, b:2312, c:[2,3,45,2]&#125;;</div></pre></td></tr></table></figure>
+<p>考虑以下方法：</p>
+<p>1、使用 JSON API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var newObj = JSON.parse( JSON.stringify(oldObj));</div></pre></td></tr></table></figure>
+<p>2、考虑 jquery extend</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var newObj = $.extend(  )</div></pre></td></tr></table></figure>
+<p>3、 new Object() </p>
+<p>balabalabala….再研究。。。</p>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p><a href="http://jsbin.com/hudoke/2/edit" target="_blank" rel="external">In JS Bin</a></p>
+<h2 id="速度测试"><a href="#速度测试" class="headerlink" title="速度测试"></a>速度测试</h2><p><a href="http://jsperf.com/clone-object-ways" target="_blank" rel="external">In JS performance</a></p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      JS 克隆对象, JSON, $.extend, 性能
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>git 不小心提交了的目录下有 .git 文件，咋办？</title>
+    <link href="http://iamtutu.com/2015/04/22/git-%E4%B8%8D%E5%B0%8F%E5%BF%83%E6%8F%90%E4%BA%A4%E4%BA%86%E7%9A%84%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%9C%89-git-%E6%96%87%E4%BB%B6%EF%BC%8C%E5%92%8B%E5%8A%9E%EF%BC%9F/"/>
+    <id>http://iamtutu.com/2015/04/22/git-不小心提交了的目录下有-git-文件，咋办？/</id>
+    <published>2015-04-22T17:31:15.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="git-文件目录下有-git-文件"><a href="#git-文件目录下有-git-文件" class="headerlink" title="git 文件目录下有 .git 文件"></a>git 文件目录下有 <code>.git</code> 文件</h2><p>不小心把子目录下一个 .git 文件给 add commit 了，于是没有办法再跟踪 这个目录下文件的变化。<br>submodules 什么的真是</p>
+<p>发现强制删除次文件夹之后，然后再添加就可以了，记得再添加的时候，把文件夹里面的.git 文件删除掉先。<br>1、 强制删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf xxx/needtodelete/</div></pre></td></tr></table></figure>
+<p>2、添加没有 .git 文件的文件夹 </p>
+<p>3、重新加到主 git 库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add . &amp;&amp; git commit -m &apos;add dir&apos;</div></pre></td></tr></table></figure></p>
+<p>这样又能重新管理这个文件夹的版本控制了，o(∩_∩)o 哈哈</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      git submodule 错误
+    
+    </summary>
+    
+      <category term="git" scheme="http://iamtutu.com/categories/git/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我就是记不住 callee 与 caller 的区别</title>
+    <link href="http://iamtutu.com/2015/04/22/%E6%88%91%E5%B0%B1%E6%98%AF%E8%AE%B0%E4%B8%8D%E4%BD%8F-callee-%E4%B8%8E-caller-%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://iamtutu.com/2015/04/22/我就是记不住-callee-与-caller-的区别/</id>
+    <published>2015-04-22T16:53:14.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="魔法阵在召唤"><a href="#魔法阵在召唤" class="headerlink" title="魔法阵在召唤~~~~"></a>魔法阵在召唤~~~~</h1><h3 id="caller-与-callee"><a href="#caller-与-callee" class="headerlink" title="caller 与 callee"></a>caller 与 callee</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function fun1()&#123;</div><div class="line"></div><div class="line">  // callee [kɔ:&apos;li:] 被召者 当前函数--我</div><div class="line">  console.log(&apos;callee=====&apos;,arguments.callee)</div><div class="line">  </div><div class="line">  // caller [&apos;kɔ:lə] 召唤者 调用当前函数的函数--调用我的函数</div><div class="line">  console.log(&apos;caller=====&apos;,arguments.callee.caller)</div><div class="line"> //or console.log(fun1.caller)	</div><div class="line">&#125;</div><div class="line"></div><div class="line">function fun2()&#123;</div><div class="line">  fun1();</div><div class="line">&#125;</div><div class="line"></div><div class="line">fun2();</div></pre></td></tr></table></figure>
+<p><a href="http://jsbin.com/miqok/5/edit" target="_blank" rel="external">demo</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      js 中的 callee 与 caller 的区别
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>音乐乐理笔记</title>
+    <link href="http://iamtutu.com/2015/02/14/0214-%E9%9F%B3%E4%B9%90%E4%B9%90%E7%90%86%E7%AC%94%E8%AE%B0/"/>
+    <id>http://iamtutu.com/2015/02/14/0214-音乐乐理笔记/</id>
+    <published>2015-02-14T17:02:21.000Z</published>
+    <updated>2017-05-19T08:47:20.351Z</updated>
+    
+    <content type="html"><![CDATA[<p>@(音乐)[guitar,乐理]&gt;</p>
+<h1 id="我的吉他乐理笔记"><a href="#我的吉他乐理笔记" class="headerlink" title="我的吉他乐理笔记"></a>我的吉他乐理笔记</h1><p>之前，有借到同事的一本李重光写的《新编通俗基本乐理》，想要学习下乐理的调式和声这些东西，但是狼吞虎咽的看下来，许多概念有些混淆了。</p>
+<p>之后，又在<a href="http://www.jitashe.net/thread/21405/" target="_blank" rel="external">吉他社</a>发现了这个帖子，找到大神写的一些给我们菜鸟科普的乐理教程，于是整理整理，写点笔记。</p>
+<h2 id="音名和唱名"><a href="#音名和唱名" class="headerlink" title="音名和唱名"></a>音名和唱名</h2><h3 id="音名（字母名）"><a href="#音名（字母名）" class="headerlink" title="音名（字母名）"></a>音名（字母名）</h3><blockquote>
+<p> <strong>音名</strong> = 基本音级的名称 + 变化音级的名称</p>
+</blockquote>
+<p><strong>音名在钢琴上和五线谱上，都是固定不变的。</strong></p>
+<p><strong>基本音级：</strong><code>C D E F G A B</code></p>
+<p><strong>变化音级：</strong> 升音级 + 降音级 + 重升音级 + 重降音级</p>
+<ul>
+<li>升音级：<code>#C #D ...</code> </li>
+<li>降音级：<code>bC bD ...</code> </li>
+<li>重升音级：<code>*C *D ...</code> （升高一个全音）</li>
+<li>重降音级：<code>bbC bbD ...</code> （降低一个全音）</li>
+</ul>
+<p>PS: 变化音级的升号（#）降号（b）等写在音名的左上角。</p>
+<h3 id="唱名"><a href="#唱名" class="headerlink" title="唱名"></a>唱名</h3><p><code>do re mi fa sol la si</code></p>
+<p><strong>唱名在钢琴键盘和谱子上的叫法，不固定，视唱名法的不同而不同。</strong></p>
+<h3 id="唱名法"><a href="#唱名法" class="headerlink" title="唱名法"></a>唱名法</h3><blockquote>
+<p>唱名法就是唱谱的方法，常用的有：固定唱名法和首调唱名法。</p>
+</blockquote>
+<p><strong>固定唱名法</strong></p>
+<p>所有的调都按C调的唱名唱，字母名和唱名是统一的。遇到升号唱高半音，遇到降号唱低半音，唱名固定。</p>
+<p><strong>首调唱名法</strong></p>
+<p>什么调的谱子就把什么音当做<code>Do</code>来唱。正如简谱中的 <code>1=C, 1=D, 1=bB</code> 一样。</p>
+<p>采用首调唱名法学习乐理，关键是搞清楚每个调的<code>do re mi fa sol la si</code> 的字母名是什么。</p>
+<p>首调唱名法的优点是：无论什么调，音程、和弦、调式音阶的唱名是一样的。也就是只要把C调的这些东西搞懂后，其他的调同理可得。</p>
+<h2 id="调"><a href="#调" class="headerlink" title="调"></a>调</h2><p><strong>调和调式是两个完全不同的概念。</strong></p>
+<blockquote>
+<p>对调的定义有个简单的解释：在首调唱名法中，do的音高的位置叫做调。（即 do = C 为C调，do = #F为#F调）</p>
+</blockquote>
+<h2 id="调式"><a href="#调式" class="headerlink" title="调式"></a>调式</h2><blockquote>
+<p>由特定数量的音按照特定的音程关系组成的音的排列就是调式</p>
+</blockquote>
+<p>由C调来举例，C调中得音构成的调式都属于C调，即C调的常用调式有：C大调、a小调、C宫调、D商调、E角调、G徵调、A羽调。</p>
+<p>调式中的音的数量不是固定的，下面是一些常用的调式的音和音程关系。（-表示一个半音）</p>
+<p>调式中每个音都有自己特有的名称和号数，例如：在C大调和a小调中</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">调式</th>
+<th style="text-align:center">唱名</th>
+<th style="text-align:center">级别</th>
+<th style="text-align:center">名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">do</td>
+<td style="text-align:center">第 Ⅰ 级</td>
+<td style="text-align:center">主音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">re</td>
+<td style="text-align:center">第 Ⅱ 级</td>
+<td style="text-align:center">上主音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">mi</td>
+<td style="text-align:center">第 Ⅲ 级</td>
+<td style="text-align:center">中音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">fa</td>
+<td style="text-align:center">第 Ⅳ 级</td>
+<td style="text-align:center">下属音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">sol</td>
+<td style="text-align:center">第 Ⅴ 级</td>
+<td style="text-align:center">属音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">la</td>
+<td style="text-align:center">第 Ⅵ 级</td>
+<td style="text-align:center">下中音</td>
+</tr>
+<tr>
+<td style="text-align:center">C大调</td>
+<td style="text-align:center">si</td>
+<td style="text-align:center">第 Ⅶ 级</td>
+<td style="text-align:center">导音</td>
+</tr>
+</tbody>
+</table>
+<p><strong>a小调：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">调式</th>
+<th style="text-align:center">唱名</th>
+<th style="text-align:center">级别</th>
+<th style="text-align:center">名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">la</td>
+<td style="text-align:center">第 Ⅰ 级</td>
+<td style="text-align:center">主音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">si</td>
+<td style="text-align:center">第 Ⅱ 级</td>
+<td style="text-align:center">上主音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">do</td>
+<td style="text-align:center">第 Ⅲ 级</td>
+<td style="text-align:center">中音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">re</td>
+<td style="text-align:center">第 Ⅳ 级</td>
+<td style="text-align:center">下属音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">mi</td>
+<td style="text-align:center">第 Ⅴ 级</td>
+<td style="text-align:center">属音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">fa</td>
+<td style="text-align:center">第 Ⅵ 级</td>
+<td style="text-align:center">下中音</td>
+</tr>
+<tr>
+<td style="text-align:center">a小调</td>
+<td style="text-align:center">sol</td>
+<td style="text-align:center">第 Ⅶ 级</td>
+<td style="text-align:center">导音</td>
+</tr>
+</tbody>
+</table>
+<p>### </p>
+]]></content>
+    
+    <summary type="html">
+    
+      简单的音乐乐理的概念，包括音名和唱名、调和调式的介绍
+    
+    </summary>
+    
+      <category term="音乐" scheme="http://iamtutu.com/categories/%E9%9F%B3%E4%B9%90/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>clip stadio paint 初学教程及使用方法（Ver 1.3.9）</title>
+    <link href="http://iamtutu.com/2015/02/13/0213-clipstadiopaint%E5%88%9D%E5%AD%A6%E6%95%99%E7%A8%8B/"/>
+    <id>http://iamtutu.com/2015/02/13/0213-clipstadiopaint初学教程/</id>
+    <published>2015-02-13T16:58:37.000Z</published>
+    <updated>2017-05-19T08:47:20.351Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考教程</p>
+<blockquote>
+<p><a href="http://www.clip-studio.com/clip_site/howto/library/page/view/clipstudiopaint_hajimete_before_003" target="_blank" rel="external">《日本官网教程》</a><br><a href="http://www.pixvi.net/pitech/?p=279" target="_blank" rel="external">《静音双子的上色过程》</a> – p站</p>
+</blockquote>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>常用快捷键</p>
+<ul>
+<li>P.S: 在放大缩小的时候， Mac OS X 的用法是先按 [ Space ]键，再按[ Command ]键。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>**</em></strong></th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Macintosh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">显示全部</td>
+<td style="text-align:center">[Ctrl]+[0(数字))]</td>
+<td style="text-align:center">[Command]+[0(数字)]</td>
+</tr>
+<tr>
+<td style="text-align:left">扩大/缩小</td>
+<td style="text-align:center">[Ctrl]+[Space]+([Alt]缩小)</td>
+<td style="text-align:center">[Command]+[Space]+([Alt]缩小)</td>
+</tr>
+<tr>
+<td style="text-align:left">画布移动</td>
+<td style="text-align:center">[Space]</td>
+<td style="text-align:center">[Space]</td>
+</tr>
+<tr>
+<td style="text-align:left">画布旋转</td>
+<td style="text-align:center">[Shift]+[Space]</td>
+<td style="text-align:center">[Shift]+[Space]</td>
+</tr>
+<tr>
+<td style="text-align:left">画布清空</td>
+<td style="text-align:center">[Delete]</td>
+<td style="text-align:center">[Delete]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="插画创作基本流程"><a href="#插画创作基本流程" class="headerlink" title="插画创作基本流程"></a>插画创作基本流程</h2><h3 id="草稿（下描き）"><a href="#草稿（下描き）" class="headerlink" title="草稿（下描き）"></a>草稿（下描き）</h3><p><strong>[1]描线</strong></p>
+<p>选择铅笔画草稿，调整合适你的笔大小和颜色</p>
+<p><strong>[2]線を修正する</strong></p>
+<p>选择橡皮工具，调整他的大小然后擦出多余的线条</p>
+<h3 id="描线"><a href="#描线" class="headerlink" title="描线"></a>描线</h3><p><strong>[1]新建描线层</strong></p>
+<p><strong>[2]选择钢笔工具的G笔</strong><br>调整笔的大小和颜色，开画。</p>
+<p>###上色</p>
+<p><strong>[1]新建上色图层</strong></p>
+<p>建议每个颜色一个图层，按涂得部分命名，比如：身体、头发、衣服等等。</p>
+<p><strong>[2]上色工具</strong></p>
+<p>可以用钢笔工具或其他如铅笔铺色，橡皮擦清除超出的部分，或者用填充工具来填充封闭的区域。</p>
+<p>水彩可以涂比较温和的光色，比如脸上的红晕等</p>
+<p><strong>[3]铺色</strong></p>
+<p>填入每个区块的基本颜色</p>
+<p><strong>[4]投影</strong></p>
+<ul>
+<li>假设光的强度和照过来的方向，不同时间（早中晚）、不同环境的光是不一样的</li>
+<li>根据光，在合适的地方用笔轻轻地加深一下</li>
+</ul>
+<p><strong>[5]反光点</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      clip stadio paint 初学教程和常用快捷键
+    
+    </summary>
+    
+      <category term="手绘" scheme="http://iamtutu.com/categories/%E6%89%8B%E7%BB%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AMD 与 CMD</title>
+    <link href="http://iamtutu.com/2015/01/12/CMD%20%E5%92%8C%20AMD/"/>
+    <id>http://iamtutu.com/2015/01/12/CMD 和 AMD/</id>
+    <published>2015-01-12T11:06:59.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th>&amp;&amp;</th>
+<th>AMD</th>
+<th>CMD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>Asynchronous Module Definition</td>
+<td>Common Module Definition</td>
+</tr>
+<tr>
+<td>推广源</td>
+<td>RequireJS</td>
+<td>SeaJS</td>
+</tr>
+<tr>
+<td>模块执行</td>
+<td>提前执行</td>
+<td>延迟执行</td>
+</tr>
+<tr>
+<td>依赖写法</td>
+<td>依赖就近</td>
+<td>依赖前置</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      AMD 和 CMD 做的一些小对比
+    
+    </summary>
+    
+      <category term="规范" scheme="http://iamtutu.com/categories/%E8%A7%84%E8%8C%83/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2015不是本命，也要拼命</title>
+    <link href="http://iamtutu.com/2015/01/10/2015%E4%B8%8D%E6%98%AF%E6%9C%AC%E5%91%BD%EF%BC%8C%E4%B9%9F%E8%A6%81%E6%8B%BC%E5%91%BD%E2%80%94%E2%80%94%E6%9C%80%E8%BF%91%E8%A6%81%E5%81%9A%E7%9A%84%E4%BA%8B2015%E6%98%A5/"/>
+    <id>http://iamtutu.com/2015/01/10/2015不是本命，也要拼命——最近要做的事2015春/</id>
+    <published>2015-01-10T11:06:59.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<p>又这样过了几个月，忙着一个又一个的项目。到了年末，发现自己原来想看的东西、想学的似乎并没有怎么动 ╮(╯_╰)╭</p>
+<p>再来个Todo-list吧！</p>
+<h3 id="1-拜读-jQuery-源码"><a href="#1-拜读-jQuery-源码" class="headerlink" title="1. 拜读 jQuery 源码"></a>1. 拜读 jQuery 源码</h3><p>每次说使用熟练的时候，又好怕被问道 <code>“你看了源码了吗?”</code>。</p>
+<p>好的，我这就去看。</p>
+<h3 id="2-ES5-ES6的东西"><a href="#2-ES5-ES6的东西" class="headerlink" title="2. ES5 ES6的东西"></a>2. ES5 ES6的东西</h3><p>前端圈的大神们都在讨论Node.js、fibjs、AngularJS、IO.js什么的，</p>
+<p>哎╮(╯_╰)╭想看又看不懂，我这等菜鸟只能本分的从根本做起罗。</p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      2015 新春要做的事情
+    
+    </summary>
+    
+      <category term="to-do" scheme="http://iamtutu.com/categories/to-do/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>window.history 复习</title>
+    <link href="http://iamtutu.com/2014/11/02/1101-history/"/>
+    <id>http://iamtutu.com/2014/11/02/1101-history/</id>
+    <published>2014-11-02T11:06:59.000Z</published>
+    <updated>2017-05-19T08:47:20.355Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h2><p>模拟用户点击浏览器后退按钮<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.history.back();</div></pre></td></tr></table></figure></p>
+<p>模拟用户点击浏览器前进按钮<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.history.forward();</div></pre></td></tr></table></figure></p>
+<p>可以用go()方法加载在session历史记录中的某个页面，参数是一个相对于当前页面的index值（当前页面是index0）</p>
+<p>后退一页<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.history.go(-1);</div></pre></td></tr></table></figure></p>
+<p>前进一页<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.history.go(1);</div></pre></td></tr></table></figure></p>
+<p>history栈的页面数量可以由length属性得到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var numberOfEntries = window.history.length;</div></pre></td></tr></table></figure></p>
+<p><strong>Note:</strong>  Internet Explorer 支持将URL字符串作为参数传给go()，这种用法不是标准的用法，且Gecko不支持。</p>
+<h2 id="HTML5-History"><a href="#HTML5-History" class="headerlink" title="HTML5 History"></a>HTML5 History</h2><p>HTML5 引入了<code>history.pushState( )</code> 和 <code>history.replaceState( )</code> 方法，他们分别允许你添加和修改history实体。他们可以结合<code>window.onpopstate</code> 事件使用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      使用 window.history 来控制浏览器前进和后退
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>getBoundClientRect 函数详解</title>
+    <link href="http://iamtutu.com/2014/10/26/1013-getBoundClientRect/"/>
+    <id>http://iamtutu.com/2014/10/26/1013-getBoundClientRect/</id>
+    <published>2014-10-26T11:06:59.000Z</published>
+    <updated>2017-05-19T08:47:20.351Z</updated>
+    
+    <content type="html"><![CDATA[<p>##getBoundClientRect函数详解<br><a href="http://www.cnblogs.com/2050/archive/2012/02/01/2335211.html" target="_blank" rel="external">转载自这里</a></p>
+<p>###一、定义</p>
+<p>getBoundingClientRect 函数是W3C组织在第一版本的W3C CSSOM View specification草案中确定的一个标准方法，在此之前，只有IE浏览器是支持该方法的，W3C在这次草案中把它扶正成为标准，足可以看出它并不简单。getBoundingClientRect 方法返回的是调用该方法的元素的TextRectangle对象，该对象具有top、left、right、bottom四个属性，分别代表该元素上、左、右、下四条边界相对于浏览器窗口左上角（注意，不是文档区域的左上角）的偏移像素值。</p>
+<p>###二、兼容性</p>
+<p>getBoundingClientRect方法最先在IE5中出现，后来被W3C接纳成为标准。目前IE5.5+、Firefox 3.5+、Chrome 4+、Safari 4.0+、Opara 10.10+等浏览器均支持该方法，兼容性几乎完美。</p>
+<p>在具体表现方面，Firefox6以前的版本使用getBoundingClientRect时不能获取到top和bottom这两个属性值，Firefox6及以后的版本和其他支持getBoundingClientRect方法的浏览器则top、left、right、bottom四个属性值均能获取到。需要说明的是由于某些版本的IE浏览器的<html>文档根元素默认是有2px边框的,所以这里需要特别处理一下，微软MSDN上说在IE5中会存在这样的情况，但据我实际测试，xp系统中IE6也存在这样的问题，奇怪的是，我在win7环境下用IETester测试的IE各版本都是正常的。但这并不是什么大问题，我们只要把得到的值减去html根元素（body也可考虑进来）的clientLeft或clientTop就能保持各浏览器一致啦。</html></p>
+<p>###三、用途</p>
+<p>当getBoundingClientRect刚被w3c列为标准的时候，PPK还曾质疑过它是不是多此一举，因为已经存在类似的方法来获取元素的偏移位置，比如offsetLeft和offsetTop。但Jquery的作者John Resig马上阐明了getBoundingClientRect的用处。用传统的方法固然可以实现getBoundingClientRect同样的功能，但兼容各种浏览器以及各种不同的元素就会把你弄死，而且效率还非常低下。所以获取页面上某个元素相对于浏览器窗口的偏移量就成了getBoundingClientRect的用武之地了。而获取元素的偏移量能有什么用，我相信，你懂的~ ^_^</p>
+]]></content>
+    
+    <summary type="html">
+    
+      getBoundClientRect 函数介绍
+    
+    </summary>
+    
+      <category term="js" scheme="http://iamtutu.com/categories/js/"/>
+    
+    
+  </entry>
+  
+</feed>

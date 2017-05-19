@@ -1,0 +1,171 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> CSS 设计模式的思考（一）之结构篇 · ASJMTZ's Blog</title><meta name="description" content="CSS 设计模式的思考（一）之结构篇 - ASJMTZ"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://iamtutu.com/atom.xml" title="ASJMTZ's Blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/asjmtz" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">CSS 设计模式的思考（一）之结构篇</h1><div class="post-info">Dec 6, 2016</div><div class="post-content"><p>面对日渐庞大的 CSS 文件们，如何组织和分类他们呢？怎么样才能写出好维护又易扩展的 CSS 样式，真是头疼呢！<br><a id="more"></a></p>
+<p>现在项目用上了 React，写起页面来 component + component，十分的愉快。但是看到旁边的样式，及时用上了 SCSS、CSS modules，还是一如既往的混乱，而且有病入膏肓的迹象。这几天稍微得了点闲，我决定研究看看有没有什么好的解决方案。没想到从此打开了新世界的大门。</p>
+<p>loooong long ago，就已经有大牛们意识到这些问题了。对于如何写好 CSS，他们给出了一些结构模式。<br>我按照时间轴来介绍下。</p>
+<h2 id="OOCSS-Object-Oriented-CSS-2011"><a href="#OOCSS-Object-Oriented-CSS-2011" class="headerlink" title="OOCSS - Object Oriented CSS (2011)"></a><a href="https://www.smashingmagazine.com/2011/12/an-introduction-to-object-oriented-css-oocss/" target="_blank" rel="external">OOCSS - Object Oriented CSS</a> (2011)</h2><p>他的主要思想是下面这两个：</p>
+<h4 id="1-Separate-Structure-and-Skin-结构和主题"><a href="#1-Separate-Structure-and-Skin-结构和主题" class="headerlink" title="1. Separate Structure and Skin (结构和主题)"></a>1. Separate Structure and Skin (结构和主题)</h4><p>将结构和主题的样式分开，然后在使用的时候可以按照需要，为不同的结构加上各种主题的 CSS 类。<br>如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.button</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="selector-class">.skin</span> &#123;</div><div class="line">  <span class="attribute">border</span>: solid <span class="number">1px</span> <span class="number">#ccc</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#ccc, #222);</div><div class="line">  <span class="attribute">box-shadow</span>: <span class="built_in">rgba</span>(0, 0, 0, .5) <span class="number">2px</span> <span class="number">2px</span> <span class="number">5px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.button</code> 和 <code>.box</code> 是结构性的类，而 <code>.skin</code> 是一个主题性的类</p>
+<h4 id="2-Separate-Container-and-Content-（容器和内容"><a href="#2-Separate-Container-and-Content-（容器和内容" class="headerlink" title="2. Separate Container and Content （容器和内容)"></a>2. Separate Container and Content （容器和内容)</h4><p>提倡将有共性的功能，提取到一个独立的类中，作为一个 module 。<br>比如原来有个 header，可以定义为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.header-inside</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">980px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">260px</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但考虑到他的容器性也可以为其他元素所用，所以可以提取为下面这两个类：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.global-width</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">980px</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">  <span class="attribute">padding-left</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">padding-right</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.header-inside</span> &#123;</div><div class="line">  <span class="attribute">padding-top</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">padding-bottom</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">260px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.global-width</code> 是一个容器类，定义了一个容器的宽度、设置了 <code>position</code> 的上下文、与子元素的距离等</p>
+<h4 id="总结起来-OOCSS-推崇的是："><a href="#总结起来-OOCSS-推崇的是：" class="headerlink" title="总结起来 OOCSS 推崇的是："></a>总结起来 OOCSS 推崇的是：</h4><blockquote>
+<p>基于 CSS class 的模块构建，不推荐使用 ID、后代选择器（如：<code>.sidebar h2</code>）</p>
+</blockquote>
+<p>接着又出来了一个新想法</p>
+<h2 id="SMACSS-Scalable-and-Modular-Architecture-for-CSS-2012"><a href="#SMACSS-Scalable-and-Modular-Architecture-for-CSS-2012" class="headerlink" title="SMACSS(Scalable and Modular Architecture for CSS) (2012)"></a><a href="https://smacss.com/book/categorizing" target="_blank" rel="external">SMACSS(Scalable and Modular Architecture for CSS)</a> (2012)</h2><p>SMACSS 的观点为，可以将项目中 CSS 的类型或功能分为这五个类型：</p>
+<ul>
+<li>Base  <ul>
+<li>【定义】直接在 html 的元素 (html, body, h1, ul, etc) 上设定的样式。<br>可以理解为我们为元素设置的默认样式，比如我们常用到了 <code>reset.css</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Layout</p>
+<ul>
+<li>【定义】顾名思义，布局用的样式，比如我们用的 <code>grid system</code></li>
+<li>【命名】加前缀 <code>l-</code> 或 <code>layout-</code> </li>
+</ul>
+</li>
+<li><p>Module</p>
+<ul>
+<li>【定义】模块的样式</li>
+<li>【命名】为 <code>modulename</code> 和 <code>modulename-</code>，比如：<code>alert</code> 和 <code>alert-body</code></li>
+</ul>
+</li>
+<li><p>State</p>
+<ul>
+<li>【定义】状态类型的样式用来定义在特定状态下的样式，如(hidden or expanded, active/inactive)</li>
+<li>【命名】加前缀 <code>is-</code>, 比如：<code>is-active</code>、<code>is-hidden</code></li>
+</ul>
+</li>
+<li><p>Theme </p>
+<ul>
+<li>【定义】主题类型可以用来自定义一些颜色，字体，或者其他模块的特殊样式</li>
+</ul>
+</li>
+</ul>
+<p>如果你对他感兴趣，建议到他的官网仔细看看每个类型详细的规则</p>
+<p>P.S:<br>我很是喜欢这个分类，和我前期脑补的理想分类差不多</p>
+<p>然后又又出来一个新结构</p>
+<h2 id="BEM-——-Block-Element-Modifier-2013"><a href="#BEM-——-Block-Element-Modifier-2013" class="headerlink" title="BEM —— Block + Element + Modifier (2013)"></a><a href="https://en.bem.info/" target="_blank" rel="external">BEM —— Block + Element + Modifier</a> (2013)</h2><p>他的理念即 CSS 分类为 Block、Element、Modifier，和 SMACSS 也有些类似的地方。</p>
+<ul>
+<li><p>Block</p>
+<ul>
+<li>【定义】类似我们之前说的 module 或 component 或者像乐高积木</li>
+<li>【命名】<code>bloak-name</code></li>
+</ul>
+</li>
+<li><p>Element</p>
+<ul>
+<li>【定义】Block 的一部分组成，不能独立使用</li>
+<li>【命名】<code>block-name__element-name</code> ，如 <code>search-form__input</code></li>
+</ul>
+</li>
+<li><p>Modifier </p>
+<ul>
+<li>【定义】定义 Block 或 Element 的状态</li>
+<li>【命名】<code>block-name_modifier-name</code> | <code>block-name__element-name_modifier-name</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- The `search-form` block has the `theme` modifier with the value `islands` --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form search-form_theme_islands"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- The `button` element has the `size` modifier with the value `m` --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button search-form__button_size_m"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>BEM 官网上有更多详细的规则。BEM 有蛮多的推崇者，但是他这牵家带口的命名语法也让很多人敬而远之。</p>
+<p>江湖纷争不断，后面又涌现了一些 <a href="http://patternlab.io/" target="_blank" rel="external">ACSS</a>、CCSS 等等。但是即使有了这么多门绝世武功，许多 CSS 码民仍旧水深火热的 coding 中。</p>
+<p>为啥呢？是不是他们都还不够好？正在我苦恼的总结发散时，我又又又发现了他</p>
+<h2 id="rscss-io"><a href="#rscss-io" class="headerlink" title="rscss.io"></a>rscss.io</h2><p>他的基本概念融合了 BEM 和 SMACSS 的精华，又在命名上有些独特的创新</p>
+<ul>
+<li><p>Component</p>
+<ul>
+<li>【定义】就是那个 component，你懂的</li>
+<li>【命名】<code>component-name</code> ，这里一定要两个字连个线</li>
+</ul>
+</li>
+<li><p>Element</p>
+<ul>
+<li>【定义】类似 BEM 的 Element，<br>  定义这个 element 的类时，只能使用直接子选择器 <code>.component-name &gt; .element</code></li>
+<li>【命名】<code>elementname</code> ，此处一定要一个字，一个字 </li>
+</ul>
+</li>
+<li><p>Variant</p>
+<ul>
+<li>【定义】类似 BEM 的 Modifier 或 SMACSS 的 State</li>
+<li>【命名】加前缀 <code>-</code> ，如：<code>-disabled</code>, <code>-active</code> （这是模仿了命令行的写法）</li>
+</ul>
+</li>
+<li><p>Helper</p>
+<ul>
+<li>【定义】可以强制覆盖来修改样式的一些类，用来应急。非特殊情况不推荐使用</li>
+<li>【命名】加前缀 <code>_</code>，如：<code>._pull-left { float: left !important; }</code></li>
+</ul>
+</li>
+<li><p>Layout</p>
+<ul>
+<li>【定义】布局管理的类</li>
+<li>【命名】<code>component-name</code>，没有特殊化 </li>
+</ul>
+</li>
+</ul>
+<h4 id="rscss-io-上的对比"><a href="#rscss-io-上的对比" class="headerlink" title="rscss.io 上的对比"></a>rscss.io 上的对比</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">RSCSS</th>
+<th style="text-align:center">BEM</th>
+<th style="text-align:center">SMACSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Component</td>
+<td style="text-align:center">Block</td>
+<td style="text-align:center">Module</td>
+</tr>
+<tr>
+<td style="text-align:center">Element</td>
+<td style="text-align:center">Element</td>
+<td style="text-align:center">Sub-Component</td>
+</tr>
+<tr>
+<td style="text-align:center">Layout</td>
+<td style="text-align:center">?</td>
+<td style="text-align:center">Layout</td>
+</tr>
+<tr>
+<td style="text-align:center">Variant</td>
+<td style="text-align:center">Modifier</td>
+<td style="text-align:center">Sub-Module &amp; State</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
+<li>Grids control width</li>
+<li>Content control height </li>
+</ul>
+<h2 id="Tips-for-sass"><a href="#Tips-for-sass" class="headerlink" title="Tips for sass"></a>Tips for sass</h2><p>=============================================</p>
+<h2 id="Real-World"><a href="#Real-World" class="headerlink" title="Real World"></a>Real World</h2><p>situation:</p>
+<ul>
+<li>Bootstrap based: coupling with html decade</li>
+<li>module styled</li>
+</ul>
+<p>ideal target：</p>
+<ul>
+<li>Base: reset + grid </li>
+<li>Theme : color ( primary + secondary + …  ) + typographic( font-size + font-family + 字体行间距 。。。)</li>
+<li>Module: UI ( buttons + Media + Label + … ) + Form ( Form + Editors… )<ul>
+<li>structure + skin </li>
+<li>block + modifier</li>
+</ul>
+</li>
+</ul>
+<p>usage </p>
+<p></p><p data-height="300" data-theme-id="6215" data-slug-hash="zoWVyX" data-default-tab="html,result" data-user="asjmtz" data-embed-version="2" data-pen-title="css design pattern -- button" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/asjmtz/pen/zoWVyX/" target="_blank" rel="external">css design pattern – button</a> by asjmtz (<a href="http://codepen.io/asjmtz" target="_blank" rel="external">@asjmtz</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<p>modifier(structure) + modifier(skin) =&gt; ‘’</p>
+<p>realistic target:</p>
+<ul>
+<li>bootstrap</li>
+</ul>
+</div></article></div></section><footer><div class="paginator"><a href="/2016/11/23/survey-report-of-react-charts-framework/" class="next">下一篇</a></div><div class="copyright"><p>© 2016 - 2017 <a href="http://iamtutu.com">ASJMTZ</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

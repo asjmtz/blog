@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> JS 怎么克隆对象？ · ASJMTZ's Blog</title><meta name="description" content="JS 怎么克隆对象？ - ASJMTZ"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://iamtutu.com/atom.xml" title="ASJMTZ's Blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/asjmtz" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">JS 怎么克隆对象？</h1><div class="post-info">Apr 27, 2015</div><div class="post-content"><h2 id="对象克隆"><a href="#对象克隆" class="headerlink" title="对象克隆"></a>对象克隆</h2><p>不能影响到原来的对象，并且需要深层拷贝的情况，比如原始对象为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var oldObj = &#123;a:2123, b:2312, c:[2,3,45,2]&#125;;</div></pre></td></tr></table></figure>
+<p>考虑以下方法：</p>
+<p>1、使用 JSON API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var newObj = JSON.parse( JSON.stringify(oldObj));</div></pre></td></tr></table></figure>
+<p>2、考虑 jquery extend</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var newObj = $.extend(  )</div></pre></td></tr></table></figure>
+<p>3、 new Object() </p>
+<p>balabalabala….再研究。。。</p>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p><a href="http://jsbin.com/hudoke/2/edit" target="_blank" rel="external">In JS Bin</a></p>
+<h2 id="速度测试"><a href="#速度测试" class="headerlink" title="速度测试"></a>速度测试</h2><p><a href="http://jsperf.com/clone-object-ways" target="_blank" rel="external">In JS performance</a></p>
+<blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+</blockquote>
+</div></article></div></section><footer><div class="paginator"><a href="/2015/04/30/git-bash-之-export-与-bashrc/" class="prev">上一篇</a><a href="/2015/04/22/git-不小心提交了的目录下有-git-文件，咋办？/" class="next">下一篇</a></div><div class="copyright"><p>© 2016 - 2017 <a href="http://iamtutu.com">ASJMTZ</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
